@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#05070c" />
+  <title>Retours testeur · Calisthenix</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23050810'/%3E%3Cpath d='M32 8 54 32 32 56 10 32Z' fill='none' stroke='%2335e0ff' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%2335e0ff' stroke-width='1.2' stroke-dasharray='3 4'/%3E%3Ccircle cx='32' cy='32' r='3.4' fill='%2335e0ff'/%3E%3C/svg%3E" />
+  <style>
+    @font-face {
+      font-family: "Saira Condensed";
+      src: url("assets/fonts/saira-condensed-600.woff2") format("woff2");
+      font-weight: 600;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Saira Condensed";
+      src: url("assets/fonts/saira-condensed-700.woff2") format("woff2");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Sora";
+      src: url("assets/fonts/sora.woff2") format("woff2");
+      font-weight: 300 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Azeret Mono";
+      src: url("assets/fonts/azeret-mono.woff2") format("woff2");
+      font-weight: 300 700;
+      font-display: swap;
+    }
+
+    :root {
+      --void: #05070c;
+      --panel: #0a101a;
+      --panel-2: #0d1522;
+      --line: rgba(95, 233, 255, 0.16);
+      --line-hot: rgba(95, 233, 255, 0.42);
+      --ink: #eafcff;
+      --muted: #93a7bb;
+      --dim: #6f849b;
+      --cyan: #5fe9ff;
+      --violet: #8b5cf6;
+      --amber: #ffc857;
+      --danger: #ff5c86;
+      --font-display: "Saira Condensed", "Arial Narrow", sans-serif;
+      --font-body: "Sora", system-ui, sans-serif;
+      --font-mono: "Azeret Mono", ui-monospace, monospace;
+      --radius: 3px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(1100px 600px at 12% -10%, rgba(53, 224, 255, 0.09), transparent 62%),
+        radial-gradient(900px 560px at 92% 0%, rgba(139, 92, 246, 0.1), transparent 60%),
+        var(--void);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(95, 233, 255, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(95, 233, 255, 0.028) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(1200px 700px at 50% 0%, #000 30%, transparent 85%);
+    }
+
+    ::selection { background: var(--cyan); color: #031018; }
+
+    :focus-visible {
+      outline: 1px solid var(--cyan);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(95, 233, 255, 0.12);
+    }
+
+    .skip {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 50;
+      padding: 10px 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line-hot);
+      color: var(--ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-decoration: none;
+      transform: translateY(-160%);
+      transition: transform 0.2s ease;
+    }
+    .skip:focus { transform: translateY(0); }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1040px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 56px 0 80px;
+    }
+
+    .eyebrow,
+    .label,
+    legend,
+    .section-no,
+    .meta,
+    .status,
+    .btn,
+    .hint {
+      font-family: var(--font-mono);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 0.94;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+
+    .lede {
+      max-width: 68ch;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .head {
+      padding-bottom: 34px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .head-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid var(--line-hot);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(95, 233, 255, 0.14), rgba(95, 233, 255, 0.04));
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+    .btn:hover { border-color: var(--cyan); background: rgba(95, 233, 255, 0.12); }
+    .btn:active { transform: translateY(1px); }
+
+    .btn.ghost {
+      background: transparent;
+      border-color: var(--line);
+      color: var(--muted);
+    }
+    .btn.ghost:hover { color: var(--ink); border-color: var(--line-hot); }
+
+    .btn.danger {
+      background: transparent;
+      border-color: rgba(255, 92, 134, 0.36);
+      color: #ffb3c4;
+    }
+    .btn.danger:hover { border-color: var(--danger); background: rgba(255, 92, 134, 0.08); }
+
+    .btn.small { min-height: 34px; padding: 0 12px; font-size: 10px; }
+
+    .protocol {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin: 34px 0 0;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .protocol div {
+      background: var(--panel);
+      padding: 16px 18px;
+    }
+
+    .protocol b {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .protocol span { color: var(--muted); font-size: 13px; }
+
+    form { margin-top: 44px; }
+
+    .section {
+      margin: 0 0 40px;
+      padding: 26px 28px 30px;
+      background: linear-gradient(180deg, rgba(13, 21, 34, 0.75), rgba(8, 13, 22, 0.55));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .section-no {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--cyan);
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-sub {
+      margin: 0 0 22px;
+      color: var(--dim);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+
+    .label,
+    legend {
+      padding: 0;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid rgba(95, 233, 255, 0.14);
+      border-radius: var(--radius);
+      background: rgba(5, 8, 14, 0.72);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    textarea { min-height: 92px; resize: vertical; line-height: 1.55; }
+
+    input:hover,
+    select:hover,
+    textarea:hover { border-color: rgba(95, 233, 255, 0.3); }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(95, 233, 255, 0.1);
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #66798f; }
+
+    select {
+      appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+        linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position: calc(100% - 17px) 18px, calc(100% - 12px) 18px;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 34px;
+    }
+
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    input[type="range"] {
+      appearance: none;
+      flex: 1;
+      height: 24px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      border-radius: 2px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      margin-top: -6.5px;
+      border: 1px solid var(--cyan);
+      border-radius: 50%;
+      background: var(--void);
+      box-shadow: 0 0 12px rgba(95, 233, 255, 0.5);
+    }
+
+    input[type="range"]::-moz-range-track {
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      border-radius: 2px;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      border: 1px solid var(--cyan);
+      border-radius: 50%;
+      background: var(--void);
+    }
+
+    output {
+      min-width: 58px;
+      font-family: var(--font-mono);
+      font-size: 20px;
+      color: var(--cyan);
+      text-align: right;
+    }
+
+    .scale-legend {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+      color: var(--dim);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .screen-table {
+      display: grid;
+      gap: 1px;
+      margin-top: 4px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .screen-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 0.9fr) 108px minmax(0, 1.8fr);
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      background: var(--panel-2);
+    }
+
+    .screen-row b {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .screen-row select,
+    .screen-row input { min-height: 36px; font-size: 13px; }
+
+    .bug-list { display: grid; gap: 12px; margin-top: 6px; }
+
+    .bug {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-left: 2px solid var(--violet);
+      background: rgba(5, 8, 14, 0.5);
+    }
+
+    .bug-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .bug-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--violet);
+    }
+
+    .bug .grid { gap: 12px; }
+
+    .bug-empty {
+      padding: 18px;
+      border: 1px dashed var(--line);
+      color: var(--dim);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    .status {
+      margin-left: auto;
+      min-height: 20px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+    }
+
+    .hint {
+      margin: 14px 0 0;
+      color: var(--dim);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+    }
+
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--dim);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .foot a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); }
+    .foot a:hover { color: var(--cyan); }
+
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 24px); padding-top: 34px; }
+      .protocol { grid-template-columns: 1fr; }
+      .section { padding: 20px 16px 24px; }
+      .grid { grid-template-columns: 1fr; }
+      .screen-row { grid-template-columns: 1fr; gap: 8px; }
+      .screen-row b { margin-top: 6px; }
+      .status { width: 100%; margin-left: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#form">Aller au formulaire</a>
+
+  <div class="wrap">
+    <header class="head">
+      <p class="eyebrow">Calisthenix // protocole de test</p>
+      <h1>Retours du testeur</h1>
+      <p class="lede">
+        Merci de prendre le temps d'essayer Calisthenix. Ce formulaire sert à recueillir
+        ton ressenti brut : ce que tu comprends, ce qui te bloque, ce qui te donne envie
+        de revenir. Aucune réponse n'est envoyée automatiquement — tout reste sur cet
+        appareil jusqu'à ce que tu exportes ou copies le résultat.
+      </p>
+      <div class="head-actions">
+        <a class="btn" href="index.html">Ouvrir l'application</a>
+        <a class="btn ghost" href="TESTEUR.md">Lire le guide de test</a>
+      </div>
+
+      <div class="protocol" aria-label="Protocole conseillé">
+        <div>
+          <b>01 · Découvrir</b>
+          <span>Ouvre le QG, lis la scène, clique sur une quête. Note ta première impression à froid.</span>
+        </div>
+        <div>
+          <b>02 · Jouer</b>
+          <span>Lance une séance, valide une quête, regarde la chasse et le Codex. Va jusqu'au bout d'un parcours.</span>
+        </div>
+        <div>
+          <b>03 · Eprouver</b>
+          <span>Teste sur téléphone, au clavier, en mode réduit. Cherche ce qui casse ou ce qui agace.</span>
+        </div>
+      </div>
+    </header>
+
+    <form id="feedback" novalidate>
+      <section class="section" aria-labelledby="s1">
+        <div class="section-head">
+          <span class="section-no">01</span>
+          <h2 id="s1">Contexte</h2>
+        </div>
+        <p class="section-sub">Qui teste, sur quoi, pendant combien de temps.</p>
+
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="tester">Nom ou pseudo</label>
+            <input id="tester" name="tester" type="text" autocomplete="nickname" placeholder="Facultatif" />
+          </div>
+          <div class="field">
+            <label class="label" for="device">Appareil utilisé</label>
+            <select id="device" name="device">
+              <option value="">Choisir…</option>
+              <option>PC Windows</option>
+              <option>Mac</option>
+              <option>iPhone</option>
+              <option>Téléphone Android</option>
+              <option>Tablette</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="browser">Navigateur</label>
+            <select id="browser" name="browser">
+              <option value="">Choisir…</option>
+              <option>Chrome</option>
+              <option>Edge</option>
+              <option>Firefox</option>
+              <option>Safari</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="practice">Pratique du poids du corps</label>
+            <select id="practice" name="practice">
+              <option value="">Choisir…</option>
+              <option>Je débute</option>
+              <option>Je pratique occasionnellement</option>
+              <option>Je pratique régulièrement</option>
+              <option>Je suis coach / avancé</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="duration">Temps passé sur le test</label>
+            <select id="duration" name="duration">
+              <option value="">Choisir…</option>
+              <option>Moins de 10 minutes</option>
+              <option>10 à 25 minutes</option>
+              <option>25 à 45 minutes</option>
+              <option>Plus de 45 minutes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="label" for="context">Contexte du test</label>
+            <select id="context" name="context">
+              <option value="">Choisir…</option>
+              <option>Seul, chez moi</option>
+              <option>En regardant l'écran de quelqu'un</option>
+              <option>Sur mon téléphone, en déplacement</option>
+              <option>Autre</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s2">
+        <div class="section-head">
+          <span class="section-no">02</span>
+          <h2 id="s2">Première impression</h2>
+        </div>
+        <p class="section-sub">À chaud, avant d'analyser. Ce que tu as compris sans explication.</p>
+
+        <div class="grid">
+          <div class="field full">
+            <label class="label" for="firstImpression">Ce que tu as ressenti et compris en arrivant</label>
+            <textarea id="firstImpression" name="firstImpression" placeholder="Exemple : j'ai compris que c'était un suivi d'entraînement déguisé en jeu, mais je n'ai pas su quoi faire en premier…"></textarea>
+          </div>
+          <div class="field full">
+            <label class="label" for="globalNote">Note globale de l'expérience</label>
+            <div class="range-row">
+              <input id="globalNote" name="globalNote" type="range" min="0" max="10" step="1" value="7" />
+              <output id="globalNoteOut" for="globalNote">7 / 10</output>
+            </div>
+            <div class="scale-legend"><span>À retravailler</span><span>Prêt à recommander</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s3">
+        <div class="section-head">
+          <span class="section-no">03</span>
+          <h2 id="s3">Écran par écran</h2>
+        </div>
+        <p class="section-sub">Note la clarté de chaque écran, puis ajoute une remarque si quelque chose te bloque.</p>
+
+        <div class="screen-table" role="group" aria-label="Évaluation des écrans">
+          <div class="screen-row" data-screen="qg">
+            <b>QG</b>
+            <select aria-label="Note du QG">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur le QG" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="quetes">
+            <b>Quêtes</b>
+            <select aria-label="Note des quêtes">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur les quêtes" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="arsenal">
+            <b>Arsenal</b>
+            <select aria-label="Note de l'arsenal">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur l'arsenal" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="codex">
+            <b>Codex</b>
+            <select aria-label="Note du codex">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur le codex" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="seance">
+            <b>Séance guidée</b>
+            <select aria-label="Note de la séance guidée">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur la séance guidée" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="chasse">
+            <b>Chasse</b>
+            <select aria-label="Note de la chasse">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur la chasse" placeholder="Remarque (facultatif)" />
+          </div>
+          <div class="screen-row" data-screen="evolution">
+            <b>Évolution</b>
+            <select aria-label="Note de l'écran d'évolution">
+              <option value="">—</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select>
+            <input type="text" aria-label="Remarque sur l'écran d'évolution" placeholder="Remarque (facultatif)" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s4">
+        <div class="section-head">
+          <span class="section-no">04</span>
+          <h2 id="s4">Bugs et blocages</h2>
+        </div>
+        <p class="section-sub">Un bug = des étapes précises. Si possible, joins une capture d'écran à ton envoi.</p>
+
+        <div class="bug-list" id="bugList"></div>
+        <p class="hint">Astuce : décris ce que tu as fait, ce que tu attendais, et ce qui s'est produit à la place.</p>
+        <div style="margin-top:14px">
+          <button class="btn ghost small" type="button" id="addBug">Ajouter un bug</button>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s5">
+        <div class="section-head">
+          <span class="section-no">05</span>
+          <h2 id="s5">Trois priorités</h2>
+        </div>
+        <p class="section-sub">Si tu ne devais garder que trois améliorations, lesquelles ?</p>
+
+        <div class="grid">
+          <div class="field full">
+            <label class="label" for="priority1">Priorité 1</label>
+            <input id="priority1" name="priority1" type="text" placeholder="La plus importante" />
+          </div>
+          <div class="field full">
+            <label class="label" for="priority2">Priorité 2</label>
+            <input id="priority2" name="priority2" type="text" placeholder="Ensuite" />
+          </div>
+          <div class="field full">
+            <label class="label" for="priority3">Priorité 3</label>
+            <input id="priority3" name="priority3" type="text" placeholder="Puis" />
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="s6">
+        <div class="section-head">
+          <span class="section-no">06</span>
+          <h2 id="s6">Conclusion</h2>
+        </div>
+        <p class="section-sub">Le recul final : ce qui reste, ce qui part, ce qui manque.</p>
+
+        <div class="grid">
+          <div class="field">
+            <label class="label" for="keep">Une chose à garder absolument</label>
+            <textarea id="keep" name="keep" placeholder="Ce qui fonctionne déjà bien…"></textarea>
+          </div>
+          <div class="field">
+            <label class="label" for="remove">Une chose à simplifier ou supprimer</label>
+            <textarea id="remove" name="remove" placeholder="Ce qui alourdit l'expérience…"></textarea>
+          </div>
+          <div class="field full">
+            <label class="label" for="missing">Ce qui manque pour revenir demain</label>
+            <textarea id="missing" name="missing" placeholder="Une fonction, un rappel, une promesse…"></textarea>
+          </div>
+          <div class="field full">
+            <label class="label" for="recommend">Recommanderais-tu Calisthenix à quelqu'un ?</label>
+            <div class="range-row">
+              <input id="recommend" name="recommend" type="range" min="0" max="10" step="1" value="7" />
+              <output id="recommendOut" for="recommend">7 / 10</output>
+            </div>
+            <div class="scale-legend"><span>Non</span><span>Oui, sans hésiter</span></div>
+          </div>
+          <div class="field full">
+            <label class="label" for="free">Autre chose à dire</label>
+            <textarea id="free" name="free" placeholder="Détails, impressions, idées libres…"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn" type="button" id="exportMd">Exporter en Markdown</button>
+        <button class="btn ghost" type="button" id="exportJson">Exporter en JSON</button>
+        <button class="btn ghost" type="button" id="copy">Copier le résumé</button>
+        <button class="btn danger" type="button" id="clear">Effacer</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+      <p class="hint">
+        Tes réponses sont enregistrées automatiquement dans ce navigateur (brouillon local).
+        Rien n'est transmis. Pour envoyer ton retour : exporte le fichier Markdown ou copie le résumé,
+        puis transmets-le à la personne qui t'a confié le test.
+      </p>
+    </form>
+
+    <footer class="foot">
+      <span>Calisthenix · Édition II · test local</span>
+      <span><a href="index.html">Retour à l'application</a> · <a href="TESTEUR.md">Guide de test</a></span>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const DRAFT_KEY = "calisthenix.retours.v1";
+      const form = document.getElementById("feedback");
+      const bugList = document.getElementById("bugList");
+      const statusEl = document.getElementById("status");
+      const addBugBtn = document.getElementById("addBug");
+      const clearBtn = document.getElementById("clear");
+      const noteInput = document.getElementById("globalNote");
+      const noteOut = document.getElementById("globalNoteOut");
+      const recInput = document.getElementById("recommend");
+      const recOut = document.getElementById("recommendOut");
+      let saveTimer = 0;
+      let clearArmed = false;
+      let clearTimer = 0;
+      let bugSeq = 0;
+
+      const SCREENS = [
+        ["qg", "QG"],
+        ["quetes", "Quêtes"],
+        ["arsenal", "Arsenal"],
+        ["codex", "Codex"],
+        ["seance", "Séance guidée"],
+        ["chasse", "Chasse"],
+        ["evolution", "Évolution"],
+      ];
+
+      const $ = (selector, root) => (root || document).querySelector(selector);
+      const $$ = (selector, root) => Array.from((root || document).querySelectorAll(selector));
+      const text = (value) => String(value == null ? "" : value).replace(/\s+/g, " ").trim();
+      const md = (value) => text(value).replace(/\|/g, "\\|") || "—";
+      const stamp = () => {
+        const d = new Date();
+        return d.toLocaleDateString("fr-FR") + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+      };
+
+      function setStatus(message) {
+        statusEl.textContent = message;
+        window.clearTimeout(setStatus.timer);
+        setStatus.timer = window.setTimeout(() => {
+          statusEl.textContent = "";
+        }, 6000);
+      }
+
+      function addBug(data) {
+        const row = document.createElement("div");
+        row.className = "bug";
+        bugSeq += 1;
+        const index = bugSeq;
+        row.innerHTML = [
+          '<div class="bug-head">',
+          '<span class="bug-title">Bug ' + index + "</span>",
+          '<button class="btn ghost small" type="button" data-remove-bug>Retirer</button>',
+          "</div>",
+          '<div class="grid">',
+          '<div class="field">',
+          '<span class="label">Gravité</span>',
+          '<select data-bug="severity">',
+          "<option>Mineur</option><option>Majeur</option><option>Bloquant</option><option>Détail visuel</option>",
+          "</select>",
+          "</div>",
+          '<div class="field">',
+          '<span class="label">Écran</span>',
+          '<select data-bug="screen">',
+          '<option>QG</option><option>Quêtes</option><option>Arsenal</option><option>Codex</option>',
+          "<option>Séance guidée</option><option>Chasse</option><option>Évolution</option><option>Autre</option>",
+          "</select>",
+          "</div>",
+          '<div class="field full">',
+          '<span class="label">Ce qui se passe</span>',
+          '<textarea data-bug="description" placeholder="Décris le problème en une phrase claire."></textarea>',
+          "</div>",
+          '<div class="field">',
+          '<span class="label">Étapes pour reproduire</span>',
+          '<textarea data-bug="steps" placeholder="1. Ouvrir…&#10;2. Cliquer sur…&#10;3. Observer…"></textarea>',
+          "</div>",
+          '<div class="field">',
+          '<span class="label">Comportement attendu</span>',
+          '<textarea data-bug="expected" placeholder="Ce qui aurait dû se passer."></textarea>',
+          "</div>",
+          "</div>",
+        ].join("");
+
+        if (data) {
+          const values = {
+            severity: data.severity,
+            screen: data.screen,
+            description: data.description,
+            steps: data.steps,
+            expected: data.expected,
+          };
+          Object.keys(values).forEach((key) => {
+            const field = row.querySelector('[data-bug="' + key + '"]');
+            if (field && values[key] != null) field.value = values[key];
+          });
+        }
+
+        bugList.appendChild(row);
+        row.querySelector("[data-remove-bug]").addEventListener("click", () => {
+          row.remove();
+          refreshBugEmpty();
+          queueSave();
+        });
+        refreshBugEmpty();
+        return row;
+      }
+
+      function refreshBugEmpty() {
+        const empty = $(".bug-empty", bugList);
+        if (bugList.querySelector(".bug")) {
+          if (empty) empty.remove();
+        } else if (!empty) {
+          const note = document.createElement("p");
+          note.className = "bug-empty";
+          note.textContent = "Aucun bug déclaré. C'est une information utile aussi.";
+          bugList.appendChild(note);
+        }
+      }
+
+      function readBugs() {
+        return $$(".bug", bugList).map((row) => ({
+          severity: text($('[data-bug="severity"]', row)?.value),
+          screen: text($('[data-bug="screen"]', row)?.value),
+          description: text($('[data-bug="description"]', row)?.value),
+          steps: text($('[data-bug="steps"]', row)?.value),
+          expected: text($('[data-bug="expected"]', row)?.value),
+        })).filter((bug) => bug.description || bug.steps || bug.expected);
+      }
+
+      function readScreens() {
+        return SCREENS.map(([id, label]) => {
+          const row = $('[data-screen="' + id + '"]');
+          return {
+            id,
+            label,
+            note: row ? text($("select", row)?.value) : "",
+            comment: row ? text($("input", row)?.value) : "",
+          };
+        });
+      }
+
+      function readData() {
+        const data = {
+          savedAt: new Date().toISOString(),
+          tester: text($("#tester").value),
+          device: text($("#device").value),
+          browser: text($("#browser").value),
+          practice: text($("#practice").value),
+          duration: text($("#duration").value),
+          context: text($("#context").value),
+          firstImpression: text($("#firstImpression").value),
+          globalNote: noteInput.value,
+          screens: readScreens(),
+          bugs: readBugs(),
+          priority1: text($("#priority1").value),
+          priority2: text($("#priority2").value),
+          priority3: text($("#priority3").value),
+          keep: text($("#keep").value),
+          remove: text($("#remove").value),
+          missing: text($("#missing").value),
+          recommend: recInput.value,
+          free: text($("#free").value),
+        };
+        return data;
+      }
+
+      function queueSave() {
+        window.clearTimeout(saveTimer);
+        saveTimer = window.setTimeout(() => {
+          try {
+            window.localStorage.setItem(DRAFT_KEY, JSON.stringify(readData()));
+            setStatus("Brouillon enregistré localement.");
+          } catch (err) {
+            setStatus("Brouillon impossible à enregistrer (stockage bloqué).");
+          }
+        }, 320);
+      }
+
+      function restore() {
+        let data = null;
+        try {
+          data = JSON.parse(window.localStorage.getItem(DRAFT_KEY) || "null");
+        } catch (err) {
+          data = null;
+        }
+        if (!data) return;
+
+        ["tester", "device", "browser", "practice", "duration", "context", "firstImpression",
+          "priority1", "priority2", "priority3", "keep", "remove", "missing", "free"].forEach((key) => {
+          const field = form.elements[key];
+          if (field && data[key] != null) field.value = data[key];
+        });
+        if (data.globalNote != null) {
+          noteInput.value = data.globalNote;
+          noteOut.textContent = data.globalNote + " / 10";
+        }
+        if (data.recommend != null) {
+          recInput.value = data.recommend;
+          recOut.textContent = data.recommend + " / 10";
+        }
+        (data.screens || []).forEach((screen) => {
+          const row = $('[data-screen="' + screen.id + '"]');
+          if (!row) return;
+          const select = $("select", row);
+          const input = $("input", row);
+          if (select && screen.note) select.value = screen.note;
+          if (input && screen.comment) input.value = screen.comment;
+        });
+        (data.bugs || []).forEach((bug) => addBug(bug));
+        if (data.savedAt) {
+          setStatus("Brouillon restauré (" + new Date(data.savedAt).toLocaleString("fr-FR") + ").");
+        }
+      }
+
+      function markdown(data) {
+        const lines = [];
+        lines.push("# Retours testeur — Calisthenix");
+        lines.push("");
+        lines.push("Exporté le " + stamp() + ".");
+        lines.push("");
+        lines.push("## Contexte");
+        lines.push("");
+        lines.push("- **Nom / pseudo :** " + md(data.tester));
+        lines.push("- **Appareil :** " + md(data.device));
+        lines.push("- **Navigateur :** " + md(data.browser));
+        lines.push("- **Pratique :** " + md(data.practice));
+        lines.push("- **Temps de test :** " + md(data.duration));
+        lines.push("- **Contexte :** " + md(data.context));
+        lines.push("");
+        lines.push("## Première impression");
+        lines.push("");
+        lines.push(md(data.firstImpression));
+        lines.push("");
+        lines.push("**Note globale :** " + md(data.globalNote) + " / 10");
+        lines.push("");
+        lines.push("## Écran par écran");
+        lines.push("");
+        lines.push("| Écran | Note | Remarque |");
+        lines.push("| --- | --- | --- |");
+        data.screens.forEach((screen) => {
+          lines.push("| " + md(screen.label) + " | " + md(screen.note) + " / 5 | " + md(screen.comment) + " |");
+        });
+        lines.push("");
+        lines.push("## Bugs et blocages");
+        lines.push("");
+        if (!data.bugs.length) {
+          lines.push("Aucun bug déclaré.");
+        } else {
+          data.bugs.forEach((bug, index) => {
+            lines.push("### Bug " + (index + 1) + " — " + md(bug.severity) + " — " + md(bug.screen));
+            lines.push("");
+            lines.push("**Ce qui se passe :** " + md(bug.description));
+            lines.push("");
+            lines.push("**Étapes :** " + md(bug.steps));
+            lines.push("");
+            lines.push("**Attendu :** " + md(bug.expected));
+            lines.push("");
+          });
+        }
+        lines.push("## Trois priorités");
+        lines.push("");
+        lines.push("1. " + md(data.priority1));
+        lines.push("2. " + md(data.priority2));
+        lines.push("3. " + md(data.priority3));
+        lines.push("");
+        lines.push("## Conclusion");
+        lines.push("");
+        lines.push("**À garder absolument :** " + md(data.keep));
+        lines.push("");
+        lines.push("**À simplifier ou supprimer :** " + md(data.remove));
+        lines.push("");
+        lines.push("**Ce qui manque pour revenir :** " + md(data.missing));
+        lines.push("");
+        lines.push("**Recommandation :** " + md(data.recommend) + " / 10");
+        lines.push("");
+        lines.push("**Autre chose :** " + md(data.free));
+        lines.push("");
+        return lines.join("\n");
+      }
+
+      function download(filename, content, type) {
+        const blob = new Blob([content], { type });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1500);
+      }
+
+      function fileStamp() {
+        const d = new Date();
+        const pad = (n) => String(n).padStart(2, "0");
+        return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "-" + pad(d.getHours()) + pad(d.getMinutes());
+      }
+
+      function copyText(value) {
+        const fallback = () => new Promise((resolve, reject) => {
+          const area = document.createElement("textarea");
+          area.value = value;
+          area.setAttribute("readonly", "");
+          area.style.position = "fixed";
+          area.style.opacity = "0";
+          document.body.appendChild(area);
+          area.select();
+          try {
+            document.execCommand("copy") ? resolve() : reject(new Error("copy"));
+          } catch (err) {
+            reject(err);
+          } finally {
+            area.remove();
+          }
+        });
+        if (navigator.clipboard && window.isSecureContext) {
+          return navigator.clipboard.writeText(value).catch(fallback);
+        }
+        return fallback();
+      }
+
+      noteInput.addEventListener("input", () => {
+        noteOut.textContent = noteInput.value + " / 10";
+      });
+      recInput.addEventListener("input", () => {
+        recOut.textContent = recInput.value + " / 10";
+      });
+
+      form.addEventListener("input", queueSave);
+      form.addEventListener("change", queueSave);
+
+      addBugBtn.addEventListener("click", () => {
+        const row = addBug();
+        const field = $('[data-bug="description"]', row);
+        if (field) field.focus();
+        queueSave();
+      });
+
+      document.getElementById("exportMd").addEventListener("click", () => {
+        const data = readData();
+        download("retours-calisthenix-" + fileStamp() + ".md", markdown(data), "text/markdown;charset=utf-8");
+        setStatus("Fichier Markdown exporté.");
+      });
+
+      document.getElementById("exportJson").addEventListener("click", () => {
+        const data = readData();
+        download("retours-calisthenix-" + fileStamp() + ".json", JSON.stringify(data, null, 2), "application/json");
+        setStatus("Fichier JSON exporté.");
+      });
+
+      document.getElementById("copy").addEventListener("click", () => {
+        copyText(markdown(readData())).then(
+          () => setStatus("Résumé copié. Colle-le dans ton message."),
+          () => setStatus("Copie impossible. Utilise l'export Markdown.")
+        );
+      });
+
+      clearBtn.addEventListener("click", () => {
+        if (!clearArmed) {
+          clearArmed = true;
+          clearBtn.textContent = "Confirmer l'effacement";
+          setStatus("Un second clic effacera le formulaire et le brouillon.");
+          window.clearTimeout(clearTimer);
+          clearTimer = window.setTimeout(() => {
+            clearArmed = false;
+            clearBtn.textContent = "Effacer";
+          }, 5000);
+          return;
+        }
+        window.clearTimeout(clearTimer);
+        clearArmed = false;
+        clearBtn.textContent = "Effacer";
+        form.reset();
+        bugList.innerHTML = "";
+        bugSeq = 0;
+        refreshBugEmpty();
+        noteInput.value = 7;
+        noteOut.textContent = "7 / 10";
+        recInput.value = 7;
+        recOut.textContent = "7 / 10";
+        try { window.localStorage.removeItem(DRAFT_KEY); } catch (err) { /* stockage bloqué */ }
+        setStatus("Formulaire et brouillon effacés.");
+        // replaceState nettoie l'URL sans recharger
+        try { window.history.replaceState(null, "", location.pathname); } catch (err) { /* file:// */ }
+      });
+
+      restore();
+      refreshBugEmpty();
+    })();
+  </script>
+</body>
+</html>
