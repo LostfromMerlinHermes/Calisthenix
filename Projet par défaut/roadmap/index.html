@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07090c" />
+  <meta name="description" content="Calisthenix Product Lab — 150 décisions priorisées pour transformer l'application en produit à 50 000 € : stratégie, contenu, gamification, tech, monétisation, acquisition et valorisation." />
+  <title>Calisthenix — Product Lab</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23c9ff3f'/%3E%3Cpath d='M36 6 14 36h15l-3 22 22-30H33l3-22Z' fill='%230a0d06'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200..900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="lab.css" />
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Calisthenix, retour à l'application">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.4 2 4.6 13.4h6.1L9.6 22l8.8-11.4h-6.1L13.4 2Z" fill="currentColor"/></svg>
+      </span>
+      <span class="brand-text"><strong>CALISTHENIX</strong><small>PRODUCT&nbsp;LAB</small></span>
+    </a>
+    <nav class="top-actions" aria-label="Actions principales">
+      <button class="ghost-btn" id="btnHelp" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.5v.4"/><path d="M12 17h.01"/></svg>
+        Méthode
+      </button>
+      <a class="ghost-btn accent" href="../index.html">
+        <span>Retour à l'app</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <!-- ================= HERO ================= -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> Feuille de route · 15 chantiers · 150 décisions</p>
+        <h1 id="heroTitle">Transforme Calisthenix en <em>application à 50 000 €</em>.</h1>
+        <p class="lead">
+          Coche ce qui est fait. Chaque décision est priorisée, dimensionnée en effort et rattachée à un chantier.
+          Ton score de valeur se met à jour en direct — et tu peux exporter tout le plan en Markdown ou en JSON.
+        </p>
+        <div class="hero-badges" aria-label="Contenu du plan">
+          <span><b>150</b> actions</span>
+          <span><b>56</b> critiques</span>
+          <span><b>15</b> chantiers</span>
+          <span><b>3</b> priorités</span>
+        </div>
+        <div class="presets" role="group" aria-label="Filtres rapides">
+          <button class="preset" type="button" data-preset="socle">
+            <span aria-hidden="true">🎯</span> Socle critique
+          </button>
+          <button class="preset" type="button" data-preset="quick">
+            <span aria-hidden="true">⚡</span> Quick wins
+          </button>
+          <button class="preset" type="button" data-preset="all">
+            <span aria-hidden="true">☰</span> Tout voir
+          </button>
+        </div>
+      </div>
+
+      <aside class="score-card" aria-label="Score de valeur">
+        <div class="gauge" id="gauge" style="--value:0">
+          <div class="gauge-inner">
+            <span class="gauge-label">Score de valeur</span>
+            <strong id="valueScore">0 €</strong>
+            <span class="gauge-sub">objectif 50 000 €</span>
+          </div>
+        </div>
+        <div class="score-meta">
+          <div><span>Socle critique</span><strong id="soclePct">0 %</strong></div>
+          <div><span>Progression</span><strong id="globalPct">0 %</strong></div>
+        </div>
+        <p class="score-note">Indice heuristique fondé sur les priorités et l'effort. Ce n'est pas une garantie de prix.</p>
+      </aside>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="statbar" aria-label="Statistiques du plan">
+      <article class="stat">
+        <div class="stat-top"><span>Actions faites</span><b id="statDone">0</b></div>
+        <div class="meter" aria-hidden="true"><i id="meterGlobal"></i></div>
+        <small id="statDoneSub">sur 150 décisions</small>
+      </article>
+      <article class="stat">
+        <div class="stat-top"><span>Socle critique</span><b id="statSocle">0 %</b></div>
+        <div class="meter" aria-hidden="true"><i id="meterSocle" class="lime"></i></div>
+        <small id="statSocleSub">0 / 56 actions essentielles</small>
+      </article>
+      <article class="stat">
+        <div class="stat-top"><span>Quick wins restants</span><b id="statQuick">0</b></div>
+        <div class="meter" aria-hidden="true"><i id="meterQuick" class="amber"></i></div>
+        <small>actions critiques de moins d'un jour</small>
+      </article>
+      <article class="stat">
+        <div class="stat-top"><span>Chantiers amorcés</span><b id="statCats">0 / 15</b></div>
+        <div class="meter" aria-hidden="true"><i id="meterCats" class="blue"></i></div>
+        <small>au moins une action cochée</small>
+      </article>
+    </section>
+
+    <!-- ================= WORKSPACE ================= -->
+    <div class="workspace">
+      <aside class="rail" aria-label="Chantiers">
+        <div class="rail-head">
+          <h2>Chantiers</h2>
+          <button class="link-btn" id="btnAllCats" type="button">Tous</button>
+        </div>
+        <div class="cat-list" id="catList"></div>
+
+        <div class="rail-actions">
+          <button class="action-btn" id="btnCopy" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+            Copier le plan
+          </button>
+          <button class="action-btn" id="btnExportMd" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+            Exporter .md
+          </button>
+          <button class="action-btn" id="btnExportJson" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4H5v16h3M16 4h3v16h-3"/><path d="M10 9h4M10 13h4M10 17h2"/></svg>
+            Sauvegarde .json
+          </button>
+          <button class="action-btn" id="btnImport" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 21h14"/></svg>
+            Importer
+          </button>
+          <button class="action-btn danger" id="btnReset" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/></svg>
+            Réinitialiser
+          </button>
+        </div>
+        <p class="rail-note">Sauvegarde automatique dans ce navigateur. Pense à exporter avant de changer d'appareil.</p>
+      </aside>
+
+      <section class="board" aria-label="Décisions produit">
+        <div class="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="search" placeholder="Rechercher une décision, un mot-clé…" autocomplete="off" />
+            <kbd>/</kbd>
+          </label>
+          <div class="seg" id="statusFilters" role="group" aria-label="Filtrer par état">
+            <button type="button" data-status="all" class="is-active">Tout</button>
+            <button type="button" data-status="todo">À faire</button>
+            <button type="button" data-status="done">Fait</button>
+          </div>
+          <div class="selects">
+            <label class="select">
+              <span class="sr-only">Priorité</span>
+              <select id="priorityFilter">
+                <option value="0">Toutes priorités</option>
+                <option value="1">Critique</option>
+                <option value="2">Fort</option>
+                <option value="3">Bonus</option>
+              </select>
+            </label>
+            <label class="select">
+              <span class="sr-only">Regroupement</span>
+              <select id="viewSelect">
+                <option value="cat">Par chantier</option>
+                <option value="prio">Par priorité</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="board-meta">
+          <p id="resultCount" aria-live="polite"></p>
+          <button class="link-btn" id="btnExpand" type="button">Tout déplier</button>
+        </div>
+
+        <div id="list" class="list"></div>
+        <div id="emptyState" class="empty" hidden>
+          <span aria-hidden="true">🔍</span>
+          <h3>Aucune décision ne correspond</h3>
+          <p>Essaie un autre mot-clé ou réinitialise les filtres.</p>
+          <button class="ghost-btn accent" type="button" data-preset="all">Réinitialiser les filtres</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p><strong>Calisthenix Product Lab</strong> · 150 décisions pour passer d'un prototype à un actif revendable.</p>
+    <p>Données locales uniquement · <a href="../index.html">Ouvrir l'application</a></p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ================= DIALOGUES ================= -->
+  <dialog id="helpDialog" class="dialog">
+    <form method="dialog">
+      <div class="dialog-head">
+        <span class="dialog-icon" aria-hidden="true">🧭</span>
+        <div><h2>Comment lire ce plan</h2><p>Une décision = une action concrète, pas une idée vague.</p></div>
+        <button class="icon-btn" value="close" aria-label="Fermer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <h3>Priorités</h3>
+        <ul class="legend">
+          <li><span class="chip p1">Critique</span> Sans ça, l'app ne peut pas être vendue sérieusement. Objectif : 100 % du socle avant de scaler.</li>
+          <li><span class="chip p2">Fort</span> Améliore la conversion, la rétention ou la marge. À traiter dans les 90 jours.</li>
+          <li><span class="chip p3">Bonus</span> Différenciation et finition. À faire quand le socle est solide.</li>
+        </ul>
+        <h3>Effort</h3>
+        <ul class="legend">
+          <li><span class="chip eS">Rapide</span> Environ une journée. Idéal en quick win pour créer de l'élan.</li>
+          <li><span class="chip eM">Moyen</span> Environ une semaine. Demande un lot de travail dédié.</li>
+          <li><span class="chip eL">Lourd</span> Environ un mois. À découper avant de commencer.</li>
+        </ul>
+        <h3>Score de valeur</h3>
+        <p>Le score combine trois facteurs : l'avancement du socle critique (55 %), la progression globale (30 %) et le nombre de chantiers amorcés (15 %). Il sert à visualiser la distance qui reste, pas à promettre un prix de vente.</p>
+        <p class="dialog-tip">Astuce : commence par les <b>quick wins critiques</b>, puis attaque un chantier complet plutôt que dix demi-chantiers.</p>
+      </div>
+      <div class="dialog-foot">
+        <button class="ghost-btn accent" value="close">Compris</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="resetDialog" class="dialog small">
+    <form method="dialog">
+      <div class="dialog-head">
+        <span class="dialog-icon danger" aria-hidden="true">⚠️</span>
+        <div><h2>Tout décocher ?</h2><p>Les notes et la progression seront définitivement supprimées.</p></div>
+      </div>
+      <div class="dialog-body">
+        <p>Pense à exporter ta sauvegarde JSON avant si tu veux pouvoir revenir en arrière.</p>
+      </div>
+      <div class="dialog-foot">
+        <button class="ghost-btn" value="cancel">Annuler</button>
+        <button class="ghost-btn danger" id="confirmReset" value="confirm">Tout effacer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="fileInput" accept="application/json,.json" hidden />
+  <div class="sr-only" id="announcer" aria-live="polite"></div>
+
+  <script src="data/categories.js"></script>
+  <script src="data/questions.js"></script>
+  <script src="lab.js"></script>
+</body>
+</html>

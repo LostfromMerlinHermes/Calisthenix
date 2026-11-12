@@ -1,0 +1,565 @@
+/* ============================================================
+   CALISTHENIX — couche « fenêtres de système »
+   windows.css — chrome de vue, cadres, rails, états.
+   Chargée après core.css et hub.css : elle habille les modules
+   existants sans toucher à leur logique.
+   ============================================================ */
+
+:root {
+  --win-line: rgba(147, 180, 240, 0.16);
+  --win-line-2: rgba(147, 180, 240, 0.3);
+  --win-line-hot: rgba(95, 233, 255, 0.38);
+  --win-face: rgba(6, 9, 16, 0.68);
+  --win-rail: linear-gradient(180deg, rgba(147, 180, 240, 0.1), rgba(147, 180, 240, 0.028));
+  --win-shadow: 0 22px 48px -30px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+/* ------------------------------------------------------------
+   1. BARRE SYSTÈME DE LA VUE
+   ------------------------------------------------------------ */
+.view-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 18px;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+  padding: 0 2px 9px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.vc-left,
+.vc-right {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.vc-id { color: var(--ink-3); }
+.vc-name {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1;
+}
+.vc-count { color: var(--ink-5); }
+.vc-focus {
+  padding-left: 11px;
+  border-left: 1px solid var(--hairline);
+  color: var(--cyan);
+  opacity: 0.72;
+}
+.vc-btn {
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid var(--hairline);
+  background: rgba(147, 180, 240, 0.03);
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.vc-btn:hover {
+  color: var(--ink);
+  border-color: var(--win-line-2);
+  background: rgba(95, 233, 255, 0.06);
+}
+.vc-btn:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 2px;
+}
+.vc-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 96px;
+  color: var(--ink-4);
+  transition: color 0.2s;
+}
+.vc-save i {
+  width: 4px;
+  height: 4px;
+  flex: none;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(95, 233, 255, 0.65);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.vc-save.is-writing { color: var(--amber); }
+.vc-save.is-writing i {
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(255, 195, 107, 0.8);
+  animation: winLedBlink 0.7s steps(2, end) infinite;
+}
+.vc-clock {
+  min-width: 56px;
+  color: var(--ink-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------
+   2. LEDS ET MICRO-INSTRUMENTS
+   ------------------------------------------------------------ */
+.win-leds,
+.vc-leds {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+}
+.win-leds i,
+.vc-leds i {
+  width: 4px;
+  height: 4px;
+  background: var(--hairline-3);
+  transition: background 0.25s, box-shadow 0.25s;
+}
+.win-leds i:first-child,
+.vc-leds i:first-child {
+  background: var(--cyan);
+  box-shadow: 0 0 7px rgba(95, 233, 255, 0.65);
+}
+.win-leds i:nth-child(2),
+.vc-leds i:nth-child(2) { background: rgba(155, 123, 255, 0.5); }
+.win-leds i:nth-child(3),
+.vc-leds i:nth-child(3) { background: rgba(147, 180, 240, 0.28); }
+
+.win-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 11px;
+  flex: none;
+  margin-left: 2px;
+}
+.win-bars i {
+  width: 2px;
+  height: 100%;
+  background: rgba(95, 233, 255, 0.3);
+  transform-origin: bottom;
+  animation: winBar 3.6s ease-in-out infinite;
+}
+.win-bars i:nth-child(1) { height: 34%; animation-delay: -0.5s; }
+.win-bars i:nth-child(2) { height: 72%; animation-delay: -1.7s; }
+.win-bars i:nth-child(3) { height: 48%; animation-delay: -2.4s; }
+.win-bars i:nth-child(4) { height: 88%; animation-delay: -0.9s; }
+.win.is-win-active .win-bars i {
+  background: var(--cyan);
+  box-shadow: 0 0 6px rgba(95, 233, 255, 0.4);
+}
+
+/* ------------------------------------------------------------
+   3. FENÊTRE
+   ------------------------------------------------------------ */
+.win {
+  position: relative;
+  margin: 0 0 14px;
+  border: 1px solid var(--win-line);
+  background:
+    linear-gradient(180deg, rgba(147, 180, 240, 0.028), transparent 22%),
+    var(--win-face);
+  box-shadow: var(--win-shadow);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.win::before,
+.win::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.25s, border-color 0.25s;
+}
+.win::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid var(--win-line-2);
+  border-left: 1px solid var(--win-line-2);
+}
+.win::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid var(--win-line-2);
+  border-right: 1px solid var(--win-line-2);
+}
+.win.is-win-active {
+  border-color: var(--win-line-hot);
+  box-shadow:
+    0 0 0 1px rgba(95, 233, 255, 0.1),
+    0 26px 56px -32px rgba(0, 0, 0, 0.98),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.win.is-win-active::before,
+.win.is-win-active::after {
+  border-color: var(--cyan);
+  opacity: 0.9;
+}
+
+/* --- Rail de titre ------------------------------------------ */
+.win-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 34px;
+  padding: 0 6px 0 10px;
+  border-bottom: 1px solid var(--win-line);
+  background: var(--win-rail);
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s;
+}
+.win-head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), rgba(155, 123, 255, 0.45));
+  opacity: 0.45;
+  transition: opacity 0.25s, box-shadow 0.25s;
+}
+.win.is-win-active > .win-head {
+  border-bottom-color: rgba(95, 233, 255, 0.2);
+  background: linear-gradient(180deg, rgba(95, 233, 255, 0.11), rgba(95, 233, 255, 0.03));
+}
+.win.is-win-active > .win-head::before {
+  opacity: 1;
+  box-shadow: 0 0 14px rgba(95, 233, 255, 0.5);
+}
+.win-id {
+  flex: none;
+  color: var(--ink-3);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+}
+.win-name {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.win-stat {
+  margin-left: auto;
+  overflow: hidden;
+  color: var(--cyan);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.8;
+}
+.win-aside {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex: none;
+}
+.win-toggle {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  margin-left: 2px;
+  border: 1px solid transparent;
+  background: none;
+  color: var(--ink-4);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.win-toggle svg {
+  width: 11px;
+  height: 11px;
+  transform: rotate(90deg);
+  transition: transform 0.25s;
+}
+.win-toggle:hover {
+  color: var(--ink);
+  border-color: var(--win-line-2);
+  background: rgba(147, 180, 240, 0.05);
+}
+.win-toggle:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
+}
+.win.is-collapsed .win-toggle svg { transform: rotate(0deg); }
+
+/* --- Corps / pied ------------------------------------------- */
+.win-body {
+  position: relative;
+  padding: 18px 20px 17px;
+}
+.win-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px 6px;
+  border-top: 1px solid var(--win-line);
+  background: rgba(0, 0, 0, 0.16);
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.wf-slot { color: var(--ink-4); }
+.wf-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+.wf-right i {
+  width: 3px;
+  height: 3px;
+  flex: none;
+  background: var(--cyan);
+  opacity: 0.55;
+}
+.wf-right b {
+  color: var(--ink-4);
+  font-weight: 500;
+}
+.win.is-win-active .wf-right i {
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(95, 233, 255, 0.6);
+}
+
+/* --- Repli -------------------------------------------------- */
+.win.is-collapsed > .win-body,
+.win.is-collapsed > .win-foot { display: none; }
+.win.is-collapsed > .win-head { border-bottom-color: transparent; }
+.win.is-collapsed::after { opacity: 0.25; }
+
+/* ------------------------------------------------------------
+   4. VARIANTES
+   ------------------------------------------------------------ */
+
+/* Carte convertie en fenêtre : le cadre du .card devient le cadre .win */
+.win--card { padding: 0; }
+.win--card > .win-head {
+  justify-content: flex-start;
+  margin: 0;
+}
+.win--card > .win-head .card-title { gap: 0; }
+.win--card > .win-head .card-title .dot { display: none; }
+.win--card > .win-head .card-title.win-name {
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+.win--card > .win-body { padding: 16px 20px 18px; }
+
+/* Le programme respire bord à bord */
+.program-card.win--card > .win-head { padding: 0 6px 0 10px; }
+.program-card.win--card > .win-body { padding: 0; }
+.program-card.win--card > .win-body .program-list { border-top: 0; }
+
+/* Le registre garde ses lignes larges */
+.quest-register.win--card > .win-body { padding: 6px 16px 10px; }
+
+/* Le compteur de quêtes reste dans le rail, même sur petit écran.
+   styles.css force width:100% dans sa media query : on neutralise ici. */
+.win--card .win-aside.quests-completion {
+  width: auto;
+  flex: 0 0 auto;
+}
+.win--card .win-aside.quests-completion span { white-space: nowrap; }
+.quest-register.win--card > .win-body .toolbar { margin-top: 4px; }
+.quest-form-card.win--card > .win-body { padding: 16px 20px 18px; }
+
+/* Fenêtres sans titre d'origine : contenu bord à bord, cadre fourni par .win */
+.win--flush > .win-body { padding: 0; }
+.win--flush > .win-body > .card,
+.win--flush > .win-body > .quest-hero,
+.win--flush > .win-body > .codex-hero,
+.win--flush > .win-body > .bilan,
+.win--flush > .win-body > .settings-card,
+.win--flush > .win-body > .slog-card {
+  margin: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+.win--flush > .win-body > .quest-hero { margin-bottom: 0; }
+.win--flush > .win-body > .quest-hero::before { display: none; }
+
+/* Fenêtre de section : le .section-head devient le rail */
+.win--section { margin: 26px 0 0; }
+.win-head--tall {
+  min-height: 50px;
+  padding: 8px 6px 8px 10px;
+  gap: 10px;
+}
+.win-head--tall .section-head {
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 6px 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.win-head--tall .section-head .eyebrow { display: none; }
+.win-head--tall .section-title {
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.win-head--tall .section-sub {
+  max-width: 34ch;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  text-align: right;
+}
+.win--section > .win-body { padding: 0; }
+.win--section > .win-body > .attr-grid,
+.win--section > .win-body > .seal-grid,
+.win--section > .win-body > .record-grid,
+.win--section > .win-body > .ach-grid {
+  padding: 14px;
+}
+.win--section > .win-body > .chapter-list { border-top: 0; }
+.win--section > .win-body > .chapter-list .chapter { padding-right: 14px; padding-left: 14px; }
+.win--section > .win-body > .card { border: 0; background: none; box-shadow: none; }
+
+/* Arsenal : barre de filtres et catalogue */
+.win--flush > .win-body > .lib-toolbar {
+  margin: 0;
+  padding: 14px;
+}
+.win--flush > .win-body > .ex-grid { padding: 14px; }
+.win--flush > .win-body > .ex-grid:empty { min-height: 40px; }
+
+/* Le bilan garde ses cellules mais perd son cadre externe */
+.win--flush > .win-body > .bilan { margin-top: 0; }
+
+/* ------------------------------------------------------------
+   5. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 980px) {
+  .vc-focus { display: none; }
+  .win-bars { display: none; }
+}
+
+@media (max-width: 760px) {
+  .view-chrome {
+    gap: 6px 10px;
+    margin-bottom: 16px;
+    font-size: 8px;
+  }
+  .vc-count { display: none; }
+  .vc-name { font-size: 12px; }
+  .vc-save { min-width: 0; }
+  .vc-clock { min-width: 48px; }
+  .win-head {
+    gap: 7px;
+    padding-right: 4px;
+  }
+  .win-stat { display: none; }
+  .win-body { padding: 15px 15px 14px; }
+  .win--card > .win-body { padding: 14px 15px 16px; }
+  .quest-register.win--card > .win-body { padding: 4px 10px 8px; }
+  .win--section { margin-top: 20px; }
+  .win-head--tall {
+    flex-wrap: wrap;
+    padding: 8px 6px 8px 10px;
+  }
+  .win-head--tall .section-head { gap: 4px 10px; }
+  .win-head--tall .section-sub {
+    max-width: 100%;
+    text-align: left;
+    flex-basis: 100%;
+  }
+  .win-head--tall .win-toggle { margin-left: auto; }
+  .win--section > .win-body > .attr-grid,
+  .win--section > .win-body > .seal-grid,
+  .win--section > .win-body > .record-grid,
+  .win--section > .win-body > .ach-grid { padding: 10px; }
+  .win--flush > .win-body > .lib-toolbar,
+  .win--flush > .win-body > .ex-grid { padding: 10px; }
+}
+
+@media (max-width: 520px) {
+  .vc-id,
+  .vc-btn { display: none; }
+  .vc-save { font-size: 0; gap: 0; }
+  .vc-save i { width: 5px; height: 5px; }
+  .vc-clock { font-size: 8.5px; }
+  .win-id { display: none; }
+  .win-name { font-size: 12px; letter-spacing: 0.1em; }
+  .win-head { min-height: 36px; padding-left: 9px; }
+  .win-toggle { width: 30px; height: 30px; }
+  .win-foot { font-size: 7px; letter-spacing: 0.1em; }
+  .win-head--tall .section-title { font-size: 14px; }
+  .win-aside { min-width: 0; gap: 6px; }
+  .win--card .win-aside .progress { display: none; }
+  .win--card .win-aside .chip {
+    display: inline-block;
+    max-width: 86px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .win--card > .win-head .card-title.win-name { flex: 1 1 auto; }
+}
+
+/* ------------------------------------------------------------
+   6. MOUVEMENT RÉDUIT
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .win,
+  .win::before,
+  .win::after,
+  .win-head,
+  .win-toggle,
+  .win-toggle svg,
+  .vc-btn,
+  .vc-save,
+  .vc-save i,
+  .win-leds i,
+  .vc-leds i { transition: none; }
+  .win-bars i,
+  .vc-save.is-writing i { animation: none; }
+}
+
+@keyframes winBar {
+  0%, 100% { transform: scaleY(0.55); opacity: 0.55; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+@keyframes winLedBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
