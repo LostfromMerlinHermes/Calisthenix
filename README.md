@@ -31,6 +31,16 @@ aucune dépendance obligatoire. Tout fonctionne dans le navigateur.
 > tu peux aussi servir le dossier avec un petit serveur local :
 > `py -m http.server 8000` puis ouvrir `http://localhost:8000`.
 
+### Version autonome (un seul fichier)
+
+`dist/index.html` contient toute l'application — CSS, JavaScript et polices
+inclus. Il s'ouvre par double-clic et se dépose tel quel sur GitHub Pages,
+sans dossiers annexes. Pour le reconstruire après une modification :
+
+```
+python outils/build-standalone.py
+```
+
 ## Faire tester l'application
 
 Le kit testeur est prévu pour être envoyé tel quel :
@@ -295,6 +305,8 @@ RETOURS-TESTEUR.md       Trame de retour à remplir à la main
 Lancer-Calisthenix.cmd   Lancement local Windows
 Lancer-Testeur-Reseau.cmd Lancement réseau pour tester sur téléphone
 outils/trouver-ip.py     Détection de l'adresse réseau locale
+outils/build-standalone.py  Génère dist/index.html (version un seul fichier)
+dist/index.html          Version autonome : CSS, JS et polices intégrés
 roadmap/index.html       Product Lab : 150 décisions produit
 roadmap/lab.css          Design du Product Lab
 roadmap/lab.js           Filtres, progression, notes, exports

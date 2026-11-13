@@ -2651,6 +2651,7 @@ function renderLibrary() {
       <span class="lib-count" id="libCount"></span>
     </div>
 
+    <h2 class="sr-only">Mouvements de l'arsenal</h2>
     <div class="ex-grid" id="exGrid"></div>
   `;
   renderLibraryGrid();
