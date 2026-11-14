@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <!-- Version autonome : CSS, JS et polices integres. -->
@@ -8519,6 +8519,654 @@ h1, h2, h3, h4 {
   .session-progress-wrap { width: 100%; }
 }
 
+/* ------------------------------------------------------------
+   22. PROGRESSION, ASSIDUITÉ, SÉANCE LIBRE, CHRONO
+   Dernier étage : les traces laissées par le corps.
+   ------------------------------------------------------------ */
+
+/* --- Dernière performance & objectif suggéré ---------------- */
+.session-last {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px 12px;
+  margin: 12px 0 0;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.session-last b { color: var(--ink-3); font-weight: 600; }
+.session-last > span { color: var(--ink-5); }
+.session-last > span b { color: var(--cyan); }
+
+/* --- Chrono de tenue : le temps devient matière ------------- */
+.session-hold {
+  width: min(360px, 100%);
+  margin-top: 4px;
+  padding: 11px 15px 13px;
+  border: 1px solid var(--hairline-2);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(53, 224, 255, 0.07), transparent 66%),
+    rgba(4, 7, 12, 0.66);
+  clip-path: var(--clip-sm);
+}
+.session-hold-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.session-hold-target { color: var(--cyan); }
+.session-hold-read {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  margin: 5px 0 6px;
+}
+.session-hold-read b {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 26px rgba(53, 224, 255, 0.2);
+}
+.session-hold-read span { color: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+.session-hold-bar {
+  display: block;
+  height: 4px;
+  background: rgba(147, 180, 240, 0.14);
+  overflow: hidden;
+}
+.session-hold-bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan-deep), var(--cyan));
+  box-shadow: 0 0 12px rgba(53, 224, 255, 0.5);
+  transition: width 0.14s linear;
+}
+.session-hold-actions { display: flex; gap: 8px; margin-top: 10px; }
+.session-hold-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid var(--hairline);
+  background: rgba(53, 224, 255, 0.04);
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.session-hold-btn:hover { color: var(--cyan); border-color: var(--line-hot); }
+.session-hold-btn.is-on {
+  color: var(--cyan);
+  border-color: var(--line-hot);
+  background: rgba(53, 224, 255, 0.12);
+  box-shadow: 0 0 18px rgba(53, 224, 255, 0.16);
+}
+.session-hold-btn svg { width: 12px; height: 12px; }
+
+/* --- Préréglages de repos ----------------------------------- */
+.session-rest-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+.session-rest-preset {
+  padding: 5px 9px;
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.session-rest-preset:hover { color: var(--ink-2); border-color: var(--hairline-2); }
+.session-rest-preset.is-on {
+  color: var(--cyan);
+  border-color: var(--line-hot);
+  background: rgba(53, 224, 255, 0.1);
+}
+
+/* --- Assiduité : calendrier + bilan ------------------------- */
+.assiduite-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.heat-card { padding: 16px 16px 14px; }
+.heat-wrap {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 8px 9px;
+  max-width: 480px;
+  margin-top: 14px;
+}
+.heat-days {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  line-height: 1;
+  text-align: right;
+}
+.heat-days span { display: flex; align-items: center; justify-content: flex-end; }
+.heat-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3px;
+}
+.heat-col { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
+.heat-cell {
+  aspect-ratio: 1;
+  border: 1px solid rgba(147, 180, 240, 0.08);
+  background: rgba(147, 180, 240, 0.05);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.heat-cell.lvl-1 { background: rgba(53, 224, 255, 0.18); border-color: rgba(53, 224, 255, 0.16); }
+.heat-cell.lvl-2 { background: rgba(53, 224, 255, 0.34); border-color: rgba(53, 224, 255, 0.26); }
+.heat-cell.lvl-3 { background: rgba(53, 224, 255, 0.54); border-color: rgba(53, 224, 255, 0.38); }
+.heat-cell.lvl-4 {
+  background: var(--cyan);
+  border-color: transparent;
+  box-shadow: 0 0 10px rgba(53, 224, 255, 0.45);
+}
+.heat-cell.is-future { opacity: 0.28; }
+.heat-cell.is-today { outline: 1px solid var(--cyan); outline-offset: 1px; }
+.heat-legend {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 3px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.heat-legend i {
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(147, 180, 240, 0.1);
+  background: rgba(147, 180, 240, 0.05);
+}
+.heat-legend i.lvl-1 { background: rgba(53, 224, 255, 0.18); }
+.heat-legend i.lvl-2 { background: rgba(53, 224, 255, 0.34); }
+.heat-legend i.lvl-3 { background: rgba(53, 224, 255, 0.54); }
+.heat-legend i.lvl-4 { background: var(--cyan); border-color: transparent; }
+
+.week-card { display: flex; flex-direction: column; padding: 18px 20px 16px; }
+.week-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.week-kicker {
+  display: block;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.week-title {
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2.2vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.week-delta {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--ink-4);
+  font-family: var(--font-display);
+  font-size: 29px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.week-delta small {
+  margin-top: 4px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+}
+.week-delta.is-up { color: var(--olive); }
+.week-delta.is-down { color: var(--danger); }
+.week-delta.is-flat { color: var(--ink-4); }
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 14px;
+  margin: 14px 0 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.week-grid b {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1;
+}
+.week-grid small {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.week-note {
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.week-note b { color: var(--ink-2); font-weight: 600; }
+
+/* --- Records : dernière marque et courbe -------------------- */
+.record-last {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 3px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.record-last b { color: var(--ink-3); font-family: var(--font-mono); font-size: 8px; font-weight: 600; letter-spacing: 0.06em; }
+.record-curve-wrap {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+}
+.record-curve-wrap svg { flex: 1; min-width: 0; height: 30px; overflow: visible; }
+.record-curve-wrap > span {
+  flex: none;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.rec-curve { fill: none; stroke: var(--cyan); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.rec-curve circle { fill: var(--cyan); stroke: none; }
+.rec-curve.is-up { stroke: var(--olive); }
+.rec-curve.is-up circle { fill: var(--olive); }
+.rec-curve.is-down { stroke: var(--danger); }
+.rec-curve.is-down circle { fill: var(--danger); }
+.record-tag {
+  margin-left: 5px;
+  padding: 1px 4px;
+  border: 1px solid var(--hairline);
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.record-tag.is-up { color: var(--olive); border-color: rgba(53, 255, 176, 0.34); }
+
+/* --- Séance libre : l'atelier hors registre ------------------ */
+.free-builder .session-frame { height: 100dvh; overflow: hidden; }
+.free-builder .session-phase--free { color: var(--violet); }
+.free-builder .session-phase--free i { background: var(--violet); box-shadow: 0 0 12px var(--violet); }
+.free-summary {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 2.4vw, 24px);
+  text-align: right;
+}
+.free-summary > span { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.free-summary b {
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.free-summary small {
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.free-main {
+  position: relative;
+  z-index: 4;
+  flex: 1;
+  min-height: 0;
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: clamp(16px, 3vh, 30px) 0 clamp(10px, 2vh, 18px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.free-head { margin-bottom: 16px; }
+.free-head .session-title { margin: 10px 0 8px; font-size: clamp(26px, 4.2vw, 42px); }
+.free-head .session-sub { max-width: 62ch; line-height: 1.65; }
+.free-templates {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--hairline);
+  background: rgba(7, 12, 21, 0.5);
+}
+.free-tpl-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.free-tpl-list { display: flex; flex-direction: column; gap: 6px; }
+.free-tpl {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--hairline);
+  background: rgba(4, 7, 12, 0.5);
+}
+.free-tpl-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.free-tpl-main:hover { background: rgba(53, 224, 255, 0.06); }
+.free-tpl-main b {
+  overflow: hidden;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.free-tpl-main span { flex: none; color: var(--ink-5); font-family: var(--font-mono); font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; }
+.free-tpl-del {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  border: 0;
+  border-left: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--ink-5);
+  cursor: pointer;
+  transition: color 0.18s, background 0.18s;
+}
+.free-tpl-del:hover { color: var(--danger); background: rgba(255, 46, 99, 0.08); }
+.free-tpl-del svg { width: 12px; height: 12px; }
+.free-tpl-empty { margin: 0; color: var(--ink-5); font-size: 11px; line-height: 1.6; }
+
+.free-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.free-search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 12px;
+  border: 1px solid var(--hairline);
+  background: rgba(4, 7, 12, 0.55);
+  color: var(--ink-5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.free-search:focus-within { border-color: var(--line-hot); box-shadow: 0 0 20px rgba(53, 224, 255, 0.1); }
+.free-search svg { flex: none; width: 14px; height: 14px; color: var(--cyan); }
+.free-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.free-search input::placeholder { color: var(--ink-5); }
+.free-search input:focus { outline: 0; }
+.free-levels { flex: none; flex-wrap: wrap; }
+
+.free-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+  padding-bottom: 4px;
+}
+.free-empty { grid-column: 1 / -1; }
+.free-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid var(--hairline);
+  background: rgba(7, 12, 21, 0.5);
+  transition: border-color 0.2s, background 0.2s;
+}
+.free-row:hover { border-color: var(--hairline-2); }
+.free-row.is-picked {
+  border-color: rgba(53, 224, 255, 0.3);
+  background:
+    linear-gradient(90deg, rgba(53, 224, 255, 0.06), transparent 62%),
+    rgba(7, 12, 21, 0.62);
+}
+.free-dot {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--hairline-2);
+  color: var(--bg);
+  font-size: 0;
+}
+.free-row.is-picked .free-dot { border-color: transparent; background: var(--cyan); box-shadow: 0 0 14px rgba(53, 224, 255, 0.4); }
+.free-dot svg { width: 11px; height: 11px; }
+.free-row-main { flex: 1; min-width: 0; }
+.free-row-main b {
+  display: block;
+  overflow: hidden;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.free-row-main span {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.1em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.free-nums { display: flex; flex: none; gap: 6px; }
+.free-nums label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 5.8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.free-nums input {
+  width: 48px;
+  padding: 4px 2px;
+  border: 1px solid var(--hairline);
+  background: rgba(4, 7, 12, 0.6);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.free-nums input::-webkit-outer-spin-button,
+.free-nums input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.free-nums input:focus { outline: 0; border-color: var(--line-hot); color: var(--cyan); }
+.free-add {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hairline);
+  background: rgba(53, 224, 255, 0.05);
+  color: var(--cyan);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.free-add:hover { background: rgba(53, 224, 255, 0.16); border-color: var(--line-hot); }
+.free-add.is-remove { background: transparent; color: var(--ink-5); }
+.free-add.is-remove:hover { color: var(--danger); border-color: rgba(255, 46, 99, 0.4); background: rgba(255, 46, 99, 0.08); }
+.free-add svg { width: 12px; height: 12px; }
+
+.free-foot {
+  position: relative;
+  z-index: 5;
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--hairline);
+}
+.free-name { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.free-name > span {
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.free-foot-actions { flex: none; display: flex; gap: 8px; }
+
+@supports not (clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%)) {
+  .session-hold { border-radius: 2px; }
+}
+
+@media (max-width: 1060px) {
+  .assiduite-grid { grid-template-columns: 1fr; }
+  .heat-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .free-builder .session-frame { padding-bottom: 10px; }
+  .free-summary { gap: 12px; }
+  .free-summary > span:nth-child(2) { display: none; }
+  .free-main { padding-top: 12px; }
+  .free-toolbar { flex-direction: column; align-items: stretch; }
+  .free-levels { justify-content: flex-start; }
+  .free-list { grid-template-columns: 1fr; }
+  .free-foot { flex-direction: column; align-items: stretch; gap: 10px; }
+  .free-foot-actions { flex-direction: column-reverse; }
+  .free-foot-actions .btn { width: 100%; }
+  .week-grid b { font-size: 22px; }
+  .heat-wrap { gap: 6px; }
+}
+
+@media (max-width: 520px) {
+  .free-summary > span:nth-child(3) { display: none; }
+  .free-row { flex-wrap: wrap; }
+  .free-nums { order: 3; width: 100%; justify-content: flex-end; }
+  .free-nums label { flex: 1; }
+  .free-nums input { width: 100%; }
+  .assiduite-grid { gap: 6px; }
+  .week-card { padding: 16px; }
+  .week-delta { font-size: 24px; }
+  .session-hold { padding: 10px 12px 11px; }
+  .session-hold-read b { font-size: 32px; }
+  .record-curve-wrap > span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .session-hold-bar i { transition: none; }
+  .heat-cell { transition: none; }
+  .session-hold-btn,
+  .session-rest-preset { transition: none; }
+}
+
   </style>
   <style data-source="css/hub.css">
 /* ============================================================
@@ -8757,7 +9405,7 @@ h1, h2, h3, h4 {
 .hub-metrics {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
   margin-top: 26px;
   padding-top: 16px;
   border-top: 1px solid var(--hairline);
@@ -8769,7 +9417,7 @@ h1, h2, h3, h4 {
   min-width: 0;
   position: relative;
 }
-.hub-metrics > span + span { padding-left: 22px; }
+.hub-metrics > span + span { padding-left: 16px; }
 .hub-metrics > span + span::before {
   content: "";
   position: absolute;
@@ -8782,16 +9430,18 @@ h1, h2, h3, h4 {
 .hub-metrics b {
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.02em;
 }
+.hub-metrics b.is-up { color: var(--olive); }
+.hub-metrics b.is-down { color: var(--danger); }
 .hub-metrics small {
   color: var(--ink-4);
   font-family: var(--font-mono);
-  font-size: 7.5px;
-  letter-spacing: 0.16em;
+  font-size: 7px;
+  letter-spacing: 0.14em;
   white-space: nowrap;
 }
 
@@ -9512,6 +10162,10 @@ h1, h2, h3, h4 {
   .hub-stage { grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr); }
   .hub-dock { grid-template-columns: 1.15fr 1fr 1fr; }
   .dock-threat { display: none; }
+  .hub-metrics { gap: 12px; }
+  .hub-metrics > span + span { padding-left: 12px; }
+  .hub-metrics b { font-size: 20px; }
+  .hub-metrics small { font-size: 6.5px; letter-spacing: 0.12em; }
 }
 
 @media (max-width: 900px) {
@@ -9558,8 +10212,15 @@ h1, h2, h3, h4 {
   .hub-lede { margin-top: 14px; }
   .hub-cta { margin-top: 18px; }
   .hub-cta .btn { flex: 1 1 100%; }
-  .hub-metrics { gap: 16px; margin-top: 18px; }
-  .hub-metrics > span + span { padding-left: 16px; }
+  .hub-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 18px;
+    margin-top: 18px;
+    padding-top: 14px;
+  }
+  .hub-metrics > span + span { padding-left: 0; }
+  .hub-metrics > span + span::before { display: none; }
   .hub-metrics b { font-size: 20px; }
   .hub-chapter { margin-top: 18px; max-width: none; }
   .hub-fragment { max-width: none; margin-top: 18px; padding-top: 12px; }
@@ -9579,8 +10240,8 @@ h1, h2, h3, h4 {
 @media (max-width: 420px) {
   .hub-metrics small { font-size: 6.5px; letter-spacing: 0.1em; }
   .hub-metrics b { font-size: 18px; }
-  .hub-metrics { gap: 12px; }
-  .hub-metrics > span + span { padding-left: 12px; }
+  .hub-metrics { gap: 10px 14px; }
+  .hub-metrics > span + span { padding-left: 0; }
   .seal-level { font-size: calc(var(--seal-size) * 0.4); }
 }
 
@@ -10348,6 +11009,11 @@ h1, h2, h3, h4 {
     <div class="session-frame" id="sessionFrame"></div>
   </div>
 
+  <!-- ============ SÉANCE LIBRE / ATELIER DE COMPOSITION ============ -->
+  <div class="session free-builder" id="freeBuilder" role="dialog" aria-modal="true" aria-labelledby="freeTitle" hidden>
+    <div class="session-frame" id="freeBuilderFrame"></div>
+  </div>
+
   <!-- ============ ÉVOLUTION / NIVEAU SUPÉRIEUR ============ -->
   <div class="levelup" id="levelUp" role="dialog" aria-modal="true" aria-labelledby="levelUpTitle" hidden>
     <div class="levelup-scan" aria-hidden="true"></div>
@@ -10434,6 +11100,13 @@ h1, h2, h3, h4 {
       '<path d="M3.6 7.4 7.4 11 12 4.4 16.6 11l3.8-3.6-1.5 11H5.1L3.6 7.4Z"/><path d="M5.1 18.4h13.8"/>',
     muscle:
       '<path d="M4.6 15.4c0-3 1.4-5.2 3.4-6.6 1.8-1.3 2.2-2.4 2.2-4.2 1.8.2 3 1.4 3.4 3 2.6-.6 4.8.6 5.6 3 .8 2.4-.4 5-2.8 6.4-2.2 1.3-5 1.4-7.2.4-2.2-1-4.6-.9-4.6-2Z"/><path d="M8.4 13.6c1.2.8 3 1.2 4.6.8"/>',
+    calendar:
+      '<rect x="3.6" y="5.2" width="16.8" height="15.2" rx="1.4"/><path d="M3.6 9.8h16.8M8.2 3.2v4M15.8 3.2v4"/><path d="M7.4 13.2h2M11 13.2h2M14.6 13.2h2M7.4 16.9h2M11 16.9h2"/>',
+    trend:
+      '<path d="M3.6 17.4 9 11.6l3.4 3.2 7.2-8.2"/><path d="M14.4 6.6h5.2v5.2"/>',
+    layers:
+      '<path d="m12 3.2 8.4 4.6L12 12.4 3.6 7.8 12 3.2Z"/><path d="m3.6 12 8.4 4.6 8.4-4.6M3.6 16.2l8.4 4.6 8.4-4.6"/>',
+    pause: '<path d="M8.6 4.8v14.4M15.4 4.8v14.4"/>',
   };
 
   /**
@@ -11318,6 +11991,7 @@ h1, h2, h3, h4 {
         <div class="hub-metrics">
           <span><b data-bind="streak">0</b><small>SÉRIE · JOURS</small></span>
           <span><b data-bind="weekXp">0</b><small>XP · 7 JOURS</small></span>
+          <span><b data-bind="weekDelta">0 %</b><small>VS SEMAINE</small></span>
           <span><b data-bind="volume">0</b><small>VOLUME · RÉPS</small></span>
         </div>
         <div class="hub-chapter">
@@ -11483,6 +12157,9 @@ h1, h2, h3, h4 {
       /* métriques */
       setText(r.streak, m.streak);
       setText(r.weekXp, num(m.weekXp));
+      setText(r.weekDelta, m.weekDelta > 0 ? `+${m.weekDelta} %` : `${m.weekDelta} %`);
+      if (r.weekDelta) r.weekDelta.classList.toggle("is-up", m.weekDelta > 0);
+      if (r.weekDelta) r.weekDelta.classList.toggle("is-down", m.weekDelta < 0);
       setText(r.volume, num(m.volumeToday));
 
       /* chapitre */
@@ -13389,23 +14066,43 @@ function huntStrike() {
    ------------------------------------------------------------ */
 const SESSION_LOG_MAX = 60;
 
-function recordKey(task) {
-  if (task.exerciseId) return task.exerciseId;
-  const slug = String(task.name || "")
+function nameSlug(name) {
+  return String(name || "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-  return `n:${slug || "quete"}`;
+    .replace(/^-+|-+$/g, "") || "quete";
 }
 
-function updateRecords(task) {
+function recordKey(task) {
+  if (task && task.exerciseId) return task.exerciseId;
+  return `n:${nameSlug(task && task.name)}`;
+}
+
+function itemKey(item) {
+  if (item && item.exerciseId) return item.exerciseId;
+  return `n:${nameSlug(item && item.name)}`;
+}
+
+function cleanActuals(actuals, maxSets = 20) {
+  return (Array.isArray(actuals) ? actuals : [])
+    .slice(0, maxSets)
+    .map((value) => clamp(Math.round(Number(value) || 0), 0, 600));
+}
+
+function updateRecords(task, actuals) {
   if (!state.records || typeof state.records !== "object" || Array.isArray(state.records)) state.records = {};
   const key = recordKey(task);
   const today = dayKey();
-  const volume = task.sets * task.reps;
   const unit = task.unit === "sec" ? "sec" : "reps";
+  const list = cleanActuals(actuals, 20);
+  const hasActuals = list.length > 0;
+  const setsDone = hasActuals ? list.length : Math.max(1, Number(task.sets) || 1);
+  const bestSet = hasActuals ? Math.max(0, ...list) : Number(task.reps) || 0;
+  const volume = hasActuals
+    ? list.reduce((sum, value) => sum + value, 0)
+    : (Number(task.sets) || 0) * (Number(task.reps) || 0);
   const rec = state.records[key] || (state.records[key] = {
     name: task.name,
     unit,
@@ -13417,20 +14114,23 @@ function updateRecords(task) {
     count: 0,
     firstDay: today,
     lastDay: today,
+    lastActuals: [],
   });
   rec.name = task.name;
   rec.unit = unit;
   rec.count = (rec.count || 0) + 1;
   rec.lastDay = today;
   if (!rec.firstDay) rec.firstDay = today;
-  if (task.reps > (rec.bestReps || 0)) rec.bestReps = task.reps;
-  if (task.sets > (rec.bestSets || 0)) rec.bestSets = task.sets;
+  if (bestSet > (rec.bestReps || 0)) rec.bestReps = bestSet;
+  if (setsDone > (rec.bestSets || 0)) rec.bestSets = setsDone;
   if (volume > (rec.bestVolume || 0)) {
     rec.bestVolume = volume;
-    rec.volumeReps = task.reps;
-    rec.volumeSets = task.sets;
+    rec.volumeReps = bestSet;
+    rec.volumeSets = setsDone;
   }
+  rec.lastActuals = list;
 }
+
 
 function recordList() {
   const records = state.records && typeof state.records === "object" ? state.records : {};
@@ -13438,6 +14138,168 @@ function recordList() {
     .map((key) => ({ key, ...records[key] }))
     .sort((a, b) => (b.bestVolume || 0) - (a.bestVolume || 0));
 }
+
+/* --- Progression par exercice : reconstruite depuis le journal -------- */
+function exerciseHistory(key, limit = 10) {
+  if (!key) return [];
+  const sessions = Array.isArray(state.sessions) ? state.sessions : [];
+  const out = [];
+  sessions.forEach((entry) => {
+    (entry.items || []).forEach((item) => {
+      if (itemKey(item) !== key) return;
+      const actuals = cleanActuals(item.actuals, 20);
+      if (!actuals.length) return;
+      out.push({
+        day: entry.day,
+        at: Number(entry.startedAt) || 0,
+        unit: item.unit === "sec" ? "sec" : "reps",
+        target: Math.max(1, Number(item.reps) || 1),
+        sets: Math.max(1, Number(item.sets) || actuals.length),
+        actuals,
+        total: actuals.reduce((sum, value) => sum + value, 0),
+        best: Math.max(0, ...actuals),
+      });
+    });
+  });
+  out.sort((a, b) => a.at - b.at);
+  return out.slice(-limit);
+}
+
+function suggestedObjective(key, rec) {
+  const history = exerciseHistory(key);
+  const last = history[history.length - 1];
+  if (!last) {
+    const fallback = rec ? (rec.volumeReps || rec.bestReps || 0) : 0;
+    return fallback ? { value: fallback, unit: rec.unit, complete: false, fresh: true } : null;
+  }
+  const complete = last.actuals.length >= last.sets && last.actuals.every((value) => value >= last.target);
+  const value = complete ? last.target + (last.unit === "sec" ? 5 : 1) : last.target;
+  return { value, unit: last.unit, complete, fresh: false };
+}
+
+function sparkline(values, unit) {
+  const nums = (values || []).filter((value) => Number.isFinite(Number(value))).map(Number);
+  if (nums.length < 2) return "";
+  const width = 132;
+  const height = 30;
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  const span = Math.max(1, max - min);
+  const step = width / (nums.length - 1);
+  const points = nums.map((value, index) => {
+    const x = index * step;
+    const y = height - 4 - ((value - min) / span) * (height - 9);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const lastPoint = points[points.length - 1].split(",");
+  const delta = nums[nums.length - 1] - nums[0];
+  const tone = delta > 0 ? "is-up" : delta < 0 ? "is-down" : "";
+  return `<svg class="rec-curve ${tone}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="${points.join(" ")}"/>
+    <circle cx="${lastPoint[0]}" cy="${lastPoint[1]}" r="2.4"/>
+  </svg>`;
+}
+
+function activityHeatmap(weeks = 12) {
+  const today = dayKey();
+  const start = shiftKey(weekStartKey(), -(weeks - 1) * 7);
+  const cols = [];
+  let max = 0;
+  for (let w = 0; w < weeks; w += 1) {
+    const days = [];
+    for (let d = 0; d < 7; d += 1) {
+      const key = shiftKey(start, w * 7 + d);
+      const entry = state.history[key] || {};
+      const xp = Math.max(0, Number(entry.xp) || 0);
+      const tasks = Math.max(0, Number(entry.tasks) || 0);
+      const volume = Math.max(0, Number(entry.volume) || 0);
+      max = Math.max(max, xp);
+      days.push({ key, xp, tasks, volume, future: key > today, today: key === today });
+    }
+    cols.push(days);
+  }
+  return { cols, max: Math.max(1, max), start, today };
+}
+
+function weekComparison() {
+  const currentKeys = weekKeys();
+  const previousStart = shiftKey(weekStartKey(), -7);
+  const previousKeys = Array.from({ length: 7 }, (_, index) => shiftKey(previousStart, index));
+  const sumXp = (keys) => keys.reduce((sum, key) => {
+    const entry = state.history[key];
+    return sum + (entry ? Number(entry.xp) || 0 : 0);
+  }, 0);
+  const currentXp = sumXp(currentKeys);
+  const previousXp = sumXp(previousKeys);
+  const sessions = (Array.isArray(state.sessions) ? state.sessions : [])
+    .filter((entry) => currentKeys.includes(entry.day)).length;
+  const activeKeys = currentKeys.filter((key) => {
+    const entry = state.history[key];
+    return entry && (Number(entry.tasks) || 0) > 0;
+  });
+  const best = activeKeys.reduce((top, key) => {
+    const entry = state.history[key] || {};
+    const xp = Number(entry.xp) || 0;
+    return !top || xp > top.xp ? { key, xp, volume: Number(entry.volume) || 0 } : top;
+  }, null);
+  const delta = previousXp > 0
+    ? Math.round(((currentXp - previousXp) / previousXp) * 100)
+    : currentXp > 0 ? 100 : 0;
+  return {
+    keys: currentKeys,
+    currentXp,
+    previousXp,
+    delta,
+    sessions,
+    activeDays: activeKeys.length,
+    best,
+  };
+}
+
+function heatmapHTML() {
+  const { cols, max } = activityHeatmap(12);
+  const levels = (xp) => (xp <= 0 ? 0 : Math.min(4, 1 + Math.floor((xp / max) * 3.999)));
+  const activeDays = cols.flat().filter((day) => !day.future && day.xp > 0).length;
+  const weekdays = ["L", "M", "M", "J", "V", "S", "D"];
+  return `
+    <div class="heat-wrap">
+      <div class="heat-days" aria-hidden="true">${weekdays.map((day) => `<span>${day}</span>`).join("")}</div>
+      <div class="heat-grid" role="img" aria-label="Calendrier d'activité sur 12 semaines : ${activeDays} jour${activeDays > 1 ? "s" : ""} actif${activeDays > 1 ? "s" : ""}.">
+        ${cols.map((col) => `<div class="heat-col">${col.map((day) => `
+          <span class="heat-cell lvl-${levels(day.xp)} ${day.today ? "is-today" : ""} ${day.future ? "is-future" : ""}"
+            title="${escapeHtml(shortDay(day.key))} · ${formatNumber(day.xp)} XP · ${day.tasks} quête${day.tasks > 1 ? "s" : ""}"></span>`).join("")}</div>`).join("")}
+      </div>
+      <div class="heat-legend" aria-hidden="true"><span>MOINS</span>${[0, 1, 2, 3, 4].map((level) => `<i class="lvl-${level}"></i>`).join("")}<span>PLUS</span></div>
+    </div>`;
+}
+
+function weekBilanHTML() {
+  const week = weekComparison();
+  const tone = week.delta > 0 ? "is-up" : week.delta < 0 ? "is-down" : "is-flat";
+  const deltaLabel = week.delta > 0 ? `+${week.delta} %` : `${week.delta} %`;
+  const bestLabel = week.best
+    ? `${capitalize(parseKey(week.best.key).toLocaleDateString("fr-FR", { weekday: "long" }))} · ${formatNumber(week.best.xp)} XP`
+    : "Aucune marque cette semaine";
+  return `
+    <section class="card week-card">
+      <div class="week-head">
+        <div>
+          <span class="week-kicker">BILAN DE LA SEMAINE</span>
+          <h3 class="week-title">${week.currentXp > 0 ? "Le rythme tient" : "La semaine attend un geste"}</h3>
+        </div>
+        <span class="week-delta ${tone}">${deltaLabel}<small>VS S-1</small></span>
+      </div>
+      <div class="week-grid">
+        <div><b>${formatNumber(week.currentXp)}</b><small>XP CETTE SEMAINE</small></div>
+        <div><b>${formatNumber(week.previousXp)}</b><small>XP SEMAINE PASSÉE</small></div>
+        <div><b>${week.sessions}</b><small>SÉANCES</small></div>
+        <div><b>${week.activeDays}/7</b><small>JOURS ACTIFS</small></div>
+      </div>
+      <p class="week-note">Meilleur jour : <b>${escapeHtml(bestLabel)}</b>${week.activeDays >= 5 ? " · la régularité paie." : week.activeDays > 0 ? " · encore un ou deux gestes pour ancrer la semaine." : " · un premier appui suffit à ouvrir la semaine."}</p>
+    </section>`;
+}
+
+
 
 function sessionLogEntry(info, items) {
   const endedAt = Date.now();
@@ -13461,6 +14323,7 @@ function sessionLogEntry(info, items) {
     sets: info.sets,
     repsDone,
     secDone,
+    free: Boolean(sessionState && sessionState.mode === "free"),
     items,
   };
 }
@@ -13489,6 +14352,7 @@ const SESSION_SNAPSHOT_KEY = "calisthenix.session.v1";
 const SESSION_SNAPSHOT_MAX_AGE = 8 * 60 * 60 * 1000;
 let sessionState = null;
 let sessionTimer = null;
+let holdTimer = null;
 
 function sessionRestSeconds() {
   return clamp(parseInt(state.settings.rest, 10) || 60, 15, 300);
@@ -13501,7 +14365,9 @@ function sessionSnapshot() {
     v: 1,
     day: dayKey(),
     savedAt: Date.now(),
+    mode: sessionState.mode || "normal",
     queue: sessionState.queue,
+    freeItems: sessionState.freeItems || null,
     index: sessionState.index,
     setIndex: sessionState.setIndex,
     phase: sessionState.phase,
@@ -13532,8 +14398,29 @@ function restoreSessionSnapshot() {
   try { data = JSON.parse(raw); } catch (err) { sessionClearSnapshot(); return; }
   const maxAge = SESSION_SNAPSHOT_MAX_AGE;
   const stale = !data || data.v !== 1 || data.day !== dayKey() || Date.now() - Number(data.savedAt) > maxAge;
+  const mode = data && data.mode === "free" ? "free" : "normal";
+  const freeItems = mode === "free" && data && Array.isArray(data.freeItems)
+    ? data.freeItems
+      .filter((item) => item && typeof item.id === "string" && typeof item.name === "string" && item.name.trim())
+      .slice(0, 20)
+      .map((item) => ({
+        id: item.id,
+        exerciseId: typeof item.exerciseId === "string" ? item.exerciseId : null,
+        name: String(item.name).slice(0, 60),
+        level: LEVELS[item.level] ? item.level : "debutant",
+        muscle: typeof item.muscle === "string" ? item.muscle.slice(0, 30) : "Full body",
+        sets: clamp(parseInt(item.sets, 10) || 1, 1, 20),
+        reps: clamp(parseInt(item.reps, 10) || 1, 1, 600),
+        unit: item.unit === "sec" ? "sec" : "reps",
+        xp: clamp(parseInt(item.xp, 10) || 1, 1, 500),
+        icon: typeof item.icon === "string" ? item.icon : "seal",
+      }))
+    : [];
+  const freeIds = new Set(freeItems.map((item) => item.id));
   const queue = data && Array.isArray(data.queue)
-    ? data.queue.filter((id) => state.tasks.some((task) => task.id === id))
+    ? mode === "free"
+      ? data.queue.filter((id) => freeIds.has(id))
+      : data.queue.filter((id) => state.tasks.some((task) => task.id === id))
     : [];
   if (stale || !queue.length) {
     sessionClearSnapshot();
@@ -13541,6 +14428,8 @@ function restoreSessionSnapshot() {
   }
   const actuals = data.actuals && typeof data.actuals === "object" && !Array.isArray(data.actuals) ? data.actuals : {};
   sessionState = {
+    mode,
+    freeItems: mode === "free" ? freeItems : null,
     queue,
     index: clamp(parseInt(data.index, 10) || 0, 0, queue.length - 1),
     setIndex: clamp(parseInt(data.setIndex, 10) || 0, 0, 60),
@@ -13584,7 +14473,11 @@ function sessionQueue() {
 
 function sessionTask() {
   if (!sessionState) return null;
-  return state.tasks.find((task) => task.id === sessionState.queue[sessionState.index]) || null;
+  const id = sessionState.queue[sessionState.index];
+  if (sessionState.mode === "free") {
+    return (sessionState.freeItems || []).find((task) => task.id === id) || null;
+  }
+  return state.tasks.find((task) => task.id === id) || null;
 }
 
 function sessionDurationLabel(ms) {
@@ -13594,10 +14487,11 @@ function sessionDurationLabel(ms) {
 
 function sessionPhaseLabel() {
   if (!sessionState) return "";
+  const free = sessionState.mode === "free";
   return {
     work: "EFFORT EN COURS",
     rest: "RÉCUPÉRATION",
-    questDone: "OBJECTIF ATTEINT",
+    questDone: free ? "BLOC TERMINÉ" : "OBJECTIF ATTEINT",
     summary: "SÉANCE CLOSE",
   }[sessionState.phase] || "SÉANCE";
 }
@@ -13606,6 +14500,7 @@ function sessionTopHTML() {
   const total = sessionState.queue.length;
   const done = clamp(sessionState.quests, 0, total);
   const pct = total ? Math.round((done / total) * 100) : 0;
+  const mode = sessionState.mode === "free" ? "SÉANCE LIBRE" : "SÉANCE";
   return `
     <div class="session-grid" aria-hidden="true"></div>
     <span class="session-corner session-corner--tl" aria-hidden="true"></span>
@@ -13615,11 +14510,11 @@ function sessionTopHTML() {
     <button class="session-quit" type="button" data-action="session-quit" aria-label="Quitter la séance">${CLOSE_SVG}</button>
     <header class="session-top">
       <div class="session-top-l">
-        <span class="session-code">SÉANCE // ${dayKey()} // SECTEUR 07</span>
+        <span class="session-code">${mode} // ${dayKey()} // SECTEUR 07</span>
         <span class="session-phase"><i></i> ${sessionPhaseLabel()}</span>
       </div>
       <div class="session-progress-wrap">
-        <span class="session-progress-label">OBJECTIFS <b>${done} / ${total}</b></span>
+        <span class="session-progress-label">${sessionState.mode === "free" ? "BLOCS" : "OBJECTIFS"} <b>${done} / ${total}</b></span>
         <span class="session-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}">
           <i style="width:${pct}%"></i>
         </span>
@@ -13664,11 +14559,11 @@ function sessionCurrentReps(task) {
   return Number.isFinite(value) ? value : task.reps;
 }
 
-function sessionSetCurrentReps(task, value) {
+function sessionSetCurrentReps(task, value, persist = true) {
   if (!sessionState || !task) return;
   const clean = clamp(Math.round(Number(value) || 0), 0, 600);
   sessionRepsList(task)[sessionState.setIndex] = clean;
-  sessionSnapshot();
+  if (persist) sessionSnapshot();
 }
 
 function sessionAdjustReps(delta) {
@@ -13742,6 +14637,156 @@ function sessionRepsHTML(task) {
   `;
 }
 
+function sessionLastPerfHTML(task) {
+  const key = recordKey(task);
+  const history = exerciseHistory(key, 6);
+  const last = history[history.length - 1];
+  if (!last) return "";
+  const objective = suggestedObjective(key, state.records ? state.records[key] : null);
+  const unit = last.unit === "sec" ? "s" : "réps";
+  const perf = last.actuals.slice(0, task.sets).join(" · ");
+  return `<p class="session-last">Dernière fois · <b>${perf}</b> ${unit}${objective ? `<span>Objectif <b>${objective.value} ${unit}</b></span>` : ""}</p>`;
+}
+
+/* --- Chrono de tenue : compte à rebours plein écran --------------- */
+function sessionHold(task) {
+  if (!sessionState || !task) return null;
+  const key = `${task.id}:${sessionState.setIndex}`;
+  if (!sessionState.hold || sessionState.hold.key !== key) {
+    sessionState.hold = { key, elapsed: 0, running: false, last: 0 };
+  }
+  return sessionState.hold;
+}
+
+function sessionHoldHTML(task) {
+  const hold = sessionHold(task);
+  const target = Math.max(1, Number(task.reps) || 1);
+  const elapsed = Math.min(target, hold.elapsed || 0);
+  const pct = Math.min(100, (elapsed / target) * 100);
+  return `
+    <div class="session-hold" id="sessionHold">
+      <div class="session-hold-head">
+        <span>CHRONO DE TENUE</span>
+        <span class="session-hold-target">OBJECTIF ${target} s</span>
+      </div>
+      <div class="session-hold-read"><b id="sessionHoldTime">${elapsed.toFixed(1)}</b><span>s</span></div>
+      <div class="session-hold-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${target}" aria-valuenow="${elapsed.toFixed(1)}">
+        <i id="sessionHoldFill" style="width:${pct}%"></i>
+      </div>
+      <div class="session-hold-actions">
+        <button class="session-hold-btn ${hold.running ? "is-on" : ""}" type="button" data-action="session-hold-toggle" id="sessionHoldToggle">
+          ${cxIcon(hold.running ? "pause" : "play")}<span>${hold.running ? "Pause" : hold.elapsed > 0 ? "Reprendre" : "Démarrer"}</span>
+        </button>
+        <button class="session-hold-btn" type="button" data-action="session-hold-reset">${cxIcon("reset")}<span>Zéro</span></button>
+      </div>
+    </div>
+  `;
+}
+
+function syncSessionHoldUI(task) {
+  if (!sessionState || !task) return;
+  const target = Math.max(1, Number(task.reps) || 1);
+  const hold = sessionHold(task);
+  const elapsed = Math.min(target, hold.elapsed || 0);
+  const time = $("sessionHoldTime");
+  if (time) time.textContent = elapsed.toFixed(1);
+  const fill = $("sessionHoldFill");
+  if (fill) fill.style.width = `${Math.min(100, (elapsed / target) * 100)}%`;
+  const bar = fill ? fill.parentElement : null;
+  if (bar) bar.setAttribute("aria-valuenow", elapsed.toFixed(1));
+  const btn = $("sessionHoldToggle");
+  if (btn) {
+    const label = hold.running ? "Pause" : hold.elapsed > 0 ? "Reprendre" : "Démarrer";
+    if (btn.dataset.label !== label) {
+      btn.dataset.label = label;
+      btn.innerHTML = `${cxIcon(hold.running ? "pause" : "play")}<span>${label}</span>`;
+    }
+    btn.classList.toggle("is-on", hold.running);
+  }
+}
+
+function sessionHoldStopTimer() {
+  if (holdTimer) {
+    window.clearInterval(holdTimer);
+    holdTimer = null;
+  }
+}
+
+function sessionHoldStartTimer() {
+  sessionHoldStopTimer();
+  holdTimer = window.setInterval(() => {
+    if (!sessionState || sessionState.phase !== "work") {
+      sessionHoldStopTimer();
+      return;
+    }
+    const task = sessionTask();
+    if (!task || task.unit !== "sec") {
+      sessionHoldStopTimer();
+      return;
+    }
+    const hold = sessionHold(task);
+    if (!hold || !hold.running) {
+      sessionHoldStopTimer();
+      return;
+    }
+    const now = Date.now();
+    hold.elapsed += (now - (hold.last || now)) / 1000;
+    hold.last = now;
+    const target = Math.max(1, Number(task.reps) || 1);
+    if (hold.elapsed >= target) {
+      hold.elapsed = target;
+      hold.running = false;
+      sessionSetCurrentReps(task, target, false);
+      sessionSyncRepsUI();
+      syncSessionHoldUI(task);
+      sessionHoldStopTimer();
+      sessionSnapshot();
+      beep("restEnd");
+      if (navigator.vibrate && !prefersReduced()) {
+        try { navigator.vibrate([80, 60, 80, 60, 140]); } catch (err) { /* vibration indisponible */ }
+      }
+      return;
+    }
+    sessionSetCurrentReps(task, Math.floor(hold.elapsed), false);
+    sessionSyncRepsUI();
+    syncSessionHoldUI(task);
+  }, 100);
+}
+
+function sessionHoldToggle() {
+  if (!sessionState || sessionState.phase !== "work") return;
+  const task = sessionTask();
+  if (!task || task.unit !== "sec") return;
+  const hold = sessionHold(task);
+  const target = Math.max(1, Number(task.reps) || 1);
+  if (hold.elapsed >= target) hold.elapsed = 0;
+  hold.running = !hold.running;
+  hold.last = Date.now();
+  syncSessionHoldUI(task);
+  if (hold.running) {
+    sessionHoldStartTimer();
+    beep("add");
+  } else {
+    sessionHoldStopTimer();
+    sessionSnapshot();
+  }
+}
+
+function sessionHoldReset() {
+  if (!sessionState || sessionState.phase !== "work") return;
+  const task = sessionTask();
+  if (!task || task.unit !== "sec") return;
+  sessionHoldStopTimer();
+  const hold = sessionHold(task);
+  hold.elapsed = 0;
+  hold.running = false;
+  hold.last = 0;
+  sessionSetCurrentReps(task, 0);
+  sessionSyncRepsUI();
+  syncSessionHoldUI(task);
+  beep("undo");
+}
+
 function sessionWorkHTML(task) {
   const cfg = LEVELS[task.level] || LEVELS.debutant;
   return `
@@ -13749,6 +14794,7 @@ function sessionWorkHTML(task) {
       <span class="session-kicker"><i></i> EFFORT // SÉRIE ${sessionState.setIndex + 1} / ${task.sets}</span>
       <h2 class="session-title" id="sessionTitle">${escapeHtml(task.name)}</h2>
       <p class="session-sub"><span class="session-muscle">${cxIcon(cxMuscle(task.muscle))}</span> ${escapeHtml(task.muscle || "Full body")} · ${cfg.label} · +${task.xp} XP</p>
+      ${sessionLastPerfHTML(task)}
     </div>
     <div class="session-core">
       <div class="session-reps">
@@ -13758,10 +14804,11 @@ function sessionWorkHTML(task) {
       </div>
       ${sessionDotsHTML(task)}
       ${sessionRepsHTML(task)}
+      ${task.unit === "sec" ? sessionHoldHTML(task) : ""}
     </div>
     <div class="session-actions">
       <button class="btn btn-lime" type="button" data-action="session-set">${cxIcon("check", { stroke: 2.2 })}<span>Série terminée</span></button>
-      <button class="btn btn-ghost" type="button" data-action="session-skip">Passer cette quête</button>
+      <button class="btn btn-ghost" type="button" data-action="session-skip">Passer cette ${sessionState.mode === "free" ? "étape" : "quête"}</button>
     </div>
     <p class="session-tip">Espace pour valider · Échap pour quitter</p>
   `;
@@ -13786,6 +14833,9 @@ function sessionRestHTML(task) {
       </div>
       ${sessionDotsHTML(task)}
       <p class="session-rest-next">Prochaine série : <b>${task.reps} ${task.unit === "sec" ? "s" : "réps"}</b></p>
+      <div class="session-rest-presets" role="group" aria-label="Préréglages de repos">
+        ${[30, 45, 60, 90, 120].map((sec) => `<button class="session-rest-preset ${sessionRestSeconds() === sec ? "is-on" : ""}" type="button" data-action="session-rest-preset" data-sec="${sec}" aria-pressed="${sessionRestSeconds() === sec}">${sec} s</button>`).join("")}
+      </div>
     </div>
     <div class="session-actions">
       <button class="btn btn-lime" type="button" data-action="session-rest-skip">Passer le repos</button>
@@ -13799,6 +14849,7 @@ function sessionRestHTML(task) {
 }
 
 function sessionQuestDoneHTML(task) {
+  const free = sessionState.mode === "free";
   const remaining = Math.max(0, sessionState.queue.length - sessionState.index - 1);
   const actuals = (sessionState.actuals[task.id] || []).filter((value) => Number.isFinite(value));
   const actualTotal = actuals.reduce((sum, value) => sum + value, 0);
@@ -13806,16 +14857,16 @@ function sessionQuestDoneHTML(task) {
   const unit = sessionUnitShort(task);
   return `
     <div class="session-done">
-      <span class="session-done-kicker">QUÊTE VALIDÉE // SCEAU ENREGISTRÉ</span>
+      <span class="session-done-kicker">${free ? "BLOC VALIDÉ // SÉANCE LIBRE" : "QUÊTE VALIDÉE // SCEAU ENREGISTRÉ"}</span>
       <div class="session-done-icon" aria-hidden="true">${cxIcon(cxMuscle(task.muscle))}</div>
       <h2 class="session-title" id="sessionTitle">${escapeHtml(task.name)}</h2>
-      <p class="session-done-xp">+${task.xp} XP</p>
+      <p class="session-done-xp">+${task.xp} XP ${free ? "à la clôture" : ""}</p>
       ${actuals.length
         ? `<p class="session-done-log">Réalisé : <b>${formatNumber(actualTotal)} ${unit}</b> sur ${formatNumber(target)} visés</p>`
         : `<p class="session-done-log">Séance enregistrée sans relevé de répétitions.</p>`}
       <p class="session-done-sub">${remaining > 0
-        ? `${remaining} quête${remaining > 1 ? "s" : ""} encore dans la séance.`
-        : "Dernière quête de la séance. La bête a encaissé chaque geste."}</p>
+        ? `${remaining} ${free ? "bloc" : "quête"}${remaining > 1 ? "s" : ""} encore dans la séance.`
+        : free ? "Dernier bloc de la séance libre. L'XP sera versé à la clôture." : "Dernière quête de la séance. La bête a encaissé chaque geste."}</p>
     </div>
     <div class="session-actions">
       <button class="btn btn-lime" type="button" data-action="session-next">${remaining > 0 ? "Exercice suivant" : "Voir le bilan"}</button>
@@ -13826,6 +14877,7 @@ function sessionQuestDoneHTML(task) {
 
 function sessionSummaryHTML() {
   const items = sessionState.items || [];
+  const free = sessionState.mode === "free";
   const totalFor = (unit) => items
     .filter((item) => (item.unit === "sec") === (unit === "sec"))
     .reduce((sum, item) => {
@@ -13851,12 +14903,14 @@ function sessionSummaryHTML() {
 
   return `
     <div class="session-done">
-      <span class="session-done-kicker">SÉANCE CLOSE // BILAN</span>
+      <span class="session-done-kicker">${free ? "SÉANCE LIBRE // BILAN" : "SÉANCE CLOSE // BILAN"}</span>
       <h2 class="session-title" id="sessionTitle">Séance terminée</h2>
-      <p class="session-done-sub">Chaque série validée a blessé la bête de la semaine. La séance est consignée dans ton codex.</p>
+      <p class="session-done-sub">${free
+        ? "Chaque bloc validé est consigné. L'XP de la séance libre sera versé à la clôture."
+        : "Chaque série validée a blessé la bête de la semaine. La séance est consignée dans ton codex."}</p>
       <div class="session-summary-grid">
-        <div><span>XP GAGNÉ</span><b>+${formatNumber(sessionState.xp)}</b></div>
-        <div><span>QUÊTES</span><b>${sessionState.quests} / ${sessionState.queue.length}</b></div>
+        <div><span>XP ${free ? "À VERSER" : "GAGNÉ"}</span><b>+${formatNumber(sessionState.xp)}</b></div>
+        <div><span>${free ? "BLOCS" : "QUÊTES"}</span><b>${sessionState.quests} / ${sessionState.queue.length}</b></div>
         <div><span>SÉRIES</span><b>${sessionState.doneSets}</b></div>
         ${volumeCells}
         <div><span>DURÉE</span><b>${sessionDurationLabel(Date.now() - sessionState.startedAt)}</b></div>
@@ -13901,6 +14955,10 @@ function renderSession() {
   frame.dataset.phase = sessionState.phase;
   if (sessionState.phase === "rest") {
     updateSessionRestUI(Math.max(0, sessionState.restEndsAt - Date.now()));
+  }
+  if (sessionState.phase === "work" && task && task.unit === "sec") {
+    syncSessionHoldUI(task);
+    if (sessionHold(task).running) sessionHoldStartTimer();
   }
   if (sessionState.phase === "summary") sessionClearSnapshot();
   else sessionSnapshot();
@@ -13986,6 +15044,8 @@ function openSession() {
   }
 
   sessionState = {
+    mode: "normal",
+    freeItems: null,
     queue: queue.map((task) => task.id),
     index: 0,
     setIndex: 0,
@@ -14024,6 +15084,7 @@ function sessionAnnounceRestEnd() {
 
 function sessionStartRest() {
   if (!sessionState) return;
+  sessionHoldStopTimer();
   sessionState.phase = "rest";
   sessionState.restTotal = sessionRestSeconds();
   sessionState.restEndsAt = Date.now() + sessionState.restTotal * 1000;
@@ -14036,19 +15097,22 @@ function sessionFinishSet() {
   if (!sessionState || sessionState.phase !== "work") return;
   const task = sessionTask();
   if (!task) return;
+  sessionHoldStopTimer();
 
   const actualReps = sessionCurrentReps(task);
   sessionSetCurrentReps(task, actualReps);
 
   sessionState.doneSets = Math.min(sessionState.totalSets, sessionState.doneSets + 1);
-  const alreadyDone = task.doneDate === dayKey();
+  const free = sessionState.mode === "free";
+  const alreadyDone = !free && task.doneDate === dayKey();
   const isLastSet = sessionState.setIndex + 1 >= task.sets;
 
   if (isLastSet && !alreadyDone) {
+    const actuals = (sessionState.actuals[task.id] || []).slice(0, task.sets);
     sessionState.xp += task.xp;
     sessionState.quests += 1;
-    const actuals = (sessionState.actuals[task.id] || []).slice(0, task.sets);
     sessionState.items.push({
+      exerciseId: task.exerciseId || null,
       name: task.name,
       level: task.level,
       muscle: task.muscle,
@@ -14057,8 +15121,13 @@ function sessionFinishSet() {
       unit: task.unit,
       xp: task.xp,
       actuals,
+      free,
     });
-    toggleTask(task.id, { x: window.innerWidth / 2, y: window.innerHeight * 0.42 });
+    if (free) {
+      updateRecords(task, actuals);
+    } else {
+      toggleTask(task.id, { x: window.innerWidth / 2, y: window.innerHeight * 0.42 }, actuals);
+    }
     sessionState.phase = "questDone";
     renderSession();
     focusSessionPrimary();
@@ -14125,6 +15194,56 @@ function sessionAdjustRest(delta) {
   focusSessionPrimary();
 }
 
+function sessionRestPreset(sec) {
+  if (!sessionState) return;
+  const next = clamp(parseInt(sec, 10) || 60, 15, 300);
+  state.settings.rest = next;
+  save();
+  if (sessionState.phase === "rest") {
+    sessionState.restTotal = next;
+    sessionState.restEndsAt = Date.now() + next * 1000;
+    updateSessionRestUI(next * 1000);
+    sessionStartTimer();
+  }
+  renderSession();
+  beep("add");
+  focusSessionPrimary();
+}
+
+function commitFreeSessionRewards(info) {
+  const p = state.profile;
+  const today = dayKey();
+  const before = levelInfo(p.xp);
+  const reps = Math.max(0, Math.round(Number(info.repsDone) || 0));
+  p.xp += info.xp;
+  p.questsDone += info.quests;
+  p.volume += reps;
+  (info.items || []).forEach((item) => {
+    if (item.level && LEVELS[item.level]) p.levelsDone[item.level] = true;
+    if (item.muscle) {
+      p.musclesDone = p.musclesDone && typeof p.musclesDone === "object" ? p.musclesDone : {};
+      p.musclesDone[item.muscle] = true;
+    }
+  });
+
+  const yesterday = shiftKey(today, -1);
+  if (p.lastCompletionDay !== today) {
+    if (p.lastCompletionDay === yesterday) p.streak = (p.streak || 0) + 1;
+    else p.streak = 1;
+    p.lastCompletionDay = today;
+    p.bestStreak = Math.max(p.bestStreak || 0, p.streak);
+  }
+
+  const entry = state.history[today] || (state.history[today] = { xp: 0, tasks: 0, volume: 0 });
+  entry.xp = (entry.xp || 0) + info.xp;
+  entry.tasks = (entry.tasks || 0) + info.quests;
+  entry.volume = (entry.volume || 0) + reps;
+
+  const newlyUnlocked = checkAchievements();
+  const rewards = resolveWeeklyRewards();
+  return { before, after: levelInfo(p.xp), newlyUnlocked, rewards };
+}
+
 function closeSession(showFeedback = true) {
   const overlay = $("session");
   if (!overlay || overlay.hidden) return;
@@ -14137,9 +15256,10 @@ function closeSession(showFeedback = true) {
     }
     : { xp: 0, quests: 0, sets: 0, items: [] };
 
+  let logEntry = null;
   if (sessionState && info.sets > 0) {
-    const entry = sessionLogEntry(info, info.items);
-    state.sessions = [entry, ...(Array.isArray(state.sessions) ? state.sessions : [])].slice(0, SESSION_LOG_MAX);
+    logEntry = sessionLogEntry(info, info.items);
+    state.sessions = [logEntry, ...(Array.isArray(state.sessions) ? state.sessions : [])].slice(0, SESSION_LOG_MAX);
   }
 
   if (sessionState && sessionState.quests > 0) {
@@ -14148,8 +15268,32 @@ function closeSession(showFeedback = true) {
     const entry = state.history[today] || (state.history[today] = { xp: 0, tasks: 0, volume: 0 });
     entry.sessions = (entry.sessions || 0) + 1;
   }
-  if (sessionState) save();
 
+  if (sessionState && sessionState.mode === "free" && info.quests > 0) {
+    const rewards = commitFreeSessionRewards({ ...info, repsDone: logEntry ? logEntry.repsDone : 0 });
+    save();
+    window.setTimeout(() => {
+      if (rewards.after.level > rewards.before.level) showLevelUp(rewards.after);
+      rewards.newlyUnlocked.forEach((a, i) => {
+        window.setTimeout(() => {
+          showToast({ icon: ACHIEVEMENT_ICONS[a.id] || "seal", title: `Succès débloqué : ${a.title}`, desc: a.desc, tone: "violet", duration: 5200 });
+          renderAll();
+          beep("achievement");
+        }, 620 + i * 700);
+      });
+      rewards.rewards.forEach((reward, i) => {
+        window.setTimeout(() => {
+          showToast(reward);
+          renderAll();
+          beep("achievement");
+        }, 1100 + i * 850);
+      });
+    }, 240);
+  } else if (sessionState) {
+    save();
+  }
+
+  sessionHoldStopTimer();
   sessionClearSnapshot();
   sessionStopTimer();
   overlay.hidden = true;
@@ -14165,10 +15309,11 @@ function closeSession(showFeedback = true) {
 
   if (!showFeedback) return;
   if (info.quests > 0) {
+    const free = logEntry && logEntry.free;
     showToast({
       icon: "check",
-      title: "Séance clôturée",
-      desc: `${info.quests} quête${info.quests > 1 ? "s" : ""} validée${info.quests > 1 ? "s" : ""} · +${info.xp} XP`,
+      title: free ? "Séance libre clôturée" : "Séance clôturée",
+      desc: `${info.quests} ${free ? "bloc" : "quête"}${info.quests > 1 ? "s" : ""} validé${info.quests > 1 ? "s" : ""} · +${info.xp} XP`,
       tone: "lime",
       duration: 3200,
     });
@@ -14181,6 +15326,350 @@ function closeSession(showFeedback = true) {
       duration: 2800,
     });
   }
+}
+
+/* ------------------------------------------------------------
+   4 quinquies. SÉANCE LIBRE & MODÈLES
+   Atelier hors registre : on pioche dans l'Arsenal, on ajuste,
+   puis la séance se déroule avec le même moteur que les quêtes.
+   ------------------------------------------------------------ */
+const freeDraft = { query: "", level: "all", pick: {}, name: "" };
+
+function freeDraftReset() {
+  freeDraft.query = "";
+  freeDraft.level = "all";
+  freeDraft.pick = {};
+  freeDraft.name = "";
+}
+
+function freeDraftItems() {
+  return Object.keys(freeDraft.pick).map((id) => {
+    const ex = LIBRARY.find((item) => item.id === id);
+    if (!ex) return null;
+    const pick = freeDraft.pick[id] || {};
+    const sets = clamp(parseInt(pick.sets, 10) || ex.sets, 1, 20);
+    const reps = clamp(parseInt(pick.reps, 10) || ex.reps, 1, 600);
+    return {
+      id: `free:${uid()}`,
+      exerciseId: ex.id,
+      name: ex.name,
+      level: ex.level,
+      muscle: ex.muscle,
+      sets,
+      reps,
+      unit: ex.unit,
+      xp: calcXp(ex.level, sets, reps),
+      icon: cxMuscle(ex.muscle),
+    };
+  }).filter(Boolean);
+}
+
+function freeEstimatedXp() {
+  return freeDraftItems().reduce((sum, item) => sum + item.xp, 0);
+}
+
+function freeFiltered() {
+  const query = deburr(freeDraft.query.trim());
+  return LIBRARY.filter((ex) => {
+    const okLevel = freeDraft.level === "all" || ex.level === freeDraft.level;
+    const haystack = deburr(`${ex.name} ${ex.muscle} ${LEVELS[ex.level].label}`);
+    return okLevel && (!query || haystack.includes(query));
+  });
+}
+
+function freeRow(ex) {
+  const picked = Object.prototype.hasOwnProperty.call(freeDraft.pick, ex.id);
+  const cfg = LEVELS[ex.level];
+  const pick = picked ? freeDraft.pick[ex.id] : null;
+  const unit = ex.unit === "sec" ? "s" : "réps";
+  if (!picked) {
+    return `
+      <article class="free-row" style="--lvl:${cfg.color}">
+        <span class="free-dot" aria-hidden="true"></span>
+        <div class="free-row-main">
+          <b>${escapeHtml(ex.name)}</b>
+          <span>${escapeHtml(ex.muscle)} · ${cfg.label} · ${ex.sets} × ${ex.reps}${ex.unit === "sec" ? " s" : ""}</span>
+        </div>
+        <button class="free-add" type="button" data-action="free-add" data-id="${ex.id}" aria-label="Ajouter ${escapeHtml(ex.name)}">${cxIcon("plus")}</button>
+      </article>`;
+  }
+  return `
+    <article class="free-row is-picked" style="--lvl:${cfg.color}">
+      <span class="free-dot" aria-hidden="true">${cxIcon("check", { stroke: 2.4 })}</span>
+      <div class="free-row-main">
+        <b>${escapeHtml(ex.name)}</b>
+        <span>${escapeHtml(ex.muscle)} · ${cfg.label}</span>
+      </div>
+      <div class="free-nums">
+        <label>SÉRIES<input type="number" inputmode="numeric" min="1" max="20" value="${pick.sets}" data-free-sets="${ex.id}" aria-label="Séries pour ${escapeHtml(ex.name)}"></label>
+        <label>${ex.unit === "sec" ? "SECONDES" : "RÉPS"}<input type="number" inputmode="numeric" min="1" max="600" value="${pick.reps}" data-free-reps="${ex.id}" aria-label="${unit} pour ${escapeHtml(ex.name)}"></label>
+      </div>
+      <button class="free-add is-remove" type="button" data-action="free-remove" data-id="${ex.id}" aria-label="Retirer ${escapeHtml(ex.name)}">${cxIcon("close")}</button>
+    </article>`;
+}
+
+function freeListHTML() {
+  const items = freeFiltered();
+  if (!items.length) {
+    return `<div class="empty free-empty">
+      <span class="empty-icon">${cxIcon("search")}</span>
+      <div class="empty-title">Aucun exercice trouvé</div>
+      <div class="empty-text">Essaie un autre mot-clé ou change de niveau.</div>
+    </div>`;
+  }
+  return items.map(freeRow).join("");
+}
+
+function freeSummaryHTML() {
+  const items = freeDraftItems();
+  const sets = items.reduce((sum, item) => sum + item.sets, 0);
+  return `
+    <span><b>${items.length}</b><small>EXERCICES</small></span>
+    <span><b>${sets}</b><small>SÉRIES</small></span>
+    <span><b>+${freeEstimatedXp()}</b><small>XP ESTIMÉ</small></span>
+  `;
+}
+
+function freeTemplatesHTML() {
+  const templates = Array.isArray(state.templates) ? state.templates : [];
+  if (!templates.length) {
+    return `<p class="free-tpl-empty">Aucun modèle. Compose une séance puis sauvegarde-la pour la rejouer en un clic.</p>`;
+  }
+  return templates.map((template) => `
+    <div class="free-tpl">
+      <button class="free-tpl-main" type="button" data-action="free-template-load" data-id="${escapeHtml(template.id)}">
+        <b>${escapeHtml(template.name)}</b>
+        <span>${template.items.length} exercice${template.items.length > 1 ? "s" : ""} · ${template.items.reduce((sum, item) => sum + (Number(item.xp) || 0), 0)} XP</span>
+      </button>
+      <button class="free-tpl-del" type="button" data-action="free-template-delete" data-id="${escapeHtml(template.id)}" aria-label="Supprimer le modèle ${escapeHtml(template.name)}">${cxIcon("trash")}</button>
+    </div>`).join("");
+}
+
+function renderFreeBuilder() {
+  const frame = $("freeBuilderFrame");
+  if (!frame) return;
+  const levels = [{ id: "all", label: "Tous" }].concat(LEVEL_ORDER.map((level) => ({ id: level, label: LEVELS[level].label })));
+  frame.innerHTML = `
+    <div class="session-grid" aria-hidden="true"></div>
+    <span class="session-corner session-corner--tl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--tr" aria-hidden="true"></span>
+    <span class="session-corner session-corner--bl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--br" aria-hidden="true"></span>
+    <button class="session-quit" type="button" data-action="free-close" aria-label="Fermer l'atelier">${CLOSE_SVG}</button>
+
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">SÉANCE LIBRE // HORS REGISTRE // SECTEUR 07</span>
+        <span class="session-phase session-phase--free"><i></i> COMPOSITION</span>
+      </div>
+      <div class="free-summary" id="freeSummary">${freeSummaryHTML()}</div>
+    </header>
+
+    <main class="free-main">
+      <div class="free-head">
+        <span class="session-kicker"><i></i> ATELIER // SÉANCE LIBRE</span>
+        <h2 class="session-title" id="freeTitle">Compose ta séance</h2>
+        <p class="session-sub">Pioche dans l'arsenal, ajuste séries et répétitions, puis lance-toi. L'XP de la séance libre est versé à la clôture, sans toucher à tes quêtes du jour.</p>
+      </div>
+
+      <section class="free-templates" aria-label="Modèles de séance">
+        <div class="free-tpl-head">
+          <span>MODÈLES</span>
+          <span>${(state.templates || []).length} / 20</span>
+        </div>
+        <div class="free-tpl-list">${freeTemplatesHTML()}</div>
+      </section>
+
+      <div class="free-toolbar">
+        <label class="free-search">
+          ${cxIcon("search")}
+          <input id="freeSearch" type="search" placeholder="Chercher un mouvement…" autocomplete="off" value="${escapeHtml(freeDraft.query)}" aria-label="Chercher un exercice">
+        </label>
+        <div class="filters free-levels">
+          ${levels.map((level) => `<button class="filter-btn" type="button" data-action="free-level" data-level="${level.id}" aria-pressed="${freeDraft.level === level.id}">${level.label}</button>`).join("")}
+        </div>
+      </div>
+
+      <div class="free-list" id="freeList">${freeListHTML()}</div>
+    </main>
+
+    <footer class="free-foot">
+      <label class="free-name">
+        <span>NOM DU MODÈLE</span>
+        <input class="input" id="freeTemplateName" maxlength="40" placeholder="Ex. Push A · 20 min" value="${escapeHtml(freeDraft.name)}" autocomplete="off">
+      </label>
+      <div class="free-foot-actions">
+        <button class="btn btn-ghost btn-sm" type="button" data-action="free-save-template">${cxIcon("layers")}<span>Sauver le modèle</span></button>
+        <button class="btn btn-lime" type="button" data-action="free-start">${cxIcon("play")}<span>Lancer la séance libre</span></button>
+      </div>
+    </footer>
+  `;
+}
+
+function renderFreeList() {
+  const list = $("freeList");
+  if (list) list.innerHTML = freeListHTML();
+  const summary = $("freeSummary");
+  if (summary) summary.innerHTML = freeSummaryHTML();
+}
+
+function openFreeBuilder(templateId) {
+  if (sessionState) {
+    openSession();
+    showToast({ icon: "hourglass", title: "Séance en cours", desc: "Termine ou quitte la séance en cours avant d'en composer une nouvelle.", tone: "neutral", duration: 3200 });
+    return;
+  }
+  freeDraftReset();
+  const template = templateId
+    ? (Array.isArray(state.templates) ? state.templates : []).find((item) => item.id === templateId)
+    : null;
+  if (template) {
+    template.items.forEach((item) => {
+      if (!item.exerciseId) return;
+      const ex = LIBRARY.find((entry) => entry.id === item.exerciseId);
+      if (!ex) return;
+      freeDraft.pick[ex.id] = { sets: item.sets, reps: item.reps };
+    });
+    freeDraft.name = template.name;
+  }
+  const overlay = $("freeBuilder");
+  if (!overlay) return;
+  rememberOverlayFocus("freeBuilder");
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  syncModalState();
+  renderFreeBuilder();
+  beep("engage");
+  window.setTimeout(() => {
+    const search = $("freeSearch");
+    if (search) search.focus({ preventScroll: true });
+  }, 120);
+}
+
+function closeFreeBuilder(restoreFocus = true) {
+  const overlay = $("freeBuilder");
+  if (!overlay || overlay.hidden) return;
+  overlay.hidden = true;
+  const frame = $("freeBuilderFrame");
+  if (frame) frame.innerHTML = "";
+  if (!sessionState) document.body.classList.remove("no-scroll");
+  syncModalState();
+  if (restoreFocus) restoreOverlayFocus("freeBuilder");
+}
+
+function freeAddExercise(id) {
+  const ex = LIBRARY.find((item) => item.id === id);
+  if (!ex) return;
+  freeDraft.pick[ex.id] = { sets: ex.sets, reps: ex.reps };
+  renderFreeList();
+  beep("add");
+}
+
+function freeRemoveExercise(id) {
+  delete freeDraft.pick[id];
+  renderFreeList();
+  beep("undo");
+}
+
+function freeUpdateNumber(id, field, value) {
+  const pick = freeDraft.pick[id];
+  if (!pick) return;
+  const max = field === "sets" ? 20 : 600;
+  pick[field] = clamp(parseInt(value, 10) || 1, 1, max);
+  const summary = $("freeSummary");
+  if (summary) summary.innerHTML = freeSummaryHTML();
+}
+
+function freeLoadTemplate(id) {
+  const template = (Array.isArray(state.templates) ? state.templates : []).find((item) => item.id === id);
+  if (!template) return;
+  freeDraft.pick = {};
+  template.items.forEach((item) => {
+    if (!item.exerciseId) return;
+    const ex = LIBRARY.find((entry) => entry.id === item.exerciseId);
+    if (!ex) return;
+    freeDraft.pick[ex.id] = { sets: item.sets, reps: item.reps };
+  });
+  freeDraft.name = template.name;
+  renderFreeBuilder();
+  beep("scan");
+}
+
+function freeDeleteTemplate(id) {
+  const templates = Array.isArray(state.templates) ? state.templates : [];
+  const index = templates.findIndex((item) => item.id === id);
+  if (index === -1) return;
+  const [removed] = templates.splice(index, 1);
+  state.templates = templates;
+  save();
+  renderFreeBuilder();
+  showToast({ icon: "trash", title: "Modèle supprimé", desc: removed.name, tone: "neutral", duration: 2600 });
+  beep("undo");
+}
+
+function freeSaveTemplate() {
+  const items = freeDraftItems();
+  if (!items.length) {
+    showToast({ icon: "layers", title: "Modèle vide", desc: "Ajoute au moins un exercice avant de sauvegarder.", tone: "amber", duration: 2800 });
+    return;
+  }
+  const nameInput = $("freeTemplateName");
+  const name = (nameInput ? nameInput.value : freeDraft.name).trim().replace(/\s+/g, " ").slice(0, 40);
+  if (name.length < 2) {
+    showToast({ icon: "layers", title: "Nom trop court", desc: "Donne un nom à ton modèle (2 caractères minimum).", tone: "amber", duration: 2800 });
+    if (nameInput) nameInput.focus();
+    return;
+  }
+  const template = {
+    id: uid(),
+    name,
+    createdAt: Date.now(),
+    items: items.map((item) => ({
+      exerciseId: item.exerciseId,
+      name: item.name,
+      level: item.level,
+      muscle: item.muscle,
+      sets: item.sets,
+      reps: item.reps,
+      unit: item.unit,
+      xp: item.xp,
+    })),
+  };
+  state.templates = [template, ...(Array.isArray(state.templates) ? state.templates : [])].slice(0, 20);
+  freeDraft.name = name;
+  save();
+  renderFreeBuilder();
+  showToast({ icon: "layers", title: "Modèle sauvegardé", desc: `${name} · ${template.items.length} exercice${template.items.length > 1 ? "s" : ""}`, tone: "lime", duration: 3000 });
+  beep("achievement");
+}
+
+function startFreeSession() {
+  const items = freeDraftItems();
+  if (!items.length) {
+    showToast({ icon: "layers", title: "Séance vide", desc: "Ajoute au moins un exercice pour lancer la séance libre.", tone: "amber", duration: 2800 });
+    beep("error");
+    return;
+  }
+  closeFreeBuilder(false);
+  sessionState = {
+    mode: "free",
+    freeItems: items,
+    queue: items.map((item) => item.id),
+    index: 0,
+    setIndex: 0,
+    phase: "work",
+    startedAt: Date.now(),
+    restEndsAt: 0,
+    restTotal: sessionRestSeconds(),
+    xp: 0,
+    quests: 0,
+    doneSets: 0,
+    items: [],
+    actuals: {},
+    totalSets: items.reduce((sum, item) => sum + item.sets, 0),
+  };
+  openSession();
+  showToast({ icon: "layers", title: "Séance libre engagée", desc: `${items.length} exercice${items.length > 1 ? "s" : ""} · ${items.reduce((sum, item) => sum + item.sets, 0)} séries`, tone: "lime", duration: 3000 });
 }
 
 /* ------------------------------------------------------------
@@ -14213,6 +15702,7 @@ function defaultState() {
     history: {},
     sessions: [],
     records: {},
+    templates: [],
     settings: { sound: true, rest: 60 },
   };
 }
@@ -14330,10 +15820,12 @@ function normalizeState(raw) {
       sets: Math.max(0, Math.round(Number(entry.sets) || 0)),
       repsDone: Math.max(0, Math.round(Number(entry.repsDone) || 0)),
       secDone: Math.max(0, Math.round(Number(entry.secDone) || 0)),
+      free: Boolean(entry.free),
       items: (Array.isArray(entry.items) ? entry.items : [])
         .filter((item) => item && typeof item.name === "string" && item.name.trim())
         .slice(0, 30)
         .map((item) => ({
+          exerciseId: typeof item.exerciseId === "string" ? item.exerciseId : null,
           name: String(item.name).slice(0, 60),
           level: LEVELS[item.level] ? item.level : "debutant",
           muscle: typeof item.muscle === "string" ? item.muscle.slice(0, 30) : "Full body",
@@ -14341,6 +15833,7 @@ function normalizeState(raw) {
           reps: clamp(parseInt(item.reps, 10) || 1, 1, 500),
           unit: item.unit === "sec" ? "sec" : "reps",
           xp: Math.max(0, Math.round(Number(item.xp) || 0)),
+          free: Boolean(item.free),
           actuals: (Array.isArray(item.actuals) ? item.actuals : [])
             .slice(0, 20)
             .map((value) => clamp(parseInt(value, 10) || 0, 0, 600)),
@@ -14366,6 +15859,9 @@ function normalizeState(raw) {
       count: Math.max(0, Math.round(Number(rec.count) || 0)),
       firstDay: typeof rec.firstDay === "string" ? rec.firstDay : null,
       lastDay: typeof rec.lastDay === "string" ? rec.lastDay : null,
+      lastActuals: (Array.isArray(rec.lastActuals) ? rec.lastActuals : [])
+        .slice(0, 20)
+        .map((value) => clamp(parseInt(value, 10) || 0, 0, 600)),
     };
   });
   // Rétro-remplissage : les quêtes déjà validées méritent leur premier record.
@@ -14387,6 +15883,30 @@ function normalizeState(raw) {
       lastDay: task.doneDate,
     };
   });
+
+  /* v3 — modèles de séance libre (migration douce) */
+  merged.templates = (Array.isArray(raw && raw.templates) ? raw.templates : [])
+    .filter((template) => template && typeof template.name === "string" && Array.isArray(template.items))
+    .slice(0, 20)
+    .map((template) => ({
+      id: typeof template.id === "string" ? template.id : uid(),
+      name: String(template.name).slice(0, 40) || "Modèle",
+      createdAt: Number(template.createdAt) || Date.now(),
+      items: template.items
+        .filter((item) => item && typeof item.name === "string" && item.name.trim())
+        .slice(0, 20)
+        .map((item) => ({
+          exerciseId: typeof item.exerciseId === "string" ? item.exerciseId : null,
+          name: String(item.name).slice(0, 60),
+          level: LEVELS[item.level] ? item.level : "debutant",
+          muscle: typeof item.muscle === "string" ? item.muscle.slice(0, 30) : "Full body",
+          sets: clamp(parseInt(item.sets, 10) || 3, 1, 20),
+          reps: clamp(parseInt(item.reps, 10) || 10, 1, 600),
+          unit: item.unit === "sec" ? "sec" : "reps",
+          xp: clamp(parseInt(item.xp, 10) || 10, 1, 500),
+        })),
+    }))
+    .filter((template) => template.items.length > 0);
 
   merged.version = base.version;
   return merged;
@@ -14633,7 +16153,7 @@ const FOCUSABLE_SELECTOR = [
 const overlayFocusReturn = new Map();
 
 function activeOverlay() {
-  return ["levelUp", "hunt", "session"]
+  return ["levelUp", "hunt", "session", "freeBuilder"]
     .map((id) => $(id))
     .find((el) => el && !el.hidden) || null;
 }
@@ -14877,6 +16397,7 @@ function hubModel() {
     xpNeed: info.need,
     streak: displayStreak(),
     weekXp: last7Keys().reduce((sum, key) => sum + ((state.history[key] && state.history[key].xp) || 0), 0),
+    weekDelta: weekComparison().delta,
     volumeToday: doneTasks.reduce((sum, task) => sum + task.sets * task.reps, 0),
     questsDone: doneTasks.length,
     questsTotal: total,
@@ -14979,6 +16500,9 @@ function renderQuests() {
       <div class="head-actions">
         <button class="btn ${rest > 0 ? "btn-lime" : "btn-ghost"} btn-sm" type="button" data-action="open-session">
           ${rest > 0 ? cxIcon("play") : cxIcon("check")}<span>${sessionState ? "Reprendre la séance" : rest > 0 ? "Lancer la séance" : "Séance close"}</span>
+        </button>
+        <button class="btn btn-ghost btn-sm" type="button" data-action="open-free-builder">
+          ${cxIcon("layers")}<span>Séance libre</span>
         </button>
         <button class="btn btn-ghost btn-sm" type="button" data-nav="library">
           ${cxIcon("plus")}<span>Depuis l'arsenal</span>
@@ -15365,6 +16889,24 @@ function renderProfile() {
 
     <div class="section-head">
       <div>
+        <span class="eyebrow">Rythme</span>
+        <h2 class="section-title">Assiduité</h2>
+      </div>
+      <p class="section-sub">12 dernières semaines · un geste laisse une trace</p>
+    </div>
+    <div class="assiduite-grid">
+      <section class="card heat-card" aria-label="Calendrier d'activité">
+        <div class="card-head">
+          <h2 class="card-title"><span class="dot"></span> Calendrier</h2>
+          <span class="chip">12 semaines</span>
+        </div>
+        ${heatmapHTML()}
+      </section>
+      ${weekBilanHTML()}
+    </div>
+
+    <div class="section-head">
+      <div>
         <span class="eyebrow">Cire</span>
         <h2 class="section-title">Sceaux</h2>
       </div>
@@ -15428,7 +16970,7 @@ function renderProfile() {
             <span class="slog-day">${shortDay(entry.day)}</span>
             <div class="slog-main">
               <b>${formatMinutes(entry.duration)} · +${formatNumber(entry.xp)} XP</b>
-              <span>${entry.quests} quête${entry.quests > 1 ? "s" : ""} · ${entry.sets} série${entry.sets > 1 ? "s" : ""}${entry.repsDone ? ` · ${formatNumber(entry.repsDone)} réps` : ""}${entry.secDone ? ` · ${formatNumber(entry.secDone)} s` : ""}</span>
+              <span>${entry.free ? "séance libre · " : ""}${entry.quests} ${entry.free ? "bloc" : "quête"}${entry.quests > 1 ? "s" : ""} · ${entry.sets} série${entry.sets > 1 ? "s" : ""}${entry.repsDone ? ` · ${formatNumber(entry.repsDone)} réps` : ""}${entry.secDone ? ` · ${formatNumber(entry.secDone)} s` : ""}</span>
               <em>${entry.items.length
                 ? entry.items.map((item) => {
                   const list = Array.isArray(item.actuals) ? item.actuals.filter((value) => Number.isFinite(value)) : [];
@@ -15449,18 +16991,33 @@ function renderProfile() {
       <p class="section-sub">${records.length ? "Tes meilleures marques, exercice par exercice" : "Aucun record pour l'instant"}</p>
     </div>
     ${records.length ? `<div class="record-grid">
-      ${records.slice(0, 6).map((rec) => `
+      ${records.slice(0, 6).map((rec) => {
+        const history = exerciseHistory(rec.key, 8);
+        const last = history[history.length - 1];
+        const objective = suggestedObjective(rec.key, rec);
+        const unitShort = rec.unit === "sec" ? "s" : "réps";
+        const perf = last
+          ? last.actuals.slice(0, Math.max(1, last.sets)).join(" · ")
+          : (Array.isArray(rec.lastActuals) && rec.lastActuals.length ? rec.lastActuals.join(" · ") : "");
+        const curve = sparkline(history.map((entry) => entry.total));
+        const objectiveLabel = objective
+          ? `${objective.value} ${objective.unit === "sec" ? "s" : "réps"}`
+          : "—";
+        return `
         <div class="record-card">
           <div class="record-top">
             <span class="record-name">${escapeHtml(rec.name)}</span>
             <span class="record-count">${rec.count}×</span>
           </div>
           <div class="record-value">${rec.bestReps}<small>${rec.unit === "sec" ? " s" : " réps"}</small></div>
+          <div class="record-last"><span>DERNIÈRE</span>${perf ? `<b>${perf} ${unitShort}</b>` : "<b>non relevée</b>"}</div>
+          ${curve ? `<div class="record-curve-wrap">${curve}<span>${history.length} séance${history.length > 1 ? "s" : ""}</span></div>` : ""}
           <div class="record-meta">
-            <span>Volume <b>${rec.volumeSets} × ${rec.volumeReps}</b></span>
+            <span>Objectif <b>${objectiveLabel}</b>${objective ? `<em class="record-tag ${objective.complete ? "is-up" : ""}">${objective.complete ? "+1 cran" : "consolider"}</em>` : ""}</span>
             <span>Dernier <b>${shortDay(rec.lastDay)}</b></span>
           </div>
-        </div>`).join("")}
+        </div>`;
+      }).join("")}
     </div>` : `<div class="card"><p class="slog-empty">Valide une quête pour ouvrir ton premier record.</p></div>`}
 
     <div class="section-head">
@@ -15598,7 +17155,7 @@ function addTask(data) {
   renderAll();
 }
 
-function toggleTask(id, position) {
+function toggleTask(id, position, actuals) {
   const task = state.tasks.find((t) => t.id === id);
   if (!task) return;
 
@@ -15658,7 +17215,7 @@ function toggleTask(id, position) {
     entry.perfect = true;
   }
 
-  updateRecords(task);
+  updateRecords(task, actuals);
 
   const rewards = resolveWeeklyRewards();
   const after = levelInfo(p.xp);
@@ -16008,6 +17565,34 @@ document.addEventListener("click", (event) => {
     case "open-session":
       openSession();
       break;
+    case "open-free-builder":
+      openFreeBuilder();
+      break;
+    case "free-close":
+      closeFreeBuilder();
+      break;
+    case "free-add":
+      freeAddExercise(id);
+      break;
+    case "free-remove":
+      freeRemoveExercise(id);
+      break;
+    case "free-level":
+      freeDraft.level = actionEl.dataset.level || "all";
+      renderFreeBuilder();
+      break;
+    case "free-start":
+      startFreeSession();
+      break;
+    case "free-save-template":
+      freeSaveTemplate();
+      break;
+    case "free-template-load":
+      freeLoadTemplate(id);
+      break;
+    case "free-template-delete":
+      freeDeleteTemplate(id);
+      break;
     case "load-program":
       loadProgramDay(parseInt(actionEl.dataset.id, 10) || 0);
       break;
@@ -16025,6 +17610,15 @@ document.addEventListener("click", (event) => {
       break;
     case "session-rest-plus":
       sessionAdjustRest(15);
+      break;
+    case "session-rest-preset":
+      sessionRestPreset(actionEl.dataset.sec);
+      break;
+    case "session-hold-toggle":
+      sessionHoldToggle();
+      break;
+    case "session-hold-reset":
+      sessionHoldReset();
       break;
     case "session-reps-minus":
       sessionAdjustReps(event.shiftKey ? -5 : -1);
@@ -16120,6 +17714,23 @@ document.addEventListener("input", (event) => {
     renderLibraryGrid();
     return;
   }
+  if (event.target.id === "freeSearch") {
+    freeDraft.query = event.target.value;
+    renderFreeList();
+    return;
+  }
+  if (event.target.dataset && event.target.dataset.freeSets) {
+    freeUpdateNumber(event.target.dataset.freeSets, "sets", event.target.value);
+    return;
+  }
+  if (event.target.dataset && event.target.dataset.freeReps) {
+    freeUpdateNumber(event.target.dataset.freeReps, "reps", event.target.value);
+    return;
+  }
+  if (event.target.id === "freeTemplateName") {
+    freeDraft.name = event.target.value;
+    return;
+  }
   if (event.target.id === "sessionReps") {
     const task = sessionTask();
     if (!task || !sessionState) return;
@@ -16177,6 +17788,11 @@ document.addEventListener("keydown", (event) => {
     }
     if (huntState) {
       closeHunt();
+      return;
+    }
+    const freeBuilder = $("freeBuilder");
+    if (freeBuilder && !freeBuilder.hidden) {
+      closeFreeBuilder();
       return;
     }
     if (sessionState) {
