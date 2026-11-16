@@ -9122,6 +9122,220 @@ h1, h2, h3, h4 {
 }
 .free-foot-actions { flex: none; display: flex; gap: 8px; }
 
+/* ------------------------------------------------------------
+   23. VISITE GUIDÉE & ARCHIVES DU LORE
+   ------------------------------------------------------------ */
+.tour {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+}
+.tour[hidden] { display: none; }
+.tour-veil { position: absolute; inset: 0; }
+.tour.is-centered .tour-veil {
+  background: rgba(2, 4, 10, 0.78);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+.tour-spot {
+  position: fixed;
+  z-index: 321;
+  pointer-events: none;
+  border: 1px solid rgba(53, 224, 255, 0.85);
+  box-shadow:
+    0 0 0 9999px rgba(2, 4, 10, 0.78),
+    0 0 34px rgba(53, 224, 255, 0.32),
+    inset 0 0 22px rgba(53, 224, 255, 0.12);
+  transition: top 0.22s ease, left 0.22s ease, width 0.22s ease, height 0.22s ease;
+}
+.tour-spot[hidden] { display: none; }
+.tour-card {
+  position: fixed;
+  z-index: 322;
+  width: min(380px, calc(100vw - 32px));
+  padding: 20px 22px 16px;
+  border: 1px solid var(--hairline-2);
+  background:
+    radial-gradient(420px 240px at 50% 0%, rgba(53, 224, 255, 0.12), transparent 68%),
+    linear-gradient(180deg, #080d17, #05080e);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: tourIn 0.24s ease;
+}
+.tour-card.is-docked {
+  left: 12px !important;
+  right: 12px;
+  top: auto !important;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: auto;
+}
+.tour-card.is-docked-top {
+  left: 12px !important;
+  right: 12px;
+  top: calc(12px + env(safe-area-inset-top, 0px)) !important;
+  bottom: auto !important;
+  width: auto;
+}
+@keyframes tourIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.tour-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(53, 224, 255, 0.6);
+  border-style: solid;
+  pointer-events: none;
+}
+.tour-corner--tl { top: 5px; left: 5px; border-width: 1px 0 0 1px; }
+.tour-corner--tr { top: 5px; right: 5px; border-width: 1px 1px 0 0; }
+.tour-corner--bl { bottom: 5px; left: 5px; border-width: 0 0 1px 1px; }
+.tour-corner--br { bottom: 5px; right: 5px; border-width: 0 1px 1px 0; }
+.tour-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.tour-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.tour-kicker i {
+  width: 5px;
+  height: 5px;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+.tour-kicker b { color: var(--ink-3); font-weight: 400; }
+.tour-close {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  color: var(--ink-4);
+  border: 1px solid var(--hairline);
+  background: rgba(8, 14, 24, 0.7);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s;
+}
+.tour-close:hover { color: var(--cyan); border-color: var(--line-hot); }
+.tour-close svg { width: 12px; height: 12px; }
+.tour-title {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.tour-text {
+  margin: 0 0 14px;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+.tour-dots { display: flex; gap: 5px; margin-bottom: 14px; }
+.tour-dots i {
+  width: 16px;
+  height: 2px;
+  background: rgba(147, 180, 240, 0.18);
+}
+.tour-dots i.is-done { background: rgba(53, 224, 255, 0.45); }
+.tour-dots i.is-on { background: var(--cyan); box-shadow: 0 0 10px rgba(53, 224, 255, 0.5); }
+.tour-actions { display: flex; gap: 8px; }
+.tour-actions .btn { flex: 1 1 0; }
+.tour-hint {
+  margin: 10px 0 0;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 14px 16px;
+  border: 1px solid var(--hairline);
+  background: rgba(7, 10, 17, 0.55);
+}
+.archive-card.is-seen {
+  border-color: rgba(53, 224, 255, 0.22);
+  background: linear-gradient(180deg, rgba(53, 224, 255, 0.05), rgba(7, 10, 17, 0.55) 60%);
+}
+.archive-card.is-locked { opacity: 0.62; }
+.archive-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.archive-num {
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+.archive-card.is-seen .archive-num { color: var(--cyan); }
+.archive-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.14em;
+}
+.archive-card.is-seen .archive-state { color: var(--cyan); }
+.archive-state svg { width: 10px; height: 10px; }
+.archive-title {
+  margin: 0;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+.archive-card.is-locked .archive-title { color: var(--ink-4); }
+.archive-text {
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1080px) {
+  .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .archive-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tour-spot { transition: none; }
+  .tour-card { animation: none; }
+}
+
 @supports not (clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%)) {
   .session-hold { border-radius: 2px; }
 }
@@ -11034,6 +11248,32 @@ h1, h2, h3, h4 {
     </div>
   </div>
 
+  <!-- ============ VISITE GUIDÉE ============ -->
+  <div class="tour" id="tour" role="dialog" aria-modal="true" aria-labelledby="tourTitle" hidden>
+    <div class="tour-veil" aria-hidden="true"></div>
+    <div class="tour-spot" id="tourSpot" aria-hidden="true"></div>
+    <section class="tour-card" id="tourCard">
+      <span class="tour-corner tour-corner--tl" aria-hidden="true"></span>
+      <span class="tour-corner tour-corner--tr" aria-hidden="true"></span>
+      <span class="tour-corner tour-corner--bl" aria-hidden="true"></span>
+      <span class="tour-corner tour-corner--br" aria-hidden="true"></span>
+      <header class="tour-head">
+        <span class="tour-kicker"><i aria-hidden="true"></i> VISITE GUIDÉE <b id="tourCount">01 / 06</b></span>
+        <button class="tour-close" type="button" data-action="tour-skip" aria-label="Passer la visite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+      <h2 class="tour-title" id="tourTitle">Bienvenue au Seuil</h2>
+      <p class="tour-text" id="tourText"></p>
+      <div class="tour-dots" id="tourDots" aria-hidden="true"></div>
+      <footer class="tour-actions">
+        <button class="btn btn-ghost btn-sm" type="button" data-action="tour-prev" id="tourPrev">Précédent</button>
+        <button class="btn btn-lime btn-sm" type="button" data-action="tour-next" id="tourNext">Suivant</button>
+      </footer>
+      <p class="tour-hint">Flèches ← → pour naviguer · Échap pour fermer</p>
+    </section>
+  </div>
+
   <noscript>
     <div class="noscript">Calisthenix a besoin de JavaScript pour fonctionner. Active-le puis recharge la page.</div>
   </noscript>
@@ -11107,6 +11347,8 @@ h1, h2, h3, h4 {
     layers:
       '<path d="m12 3.2 8.4 4.6L12 12.4 3.6 7.8 12 3.2Z"/><path d="m3.6 12 8.4 4.6 8.4-4.6M3.6 16.2l8.4 4.6 8.4-4.6"/>',
     pause: '<path d="M8.6 4.8v14.4M15.4 4.8v14.4"/>',
+    install:
+      '<path d="M12 3.4v10.4M7.8 9.6 12 13.8l4.2-4.2"/><path d="M4.4 15.6v3.2a1.6 1.6 0 0 0 1.6 1.6h12a1.6 1.6 0 0 0 1.6-1.6v-3.2"/>',
   };
 
   /**
@@ -13074,6 +13316,55 @@ function dailyLore() {
     total: LORE_FRAGMENTS.length,
   };
 }
+
+/* Visite guidée : une seule fois au premier lancement, puis rejouable.
+   Chaque étape peut changer de vue et désigner une cible à éclairer. */
+function markLoreSeen() {
+  const index = dailyLore().n - 1;
+  if (!state.lore || !Array.isArray(state.lore.seen)) state.lore = { seen: [] };
+  if (state.lore.seen.includes(index)) return;
+  state.lore.seen.push(index);
+  save();
+}
+
+const TOUR_STEPS = [
+  {
+    title: "Bienvenue au Seuil",
+    text: "Le Quartier Général rassemble l'essentiel : ton sceau, la Porte, tes quêtes du jour et le fragment du Codex. Le Système lit ta progression ici, sans rien te demander d'autre que de revenir.",
+    targets: [".hub-title", ".hub-seal"],
+    view: "dashboard",
+  },
+  {
+    title: "Lancer une séance",
+    text: "Ce bouton ouvre la séance guidée : chaque série se valide au fil de l'effort, avec un minuteur de repos. Tes répétitions réelles nourrissent tes records et ton XP.",
+    targets: ['[data-bind="primary"]', ".hub-cta .btn-primary"],
+    view: "dashboard",
+  },
+  {
+    title: "Le journal des quêtes",
+    text: "Tes quêtes quotidiennes vivent ici. Tu peux les modifier, les supprimer, les remplacer, ou en ajouter une depuis l'Arsenal. La série se joue sur ce journal.",
+    targets: ['.side-nav [data-nav="quests"]', '.mobile-nav [data-nav="quests"]'],
+    view: "quests",
+  },
+  {
+    title: "L'Arsenal",
+    text: "Toute la bibliothèque d'exercices au poids du corps, classée par niveau et par filière. Chaque fiche indique les séries, les répétitions et le conseil d'exécution.",
+    targets: ['.side-nav [data-nav="library"]', '.mobile-nav [data-nav="library"]'],
+    view: "library",
+  },
+  {
+    title: "Le Codex",
+    text: "Tes chapitres, tes attributs, tes sceaux, tes records, tes archives et tes réglages. C'est aussi ici que tu peux relancer cette visite ou installer l'application.",
+    targets: ['.side-nav [data-nav="profile"]', '.mobile-nav [data-nav="profile"]'],
+    view: "profile",
+  },
+  {
+    title: "À toi de jouer",
+    text: "Tu connais le chemin. Commence par une quête, valide une première série, et laisse le Système enregistrer le reste. La Porte s'ouvre à ceux qui reviennent.",
+    targets: [],
+    view: "dashboard",
+  },
+];
 
 /* ------------------------------------------------------------
    2. BIBLIOTHÈQUE D'EXERCICES (poids du corps)
@@ -15703,7 +15994,8 @@ function defaultState() {
     sessions: [],
     records: {},
     templates: [],
-    settings: { sound: true, rest: 60 },
+    lore: { seen: [] },
+    settings: { sound: true, rest: 60, tourDone: false },
   };
 }
 
@@ -15885,6 +16177,16 @@ function normalizeState(raw) {
   });
 
   /* v3 — modèles de séance libre (migration douce) */
+  /* Archives du lore — fragments déjà lus (migration douce) */
+  const rawLore = raw && raw.lore && typeof raw.lore === "object" ? raw.lore : {};
+  const seenLore = Array.isArray(rawLore.seen) ? rawLore.seen : [];
+  merged.lore = {
+    seen: Array.from(new Set(seenLore
+      .map((value) => parseInt(value, 10))
+      .filter((index) => Number.isInteger(index) && index >= 0 && index < LORE_FRAGMENTS.length))),
+  };
+  merged.settings.tourDone = Boolean(merged.settings.tourDone);
+
   merged.templates = (Array.isArray(raw && raw.templates) ? raw.templates : [])
     .filter((template) => template && typeof template.name === "string" && Array.isArray(template.items))
     .slice(0, 20)
@@ -16138,6 +16440,230 @@ function closeLevelUp() {
 }
 
 /* ------------------------------------------------------------
+   9 bis. VISITE GUIDÉE
+   Un spotlight suit la cible, une carte explique l'étape.
+   La visite ne se lance qu'une fois, puis reste rejouable.
+   ------------------------------------------------------------ */
+let tourIndex = 0;
+let tourReturnView = "dashboard";
+let tourFrame = null;
+
+function tourOpen() {
+  const overlay = $("tour");
+  return Boolean(overlay && !overlay.hidden);
+}
+
+function tourVisibleTarget(targets) {
+  const list = Array.isArray(targets) ? targets : [];
+  for (const selector of list) {
+    let nodes = [];
+    try { nodes = Array.from(document.querySelectorAll(selector)); } catch (err) { nodes = []; }
+    const found = nodes.find((el) => {
+      if (!el || !el.getClientRects().length) return false;
+      const style = window.getComputedStyle(el);
+      return style.display !== "none" && style.visibility !== "hidden";
+    });
+    if (found) return found;
+  }
+  return null;
+}
+
+function positionTour() {
+  if (!tourOpen()) return;
+  const overlay = $("tour");
+  const spot = $("tourSpot");
+  const card = $("tourCard");
+  if (!overlay || !spot || !card) return;
+
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const step = TOUR_STEPS[tourIndex];
+  const target = step ? tourVisibleTarget(step.targets) : null;
+  const rect = target ? target.getBoundingClientRect() : null;
+  const docked = Boolean(rect) && vw < 760;
+  const pad = 8;
+
+  overlay.classList.toggle("is-centered", !rect);
+  card.classList.toggle("is-docked", docked);
+  const centerY = rect ? rect.top + rect.height / 2 : 0;
+  card.classList.toggle("is-docked-top", docked && centerY > vh / 2);
+
+  if (rect) {
+    const top = clamp(rect.top - pad, 4, vh - 28);
+    const left = clamp(rect.left - pad, 4, vw - 28);
+    const width = clamp(rect.width + pad * 2, 24, vw - left - 4);
+    const height = clamp(rect.height + pad * 2, 24, vh - top - 4);
+    spot.hidden = false;
+    spot.style.top = `${Math.round(top)}px`;
+    spot.style.left = `${Math.round(left)}px`;
+    spot.style.width = `${Math.round(width)}px`;
+    spot.style.height = `${Math.round(height)}px`;
+  } else {
+    spot.hidden = true;
+  }
+
+  if (docked) {
+    card.style.left = "";
+    card.style.top = "";
+    card.style.right = "";
+    return;
+  }
+
+  const cw = card.offsetWidth;
+  const ch = card.offsetHeight;
+  let left;
+  let top;
+  if (rect) {
+    const spaceRight = vw - rect.right;
+    const spaceLeft = rect.left;
+    if (spaceRight >= cw + 28) {
+      left = rect.right + 20;
+      top = rect.top + rect.height / 2 - ch / 2;
+    } else if (spaceLeft >= cw + 28) {
+      left = rect.left - cw - 20;
+      top = rect.top + rect.height / 2 - ch / 2;
+    } else {
+      left = clamp(rect.left + rect.width / 2 - cw / 2, 16, vw - cw - 16);
+      if (vh - rect.bottom >= ch + 24) top = rect.bottom + 18;
+      else if (rect.top >= ch + 24) top = rect.top - ch - 18;
+      else top = rect.top + rect.height / 2 - ch / 2;
+    }
+    top = clamp(top, 16, vh - ch - 16);
+  } else {
+    left = (vw - cw) / 2;
+    top = (vh - ch) / 2;
+  }
+  card.style.left = `${Math.round(left)}px`;
+  card.style.top = `${Math.round(top)}px`;
+  card.style.right = "";
+}
+
+function scheduleTourPosition() {
+  if (!tourOpen() || tourFrame) return;
+  tourFrame = window.requestAnimationFrame(() => {
+    tourFrame = null;
+    positionTour();
+  });
+}
+
+function renderTourStep() {
+  const overlay = $("tour");
+  if (!overlay || overlay.hidden) return;
+  const step = TOUR_STEPS[tourIndex];
+  if (!step) {
+    closeTour(true);
+    return;
+  }
+  if (step.view && step.view !== ui.view) setView(step.view);
+
+  const count = $("tourCount");
+  if (count) count.textContent = `${pad2(tourIndex + 1)} / ${pad2(TOUR_STEPS.length)}`;
+  const title = $("tourTitle");
+  if (title) title.textContent = step.title;
+  const text = $("tourText");
+  if (text) text.textContent = step.text;
+
+  const dots = $("tourDots");
+  if (dots) {
+    dots.innerHTML = TOUR_STEPS.map((_, i) => {
+      const cls = i === tourIndex ? "is-on" : i < tourIndex ? "is-done" : "";
+      return `<i class="${cls}"></i>`;
+    }).join("");
+  }
+
+  const prev = $("tourPrev");
+  if (prev) prev.disabled = tourIndex === 0;
+  const next = $("tourNext");
+  if (next) next.textContent = tourIndex === TOUR_STEPS.length - 1 ? "Terminer" : "Suivant";
+
+  window.setTimeout(() => {
+    if (!tourOpen()) return;
+    const target = tourVisibleTarget(step.targets);
+    if (target && target.scrollIntoView) {
+      try {
+        target.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+      } catch (err) { /* navigateur ancien */ }
+    }
+    positionTour();
+    const focusTarget = next || $("tourCard");
+    if (focusTarget && typeof focusTarget.focus === "function") {
+      focusTarget.focus({ preventScroll: true });
+    }
+  }, prefersReduced() ? 20 : 130);
+}
+
+function startTour() {
+  const overlay = $("tour");
+  if (!overlay || !overlay.hidden) return;
+  if (sessionState) {
+    openSession();
+    showToast({ icon: "hourglass", title: "Séance en cours", desc: "Termine ou quitte la séance avant de lancer la visite.", tone: "neutral", duration: 3200 });
+    return;
+  }
+  if (activeOverlay()) return;
+  tourReturnView = ui.view;
+  tourIndex = 0;
+  rememberOverlayFocus("tour");
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  syncModalState();
+  renderTourStep();
+  beep("engage");
+}
+
+function tourNext() {
+  if (!tourOpen()) return;
+  if (tourIndex >= TOUR_STEPS.length - 1) {
+    closeTour(true);
+    return;
+  }
+  tourIndex += 1;
+  renderTourStep();
+  beep("add");
+}
+
+function tourPrev() {
+  if (!tourOpen() || tourIndex === 0) return;
+  tourIndex -= 1;
+  renderTourStep();
+  beep("undo");
+}
+
+function closeTour(completed = true) {
+  const overlay = $("tour");
+  if (!overlay || overlay.hidden) return;
+  overlay.hidden = true;
+  overlay.classList.remove("is-centered");
+  const card = $("tourCard");
+  if (card) card.classList.remove("is-docked", "is-docked-top");
+  const spot = $("tourSpot");
+  if (spot) spot.hidden = true;
+  document.body.classList.remove("no-scroll");
+  state.settings.tourDone = true;
+  save();
+  syncModalState();
+  if (completed) {
+    tourReturnView = "dashboard";
+    if (ui.view !== "dashboard") setView("dashboard");
+  } else if (tourReturnView && ui.view !== tourReturnView) {
+    setView(tourReturnView);
+  }
+  restoreOverlayFocus("tour");
+  if (completed) {
+    showToast({ icon: "route", title: "Visite terminée", desc: "Tu peux la revoir depuis le Codex, à tout moment.", tone: "neutral", duration: 3200 });
+  }
+}
+
+function maybeStartTour() {
+  if (state.settings.tourDone) return;
+  if (activeOverlay() || sessionState || huntState) return;
+  startTour();
+}
+
+window.addEventListener("resize", scheduleTourPosition, { passive: true });
+window.addEventListener("scroll", scheduleTourPosition, { passive: true });
+
+/* ------------------------------------------------------------
    9 bis. FOCUS DES OVERLAYS
    Piège de tabulation, focus initial et retour au déclencheur.
    ------------------------------------------------------------ */
@@ -16153,7 +16679,7 @@ const FOCUSABLE_SELECTOR = [
 const overlayFocusReturn = new Map();
 
 function activeOverlay() {
-  return ["levelUp", "hunt", "session", "freeBuilder"]
+  return ["tour", "levelUp", "hunt", "session", "freeBuilder"]
     .map((id) => $(id))
     .find((el) => el && !el.hidden) || null;
 }
@@ -16188,7 +16714,7 @@ function restoreOverlayFocus(id) {
   overlayFocusReturn.delete(id);
   const open = activeOverlay();
   let target = record && record.el && document.contains(record.el) ? record.el : null;
-  if (target && target.closest("[inert]")) target = null;
+  if (target && (target.getClientRects().length === 0 || target.closest("[inert]"))) target = null;
   if (!target && record && record.action) {
     target = document.querySelector(`[data-action="${record.action}"]`);
   }
@@ -16342,6 +16868,7 @@ function hudStamp() {
 
 function renderDashboard() {
   if (window.CX && CX.hub && typeof CX.hub.render === "function") {
+    markLoreSeen();
     CX.hub.render(hubModel());
     return;
   }
@@ -16811,6 +17338,7 @@ function renderProfile() {
     : capitalize(created.toLocaleDateString("fr-FR", { month: "long", year: "numeric" }));
 
   const records = recordList();
+  const seenLore = new Set(state.lore && Array.isArray(state.lore.seen) ? state.lore.seen : []);
   const log = Array.isArray(state.sessions) ? state.sessions : [];
   const logTime = log.reduce((sum, entry) => sum + (entry.duration || 0), 0);
   const logSets = log.reduce((sum, entry) => sum + (entry.sets || 0), 0);
@@ -16950,6 +17478,30 @@ function renderProfile() {
 
     <div class="section-head">
       <div>
+        <span class="eyebrow">Mémoire</span>
+        <h2 class="section-title">Archives</h2>
+      </div>
+      <p class="section-sub">${seenLore.size} / ${LORE_FRAGMENTS.length} fragments lus</p>
+    </div>
+    <div class="archive-grid">
+      ${LORE_FRAGMENTS.map((fragment, index) => {
+        const seen = seenLore.has(index);
+        return `
+          <article class="archive-card ${seen ? "is-seen" : "is-locked"}">
+            <div class="archive-top">
+              <span class="archive-num">${String(index + 1).padStart(2, "0")}</span>
+              <span class="archive-state">${seen ? "LU" : `${cxIcon("lock")} SCELLÉ`}</span>
+            </div>
+            <h3 class="archive-title">${seen ? escapeHtml(fragment.title) : "Fragment scellé"}</h3>
+            <p class="archive-text">${seen
+              ? escapeHtml(fragment.text)
+              : "Le fragment s'ouvrira au QG, le jour où le Système l'aura prévu."}</p>
+          </article>`;
+      }).join("")}
+    </div>
+
+    <div class="section-head">
+      <div>
         <span class="eyebrow">Effort</span>
         <h2 class="section-title">Séances</h2>
       </div>
@@ -17059,6 +17611,26 @@ function renderProfile() {
           aria-label="Activer les effets sonores" data-action="toggle-sound"></button>
       </div>
       <div class="setting-row">
+        <span class="setting-icon" aria-hidden="true">${cxIcon("route")}</span>
+        <div class="setting-info">
+          <div class="setting-name">Visite guidée</div>
+          <div class="setting-desc">Revoir les repères du QG, de la séance, des quêtes, de l'Arsenal et du Codex.</div>
+        </div>
+        <div class="setting-actions">
+          <button class="btn btn-ghost btn-sm" type="button" data-action="start-tour">Revoir la visite</button>
+        </div>
+      </div>
+      <div class="setting-row" id="pwaInstallRow" hidden>
+        <span class="setting-icon" aria-hidden="true">${cxIcon("install")}</span>
+        <div class="setting-info">
+          <div class="setting-name">Installer l'application</div>
+          <div class="setting-desc">Ajoute Calisthenix à l'écran d'accueil pour l'ouvrir comme une application, même hors connexion.</div>
+        </div>
+        <div class="setting-actions">
+          <button class="btn btn-ghost btn-sm" type="button" data-action="pwa-install">Installer</button>
+        </div>
+      </div>
+      <div class="setting-row">
         <span class="setting-icon" aria-hidden="true">${cxIcon("download")}</span>
         <div class="setting-info">
           <div class="setting-name">Sauvegarde</div>
@@ -17085,6 +17657,7 @@ function renderProfile() {
   `;
 
   if (window.CX && CX.windows) CX.windows.decorate("profile");
+  if (window.CX && CX.pwa && typeof CX.pwa.syncRow === "function") CX.pwa.syncRow();
 }
 
 /* ------------------------------------------------------------
@@ -17549,6 +18122,21 @@ document.addEventListener("click", (event) => {
   const id = actionEl.dataset.id;
 
   switch (action) {
+    case "start-tour":
+      startTour();
+      break;
+    case "tour-next":
+      tourNext();
+      break;
+    case "tour-prev":
+      tourPrev();
+      break;
+    case "tour-skip":
+      closeTour(false);
+      break;
+    case "pwa-install":
+      if (window.CX && CX.pwa && typeof CX.pwa.install === "function") CX.pwa.install();
+      break;
     case "open-hunt":
       openHunt();
       break;
@@ -17780,6 +18368,25 @@ document.addEventListener("change", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (trapOverlayTab(event)) return;
+  const tourOverlay = $("tour");
+  if (tourOverlay && !tourOverlay.hidden) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeTour(false);
+      return;
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      tourNext();
+      return;
+    }
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      tourPrev();
+      return;
+    }
+    return;
+  }
   if (event.key === "Escape") {
     const levelUp = $("levelUp");
     if (levelUp && !levelUp.hidden) {
@@ -17862,13 +18469,17 @@ window.setInterval(() => {
 /* ------------------------------------------------------------
    20. BOOT / LIAISON SYSTÈME
    ------------------------------------------------------------ */
-function runBoot() {
+function runBoot(onDone) {
   const boot = $("boot");
-  if (!boot) return;
+  if (!boot) {
+    if (onDone) onDone();
+    return;
+  }
   let seen = false;
   try { seen = window.sessionStorage.getItem("calisthenix.boot") === "1"; } catch (err) { seen = false; }
   if (prefersReduced() || seen) {
     boot.hidden = true;
+    if (onDone) onDone();
     return;
   }
   boot.hidden = false;
@@ -17885,6 +18496,7 @@ function runBoot() {
     window.setTimeout(() => {
       boot.hidden = true;
       boot.classList.remove("is-out");
+      if (onDone) onDone();
     }, 600);
   };
 
@@ -17900,7 +18512,7 @@ function runBoot() {
   const hash = (location.hash || "").replace("#", "");
   ui.view = VIEWS.includes(hash) ? hash : "dashboard";
   renderNavIcons();
-  runBoot();
+  runBoot(() => window.setTimeout(maybeStartTour, 350));
   const rewards = resolveWeeklyRewards();
   save();
   restoreSessionSnapshot();
