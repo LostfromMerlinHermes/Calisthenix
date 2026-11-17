@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <!-- Version autonome : CSS, JS et polices integres. -->
@@ -5513,6 +5513,79 @@ body.is-booting { overflow: hidden; }
 }
 .session-foot b { margin-left: 4px; color: var(--cyan); font-weight: 600; }
 
+/* Échauffement guidé — même cadre que la séance, accents plus chauds. */
+.warmup .session-frame {
+  background:
+    radial-gradient(80% 64% at 50% 38%, rgba(139, 92, 246, 0.14), transparent 64%),
+    radial-gradient(70% 60% at 50% 104%, rgba(53, 224, 255, 0.1), transparent 62%),
+    linear-gradient(180deg, #03050b, #060b15 56%, #020409);
+}
+.warmup-done .session-done-icon { color: #c4b5fd; }
+.warmup-main .session-sub {
+  max-width: 48ch;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.warmup-core { margin-top: 4px; }
+.warmup-ring .sr-fill { stroke: #a78bfa; filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.55)); }
+.warmup-zones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  width: min(430px, 100%);
+  margin: 2px auto 0;
+}
+.warmup-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 6px 7px;
+  border: 1px solid var(--line);
+  background: rgba(8, 14, 24, 0.6);
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: var(--clip-sm);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.warmup-zone i {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.warmup-zone:hover { color: var(--muted); border-color: var(--line-hot); }
+.warmup-zone:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+.warmup-zone.is-on {
+  color: #c4b5fd;
+  border-color: rgba(139, 92, 246, 0.55);
+  background: rgba(139, 92, 246, 0.1);
+}
+.warmup-zone.is-on i {
+  background: #c4b5fd;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.75);
+}
+.warmup-zone.is-done { color: var(--cyan); }
+.warmup-zone.is-done i { background: var(--cyan); }
+.warmup-elapsed {
+  margin: 0;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+.warmup-elapsed span { color: var(--ink); }
+.dock-warmup { margin-top: 2px; }
+.dock-warmup span { transition: transform 0.2s; }
+.dock-warmup:hover span { transform: translateX(3px); }
+
 .btn:disabled {
   opacity: 0.42;
   cursor: not-allowed;
@@ -7106,6 +7179,49 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
 }
 .ex-path-label b { color: var(--lvl, var(--cyan)); font-weight: 500; }
+/* Consignes dépliables : placement, respiration, erreur à éviter */
+.ex-cues { border-top: 1px dashed rgba(147, 180, 240, 0.14); padding-top: 8px; }
+.ex-cues-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 2px 0;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+}
+.ex-cues-head::-webkit-details-marker { display: none; }
+.ex-cues-head:hover { color: var(--ink-2); }
+.ex-cues-head:focus-visible { outline: 1px solid var(--cyan); outline-offset: 3px; }
+.ex-cues-ico { display: grid; place-items: center; color: var(--lvl, var(--cyan)); font-size: 0; }
+.ex-cues-ico svg { width: 12px; height: 12px; }
+.ex-cues-chev { margin-left: auto; display: grid; place-items: center; font-size: 0; transition: transform 0.2s; }
+.ex-cues-chev svg { width: 11px; height: 11px; }
+.ex-cues[open] .ex-cues-chev { transform: rotate(90deg); }
+.ex-cues-list {
+  display: grid;
+  gap: 7px;
+  margin: 8px 0 2px;
+  padding: 0;
+}
+.ex-cues-list > div { display: grid; gap: 1px; }
+.ex-cues-list dt {
+  color: var(--ink-5);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ex-cues-list dd {
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 11px;
+  line-height: 1.5;
+}
 .ex-foot {
   display: flex;
   align-items: center;
@@ -7392,7 +7508,7 @@ h1, h2, h3, h4 {
   .page-title { font-size: clamp(32px, 9vw, 44px); }
   .page-sub { font-size: 12.5px; }
   .head-actions { width: 100%; }
-  .head-actions .btn { flex: 1; }
+  .head-actions .btn { flex: 1 1 auto; }
 
   .card { padding: 18px 16px; }
   .qf-submit { width: 100%; margin-left: 0; justify-content: space-between; }
@@ -11212,10 +11328,18 @@ h1, h2, h3, h4 {
     <!-- ============ CONTENU ============ -->
     <main class="main" id="main" tabindex="-1">
       <div class="views">
-        <section class="view is-active" data-view="dashboard" id="view-dashboard"></section>
-        <section class="view" data-view="quests" id="view-quests"></section>
-        <section class="view" data-view="library" id="view-library"></section>
-        <section class="view" data-view="profile" id="view-profile"></section>
+        <section class="view is-active" data-view="dashboard" id="view-dashboard">
+          <h1 class="sr-only">Calisthenix — Quartier général</h1>
+        </section>
+        <section class="view" data-view="quests" id="view-quests">
+          <h2 class="sr-only">Journal des quêtes</h2>
+        </section>
+        <section class="view" data-view="library" id="view-library">
+          <h2 class="sr-only">Arsenal des mouvements</h2>
+        </section>
+        <section class="view" data-view="profile" id="view-profile">
+          <h2 class="sr-only">Codex du porteur</h2>
+        </section>
       </div>
     </main>
 
@@ -11241,7 +11365,7 @@ h1, h2, h3, h4 {
   </div>
 
   <!-- ============ BOOT / LIAISON SYSTÈME ============ -->
-  <div class="boot" id="boot" aria-hidden="true" hidden>
+  <div class="boot" id="boot" hidden>
     <div class="boot-grid" aria-hidden="true"></div>
     <div class="boot-noise" aria-hidden="true"></div>
     <div class="boot-core" aria-hidden="true">
@@ -11270,6 +11394,11 @@ h1, h2, h3, h4 {
   <!-- ============ SÉANCE GUIDÉE / MINUTEUR DE REPOS ============ -->
   <div class="session" id="session" role="dialog" aria-modal="true" aria-labelledby="sessionTitle" hidden>
     <div class="session-frame" id="sessionFrame"></div>
+  </div>
+
+  <!-- ============ ÉCHAUFFEMENT GUIDÉ ============ -->
+  <div class="session warmup" id="warmup" role="dialog" aria-modal="true" aria-labelledby="warmupTitle" hidden>
+    <div class="session-frame" id="warmupFrame"></div>
   </div>
 
   <!-- ============ SÉANCE LIBRE / ATELIER DE COMPOSITION ============ -->
@@ -12348,6 +12477,9 @@ h1, h2, h3, h4 {
           <span data-bind="programMeta">Repos planifié</span>
         </div>
         <button class="btn btn-ghost btn-sm" type="button" data-bind="programBtn"></button>
+        <button class="dock-link dock-warmup" type="button" data-action="open-warmup" data-bind="warmupBtn">
+          Échauffement 6 min <span aria-hidden="true">→</span>
+        </button>
       </section>
 
       <section class="dock-panel dock-oath" aria-label="Serment de la semaine">
@@ -12563,6 +12695,17 @@ h1, h2, h3, h4 {
           r.programBtn.dataset.action = "load-program";
           r.programBtn.dataset.id = String(m.program.index);
           r.programBtn.disabled = false;
+        }
+      }
+
+      /* échauffement */
+      if (r.warmupBtn && m.warmup) {
+        const label = m.warmup.done
+          ? "Échauffement fait · refaire"
+          : `Échauffement ${m.warmup.minutes} min`;
+        if (r.warmupBtn.dataset.label !== label) {
+          r.warmupBtn.dataset.label = label;
+          r.warmupBtn.innerHTML = `${esc(label)} <span aria-hidden="true">→</span>`;
         }
       }
 
@@ -13385,7 +13528,7 @@ const TOUR_STEPS = [
   },
   {
     title: "Lancer une séance",
-    text: "Ce bouton ouvre la séance guidée : chaque série se valide au fil de l'effort, avec un minuteur de repos. Tes répétitions réelles nourrissent tes records et ton XP.",
+    text: "Ce bouton ouvre la séance guidée : chaque série se valide au fil de l'effort, avec un minuteur de repos. Tes répétitions réelles nourrissent tes records et ton XP. Juste à côté, l'échauffement guidé prépare les six zones du corps en six minutes.",
     targets: ['[data-bind="primary"]', ".hub-cta .btn-primary"],
     view: "dashboard",
   },
@@ -13530,6 +13673,116 @@ const LIBRARY = [
     tip: "En poirier contre un mur, descends la tête au sol et pousse sans cambrer.",
   },
 ];
+
+/* Consignes terrain : placement, respiration, erreur à éviter.
+   Trois points courts, lisibles en pleine série. */
+const FORM_CUES = {
+  "pompes-inclinees": {
+    setup: "Mains un peu plus larges que les épaules sur un support stable, corps gainé de la tête aux talons.",
+    breathe: "Inspire en descendant, expire en poussant le sol loin de toi.",
+    avoid: "Ne laisse pas les hanches tomber ni la tête partir en avant.",
+  },
+  "tractions-australiennes": {
+    setup: "Barre à hauteur de taille, talons au sol, corps gainé et aligné.",
+    breathe: "Expire en tirant la poitrine vers la barre, inspire en redescendant.",
+    avoid: "Ne hausse pas les épaules vers les oreilles et ne casse pas la ligne des hanches.",
+  },
+  "squats-chaise": {
+    setup: "Pieds largeur de bassin, chaise derrière toi, dos droit, regard devant.",
+    breathe: "Inspire en t'asseyant, expire en te relevant sans élan.",
+    avoid: "Ne t'appuie pas sur la chaise et ne laisse pas les genoux rentrer vers l'intérieur.",
+  },
+  "mollets-debout": {
+    setup: "Avant-pieds sur une marche, talons dans le vide, main sur un appui pour l'équilibre.",
+    breathe: "Souffle en montant, contrôle la descente sur trois secondes.",
+    avoid: "Ne rebondis pas et ne plie pas les genoux pour tricher.",
+  },
+  "planche-genoux": {
+    setup: "Genoux au sol, avant-bras sous les épaules, corps droit des épaules aux genoux.",
+    breathe: "Respiration courte et régulière par le nez, ventre rentré, sans bloquer.",
+    avoid: "Ne creuse pas le bas du dos et ne laisse pas les fesses monter.",
+  },
+  "dips-banc": {
+    setup: "Mains au bord du banc, doigts vers l'avant, épaules basses et loin des oreilles.",
+    breathe: "Inspire en descendant jusqu'à 90°, expire en poussant.",
+    avoid: "Ne descends pas plus bas si l'épaule pince, et garde les coudes près du corps.",
+  },
+  "superman": {
+    setup: "Allongé sur le ventre, bras tendus devant, front neutre, nombril rentré.",
+    breathe: "Inspire en décollant bras et jambes, souffle en relâchant lentement.",
+    avoid: "Ne lève pas la tête vers le plafond et ne bloque pas ta respiration.",
+  },
+  "pompes-classiques": {
+    setup: "Mains sous les épaules, corps en planche, fessiers et abdos serrés.",
+    breathe: "Inspire en descendant, expire en poussant.",
+    avoid: "Ne laisse pas le bassin s'affaisser ni les coudes s'ouvrir à 90°.",
+  },
+  "tractions-pronation": {
+    setup: "Prise pronation un peu plus large que les épaules, épaules basses, corps gainé.",
+    breathe: "Expire en montant, inspire en descendant sans lâcher la tension.",
+    avoid: "Pas d'élan de jambes, pas de menton tendu : la poitrine monte vers la barre.",
+  },
+  "squats-libres": {
+    setup: "Pieds largeur d'épaules, pointes légèrement ouvertes, poids sur tout le pied.",
+    breathe: "Inspire en descendant, expire en remontant.",
+    avoid: "Ne décolle pas les talons et ne laisse pas les genoux se toucher.",
+  },
+  "fentes-avant": {
+    setup: "Grand pas devant, genou avant au-dessus de la cheville, buste droit.",
+    breathe: "Inspire en descendant le genou arrière, expire en poussant pour remonter.",
+    avoid: "Ne pose pas le genou arrière brutalement et ne penche pas le buste.",
+  },
+  "planche": {
+    setup: "Avant-bras au sol, coudes sous les épaules, ligne droite des talons à la tête.",
+    breathe: "Respiration continue, côtes descendues, fessiers serrés.",
+    avoid: "Ne retiens pas ton souffle et ne laisse pas le bassin monter ou plonger.",
+  },
+  "hollow-body": {
+    setup: "Allongé sur le dos, bas du dos plaqué au sol, bras et jambes tendus.",
+    breathe: "Souffle lentement en tenant, rentre le ventre à chaque expiration.",
+    avoid: "Ne cambre pas : si le dos décolle, remonte les jambes ou plie les genoux.",
+  },
+  "dips-barres": {
+    setup: "Bras tendus, épaules basses, jambes gainées, regard devant.",
+    breathe: "Inspire en descendant, expire en poussant jusqu'à l'extension.",
+    avoid: "Ne verrouille pas brutalement les coudes et ne laisse pas les épaules remonter.",
+  },
+  "mountain-climbers": {
+    setup: "Position de pompe haute, mains sous les épaules, bassin stable.",
+    breathe: "Respiration rapide et régulière, une expiration par changement de jambe.",
+    avoid: "Ne fais pas rebondir les hanches et ne pose pas les genoux trop loin devant.",
+  },
+  "pompes-archer": {
+    setup: "Mains plus larges, un bras fléchi, l'autre reste tendu, corps gainé.",
+    breathe: "Inspire en te rapprochant du côté fléchi, expire en poussant pour revenir au centre.",
+    avoid: "Ne tourne pas le bassin et ne laisse pas le bras tendu se plier.",
+  },
+  "tractions-lestees": {
+    setup: "Ceinture ou gilet lesté, prise solide, épaules basses avant de tirer.",
+    breathe: "Expire en montant, inspire en descendant, sans à-coup.",
+    avoid: "N'ajoute du poids qu'une fois huit tractions propres maîtrisées, et jamais d'élan.",
+  },
+  "pistol-squats": {
+    setup: "Debout sur une jambe, autre jambe tendue devant, talon bien ancré.",
+    breathe: "Inspire en descendant lentement, expire en remontant.",
+    avoid: "Ne laisse pas le genou d'appui rentrer et ne t'assieds pas d'un coup.",
+  },
+  "dragon-flag": {
+    setup: "Allongé, mains agrippées derrière la tête, corps rigide, poids sur les épaules.",
+    breathe: "Respiration contenue mais continue, jamais bloquée.",
+    avoid: "Ne plie pas les hanches : si le corps casse, raccourcis l'amplitude.",
+  },
+  "muscle-up": {
+    setup: "Prise solide, épaules basses, élan contrôlé depuis les jambes si nécessaire.",
+    breathe: "Expire fort pendant la transition au-dessus de la barre.",
+    avoid: "Ne cherche pas à passer en force avec les coudes vers l'extérieur.",
+  },
+  "handstand-pushup": {
+    setup: "Poirier au mur, mains largeur d'épaules, corps gainé, tête neutre.",
+    breathe: "Inspire en descendant, expire en poussant.",
+    avoid: "Ne cambre pas le dos et ne pose pas la tête violemment au sol.",
+  },
+};
 
 /* ------------------------------------------------------------
    2 bis. PROGRAMME HEBDOMADAIRE
@@ -13884,6 +14137,31 @@ function advanceStreak(p, today) {
   p.lastCompletionDay = today;
   p.bestStreak = Math.max(p.bestStreak || 0, p.streak);
   return { frozen: false };
+}
+
+/* Photographie de la série avant la première validation du jour : elle permet
+   d'annuler proprement une validation (y compris un gel consommé). */
+function streakSnapshot(p) {
+  return {
+    lastCompletionDay: p.lastCompletionDay || null,
+    streak: Number(p.streak) || 0,
+    bestStreak: Number(p.bestStreak) || 0,
+    freezeWeek: p.freezeWeek || null,
+    frozenDays: Array.isArray(p.frozenDays) ? p.frozenDays.slice() : [],
+  };
+}
+
+function restoreStreakSnapshot(p, entry) {
+  const snap = entry && entry.streakBefore;
+  if (!snap || typeof snap !== "object") return;
+  p.lastCompletionDay = typeof snap.lastCompletionDay === "string" ? snap.lastCompletionDay : null;
+  p.streak = Math.max(0, Number(snap.streak) || 0);
+  p.bestStreak = Math.max(0, Number(snap.bestStreak) || 0);
+  p.freezeWeek = typeof snap.freezeWeek === "string" ? snap.freezeWeek : null;
+  p.frozenDays = Array.isArray(snap.frozenDays)
+    ? snap.frozenDays.filter((key) => typeof key === "string").slice(-90)
+    : [];
+  delete entry.streakBefore;
 }
 
 function exerciseXp(ex) {
@@ -14726,6 +15004,38 @@ const SESSION_SNAPSHOT_MAX_AGE = 8 * 60 * 60 * 1000;
 let sessionState = null;
 let sessionTimer = null;
 let holdTimer = null;
+
+/* Échauffement guidé : six zones, six minutes, aucun matériel.
+   Chaque zone prépare une articulation ou le tronc avant la séance. */
+const WARMUP_STEPS = [
+  {
+    zone: "Épaules", name: "Cercles de bras", duration: 60,
+    cue: "Bras tendus, grands cercles lents. Change de sens à mi-temps, sans forcer.",
+  },
+  {
+    zone: "Poignets", name: "Rotations et appuis", duration: 55,
+    cue: "Poignets en cercles, paumes vers le sol puis vers le ciel. Termine par de légers appuis.",
+  },
+  {
+    zone: "Hanches", name: "Cercles et fentes", duration: 65,
+    cue: "Hanche ouverte, genou stable. Alterne les cercles et une fente courte de chaque côté.",
+  },
+  {
+    zone: "Chevilles", name: "Pointes et talons", duration: 55,
+    cue: "Monte sur la pointe, redescends lentement, puis bascule le poids vers les talons.",
+  },
+  {
+    zone: "Tronc", name: "Gainage actif", duration: 60,
+    cue: "Debout, côtes descendues, ventre ferme. Ajoute un dead bug lent si tu as la place.",
+  },
+  {
+    zone: "Activation", name: "Montées de genoux", duration: 65,
+    cue: "Rythme souple, bras qui accompagnent. Termine par quelques sauts légers si tu le souhaites.",
+  },
+];
+const WARMUP_TOTAL = WARMUP_STEPS.reduce((sum, step) => sum + step.duration, 0);
+let warmupState = null;
+let warmupTimer = null;
 
 function sessionRestSeconds() {
   return clamp(parseInt(state.settings.rest, 10) || 60, 15, 300);
@@ -15699,6 +16009,358 @@ function closeSession(showFeedback = true) {
 }
 
 /* ------------------------------------------------------------
+   4 quater bis. ÉCHAUFFEMENT GUIDÉ
+   Six zones, six minutes, sans matériel. Le minuteur est piloté
+   par horodatage : il reste juste même si l'onglet ralentit.
+   ------------------------------------------------------------ */
+function warmupDoneToday() {
+  return state.settings.warmupDay === dayKey();
+}
+
+function warmupStep() {
+  if (!warmupState) return WARMUP_STEPS[0];
+  return WARMUP_STEPS[clamp(warmupState.index, 0, WARMUP_STEPS.length - 1)];
+}
+
+function warmupElapsedSeconds() {
+  if (!warmupState) return 0;
+  if (warmupState.phase === "done") return WARMUP_TOTAL;
+  let total = 0;
+  for (let i = 0; i < warmupState.index; i += 1) total += WARMUP_STEPS[i].duration;
+  return total + Math.max(0, warmupStep().duration - warmupState.remaining);
+}
+
+function warmupClock(seconds) {
+  const safe = Math.max(0, Math.round(seconds));
+  return `${pad2(Math.floor(safe / 60))}:${pad2(safe % 60)}`;
+}
+
+function warmupZonesHTML() {
+  return WARMUP_STEPS.map((step, i) => {
+    const stateClass = i < warmupState.index ? "is-done" : i === warmupState.index ? "is-on" : "";
+    return `
+      <button class="warmup-zone ${stateClass}" type="button" data-action="warmup-step" data-id="${i}"
+        aria-label="Zone ${i + 1} : ${escapeHtml(step.zone)}" aria-current="${i === warmupState.index ? "step" : "false"}">
+        <i aria-hidden="true"></i><span>${escapeHtml(step.zone)}</span>
+      </button>`;
+  }).join("");
+}
+
+function warmupDoneHTML() {
+  const pending = sessionQueue().length > 0;
+  return `
+    <div class="session-grid" aria-hidden="true"></div>
+    <span class="session-corner session-corner--tl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--tr" aria-hidden="true"></span>
+    <span class="session-corner session-corner--bl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--br" aria-hidden="true"></span>
+    <button class="session-quit" type="button" data-action="warmup-close" aria-label="Fermer l'échauffement">${CLOSE_SVG}</button>
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">RITUEL // ÉCHAUFFEMENT // TERMINÉ</span>
+        <span class="session-phase"><i></i> CORPS PRÊT</span>
+      </div>
+    </header>
+    <main class="session-main">
+      <div class="session-done warmup-done">
+        <span class="session-done-kicker">RITUEL ACCOMPLI // SIX ZONES</span>
+        <div class="session-done-icon" aria-hidden="true">${cxIcon("flame")}</div>
+        <h2 class="session-title" id="warmupTitle">Échauffement terminé</h2>
+        <p class="session-done-xp">${warmupClock(WARMUP_TOTAL)} · 6 zones</p>
+        <p class="session-done-log">Épaules, poignets, hanches, chevilles, tronc et activation sont réveillés.</p>
+        <p class="session-done-sub">${pending
+          ? "Ta séance t'attend. Le premier geste sera plus sûr et plus ample."
+          : "Aucune quête en attente. Le journal t'attend pour armer la prochaine séance."}</p>
+      </div>
+      <div class="session-actions">
+        ${pending
+          ? `<button class="btn btn-lime" type="button" data-action="warmup-session">${cxIcon("play")}<span>Lancer la séance</span></button>`
+          : ""}
+        <button class="btn btn-ghost" type="button" data-action="warmup-close">Retour au QG</button>
+        <button class="btn btn-ghost" type="button" data-action="warmup-quests">Voir le journal</button>
+      </div>
+      <p class="session-tip">L'échauffement est enregistré pour aujourd'hui. Tu peux le refaire à tout moment.</p>
+    </main>
+  `;
+}
+
+function warmupHTML() {
+  if (!warmupState) return "";
+  if (warmupState.phase === "done") return warmupDoneHTML();
+  const step = warmupStep();
+  const remaining = Math.max(0, warmupState.remaining);
+  const stepPct = clamp(remaining / step.duration, 0, 1);
+  const elapsed = warmupElapsedSeconds();
+  const totalPct = clamp(elapsed / WARMUP_TOTAL, 0, 1) * 100;
+  const running = warmupState.phase === "run";
+  const label = running ? "Mettre en pause" : remaining < step.duration ? "Reprendre" : "Démarrer l'échauffement";
+  return `
+    <div class="session-grid" aria-hidden="true"></div>
+    <span class="session-corner session-corner--tl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--tr" aria-hidden="true"></span>
+    <span class="session-corner session-corner--bl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--br" aria-hidden="true"></span>
+    <button class="session-quit" type="button" data-action="warmup-close" aria-label="Quitter l'échauffement">${CLOSE_SVG}</button>
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">RITUEL // ÉCHAUFFEMENT // 06 MIN</span>
+        <span class="session-phase"><i></i> ${running ? "EN MOUVEMENT" : warmupState.phase === "pause" ? "EN PAUSE" : "PRÊT"}</span>
+      </div>
+      <div class="session-progress-wrap">
+        <span class="session-progress-label">RITUEL <b>${Math.round(totalPct)} %</b></span>
+        <span class="session-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${WARMUP_TOTAL}" aria-valuenow="${Math.round(elapsed)}">
+          <i id="warmupBarFill" style="width:${totalPct.toFixed(1)}%"></i>
+        </span>
+      </div>
+    </header>
+    <main class="session-main warmup-main">
+      <div class="session-head">
+        <span class="session-kicker"><i></i> ${escapeHtml(step.zone.toUpperCase())} // ZONE ${warmupState.index + 1} SUR ${WARMUP_STEPS.length}</span>
+        <h2 class="session-title" id="warmupTitle">${escapeHtml(step.name)}</h2>
+        <p class="session-sub">${escapeHtml(step.cue)}</p>
+      </div>
+      <div class="session-rest warmup-core">
+        <div class="session-ring warmup-ring" id="warmupRing">
+          <svg viewBox="0 0 128 128" aria-hidden="true">
+            <circle class="sr-track" cx="64" cy="64" r="54"/>
+            <circle class="sr-fill" id="warmupRingFill" cx="64" cy="64" r="54"
+              stroke-dasharray="${SESSION_RING_C.toFixed(2)}" stroke-dashoffset="${((1 - stepPct) * SESSION_RING_C).toFixed(2)}"/>
+          </svg>
+          <span class="session-rest-count" id="warmupCount" role="timer" aria-live="off">${Math.ceil(remaining)}</span>
+          <span class="session-rest-unit">SEC</span>
+        </div>
+        <div class="warmup-zones" role="group" aria-label="Zones de l'échauffement">${warmupZonesHTML()}</div>
+        <p class="warmup-elapsed"><span id="warmupElapsed">${warmupClock(elapsed)}</span> / ${warmupClock(WARMUP_TOTAL)}</p>
+      </div>
+      <div class="session-actions">
+        <button class="btn btn-lime" type="button" data-action="warmup-toggle">
+          ${cxIcon(running ? "pause" : "play")}<span>${label}</span>
+        </button>
+        <button class="btn btn-ghost" type="button" data-action="warmup-skip">Passer la zone</button>
+        ${warmupState.index > 0 ? `<button class="btn btn-ghost btn-sm" type="button" data-action="warmup-prev">Zone précédente</button>` : ""}
+      </div>
+      <p class="session-tip">Espace pour mettre en pause · ← → pour changer de zone · Échap pour quitter</p>
+      <p class="sr-only" id="warmupLive" role="status" aria-live="polite">${escapeHtml(warmupState.announce || "")}</p>
+    </main>
+    <footer class="session-foot">
+      <span>ZONE <b>${warmupState.index + 1} / ${WARMUP_STEPS.length}</b></span>
+      <span>TOTAL <b>06 MIN</b></span>
+      <span>INTENSITÉ <b>Douce</b></span>
+    </footer>
+  `;
+}
+
+function renderWarmup(focusPrimary = false) {
+  const frame = $("warmupFrame");
+  if (!frame || !warmupState) return;
+  frame.innerHTML = warmupHTML();
+  if (focusPrimary) window.setTimeout(focusWarmupPrimary, 30);
+}
+
+function focusWarmupPrimary() {
+  const overlay = $("warmup");
+  if (!overlay || overlay.hidden) return;
+  const target = overlay.querySelector(".session-actions .btn-lime")
+    || overlay.querySelector("[data-action='warmup-close']");
+  if (target) target.focus({ preventScroll: true });
+}
+
+function warmupStopTimer() {
+  if (warmupTimer) {
+    window.clearInterval(warmupTimer);
+    warmupTimer = null;
+  }
+}
+
+function warmupSyncUI() {
+  if (!warmupState || warmupState.phase === "done") return;
+  const step = warmupStep();
+  const remaining = Math.max(0, warmupState.remaining);
+  const stepPct = clamp(remaining / step.duration, 0, 1);
+  const elapsed = warmupElapsedSeconds();
+  const count = $("warmupCount");
+  if (count) count.textContent = Math.ceil(remaining);
+  const ring = $("warmupRingFill");
+  if (ring) ring.style.strokeDashoffset = String((1 - stepPct) * SESSION_RING_C);
+  const bar = $("warmupBarFill");
+  if (bar) bar.style.width = `${(clamp(elapsed / WARMUP_TOTAL, 0, 1) * 100).toFixed(1)}%`;
+  const barWrap = bar ? bar.parentElement : null;
+  if (barWrap) barWrap.setAttribute("aria-valuenow", String(Math.round(elapsed)));
+  const label = $("warmupElapsed");
+  if (label) label.textContent = warmupClock(elapsed);
+}
+
+function warmupStartTimer() {
+  warmupStopTimer();
+  warmupTimer = window.setInterval(() => {
+    if (!warmupState || warmupState.phase !== "run") {
+      warmupStopTimer();
+      return;
+    }
+    warmupState.remaining = Math.max(0, (warmupState.endsAt - Date.now()) / 1000);
+    warmupSyncUI();
+    if (warmupState.remaining <= 0) {
+      warmupStopTimer();
+      warmupAdvance();
+    }
+  }, 120);
+  warmupSyncUI();
+}
+
+function warmupVibrate(pattern) {
+  if (!navigator.vibrate || prefersReduced()) return;
+  try { navigator.vibrate(pattern); } catch (err) { /* vibration indisponible */ }
+}
+
+function warmupFinish() {
+  if (!warmupState) return;
+  warmupStopTimer();
+  warmupState.phase = "done";
+  warmupState.remaining = 0;
+  state.settings.warmupDay = dayKey();
+  save();
+  renderWarmup(true);
+  beep("complete");
+  warmupVibrate([90, 60, 90, 60, 160]);
+}
+
+function warmupAdvance() {
+  if (!warmupState) return;
+  if (warmupState.index >= WARMUP_STEPS.length - 1) {
+    warmupFinish();
+    return;
+  }
+  warmupState.index += 1;
+  const step = warmupStep();
+  warmupState.phase = "run";
+  warmupState.remaining = step.duration;
+  warmupState.endsAt = Date.now() + step.duration * 1000;
+  warmupState.announce = `Zone ${warmupState.index + 1} sur ${WARMUP_STEPS.length} : ${step.name}.`;
+  renderWarmup(true);
+  beep("add");
+  warmupVibrate(70);
+  warmupStartTimer();
+}
+
+function warmupToggle() {
+  if (!warmupState || warmupState.phase === "done") return;
+  if (warmupState.phase === "run") {
+    warmupState.remaining = Math.max(0, (warmupState.endsAt - Date.now()) / 1000);
+    warmupState.phase = "pause";
+    warmupStopTimer();
+    renderWarmup(true);
+    beep("undo");
+    return;
+  }
+  if (warmupState.remaining <= 0) warmupState.remaining = warmupStep().duration;
+  warmupState.phase = "run";
+  warmupState.endsAt = Date.now() + warmupState.remaining * 1000;
+  warmupState.announce = `${warmupStep().name}, c'est parti.`;
+  renderWarmup(true);
+  beep("add");
+  warmupStartTimer();
+}
+
+function warmupSkip() {
+  if (!warmupState || warmupState.phase === "done") return;
+  if (warmupState.index >= WARMUP_STEPS.length - 1) {
+    warmupFinish();
+    return;
+  }
+  warmupState.index += 1;
+  const step = warmupStep();
+  warmupState.phase = "run";
+  warmupState.remaining = step.duration;
+  warmupState.endsAt = Date.now() + step.duration * 1000;
+  warmupState.announce = `Zone suivante : ${step.name}.`;
+  renderWarmup(true);
+  beep("add");
+  warmupStartTimer();
+}
+
+function warmupPrev() {
+  if (!warmupState || warmupState.phase === "done") return;
+  warmupStopTimer();
+  warmupState.index = Math.max(0, warmupState.index - 1);
+  const step = warmupStep();
+  warmupState.phase = "pause";
+  warmupState.remaining = step.duration;
+  warmupState.endsAt = 0;
+  warmupState.announce = `Retour à ${step.name}.`;
+  renderWarmup(true);
+  beep("undo");
+}
+
+function warmupStepTo(index) {
+  if (!warmupState || warmupState.phase === "done") return;
+  const target = clamp(parseInt(index, 10) || 0, 0, WARMUP_STEPS.length - 1);
+  warmupStopTimer();
+  warmupState.index = target;
+  const step = warmupStep();
+  warmupState.phase = "pause";
+  warmupState.remaining = step.duration;
+  warmupState.endsAt = 0;
+  warmupState.announce = `Zone ${target + 1} : ${step.name}.`;
+  renderWarmup(true);
+  beep("undo");
+}
+
+function openWarmup() {
+  const overlay = $("warmup");
+  if (!overlay || !overlay.hidden) return;
+  if (sessionState) {
+    showToast({
+      icon: "hourglass",
+      title: "Séance en cours",
+      desc: "Termine ou quitte la séance avant de lancer l'échauffement.",
+      tone: "neutral",
+      duration: 3200,
+    });
+    return;
+  }
+  if (activeOverlay()) return;
+  warmupState = {
+    index: 0,
+    phase: "ready",
+    remaining: WARMUP_STEPS[0].duration,
+    endsAt: 0,
+    announce: "",
+  };
+  rememberOverlayFocus("warmup");
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  syncModalState();
+  renderWarmup();
+  beep("engage");
+  window.setTimeout(focusWarmupPrimary, 120);
+}
+
+function closeWarmup() {
+  const overlay = $("warmup");
+  if (!overlay || overlay.hidden) return;
+  warmupStopTimer();
+  warmupState = null;
+  overlay.hidden = true;
+  const frame = $("warmupFrame");
+  if (frame) frame.innerHTML = "";
+  const levelUp = $("levelUp");
+  const session = $("session");
+  if (!huntState && (!levelUp || levelUp.hidden) && (!session || session.hidden)) {
+    document.body.classList.remove("no-scroll");
+  }
+  syncModalState();
+  renderAll();
+  restoreOverlayFocus("warmup");
+}
+
+function warmupStartSession() {
+  const pending = sessionQueue().length > 0;
+  closeWarmup();
+  if (pending) window.setTimeout(openSession, 90);
+  else setView("quests");
+}
+
+/* ------------------------------------------------------------
    4 quinquies. SÉANCE LIBRE & MODÈLES
    Atelier hors registre : on pioche dans l'Arsenal, on ajuste,
    puis la séance se déroule avec le même moteur que les quêtes.
@@ -16076,7 +16738,7 @@ function defaultState() {
     records: {},
     templates: [],
     lore: { seen: [] },
-    settings: { sound: true, rest: 60, tourDone: false },
+    settings: { sound: true, rest: 60, tourDone: false, warmupDay: null },
   };
 }
 
@@ -16173,6 +16835,10 @@ function normalizeState(raw) {
   merged.profile.oathsKept = Math.max(0, Number(merged.profile.oathsKept) || 0);
   merged.profile.sessions = Math.max(0, Number(merged.profile.sessions) || 0);
   merged.settings.rest = clamp(parseInt(merged.settings.rest, 10) || 60, 15, 300);
+  merged.settings.warmupDay = typeof merged.settings.warmupDay === "string"
+    && /^\d{4}-\d{2}-\d{2}$/.test(merged.settings.warmupDay)
+    ? merged.settings.warmupDay
+    : null;
   merged.profile.weekClaims = merged.profile.weekClaims && typeof merged.profile.weekClaims === "object" && !Array.isArray(merged.profile.weekClaims)
     ? merged.profile.weekClaims
     : {};
@@ -16183,6 +16849,7 @@ function normalizeState(raw) {
   Object.keys(merged.history).forEach((key) => {
     const entry = merged.history[key];
     if (!entry || typeof entry !== "object") delete merged.history[key];
+    else if (entry.streakBefore && typeof entry.streakBefore !== "object") delete entry.streakBefore;
   });
 
   /* v3 — journal de séances et records personnels (migration douce) */
@@ -16766,7 +17433,7 @@ const FOCUSABLE_SELECTOR = [
 const overlayFocusReturn = new Map();
 
 function activeOverlay() {
-  return ["tour", "levelUp", "hunt", "session", "freeBuilder"]
+  return ["tour", "levelUp", "hunt", "warmup", "session", "freeBuilder"]
     .map((id) => $(id))
     .find((el) => el && !el.hidden) || null;
 }
@@ -17063,6 +17730,10 @@ function hubModel() {
       tier: programTierLabel(),
     },
     resume: Boolean(sessionState),
+    warmup: {
+      done: warmupDoneToday(),
+      minutes: Math.round(WARMUP_TOTAL / 60),
+    },
     lore: dailyLore(),
   };
 }
@@ -17117,6 +17788,9 @@ function renderQuests() {
       <div class="head-actions">
         <button class="btn ${rest > 0 ? "btn-lime" : "btn-ghost"} btn-sm" type="button" data-action="open-session">
           ${rest > 0 ? cxIcon("play") : cxIcon("check")}<span>${sessionState ? "Reprendre la séance" : rest > 0 ? "Lancer la séance" : "Séance close"}</span>
+        </button>
+        <button class="btn btn-ghost btn-sm" type="button" data-action="open-warmup">
+          ${cxIcon(warmupDoneToday() ? "check" : "flame")}<span>${warmupDoneToday() ? "Échauffement fait" : "Échauffement"}</span>
         </button>
         <button class="btn btn-ghost btn-sm" type="button" data-action="open-free-builder">
           ${cxIcon("layers")}<span>Séance libre</span>
@@ -17285,6 +17959,7 @@ function exerciseCard(ex) {
   const cfg = LEVELS[ex.level];
   const xp = exerciseXp(ex);
   const path = exercisePath(ex);
+  const cues = FORM_CUES[ex.id];
   const added = state.tasks.some((t) => t.exerciseId === ex.id);
   return `
     <article class="ex-card" style="--lvl:${cfg.color}">
@@ -17305,6 +17980,19 @@ function exerciseCard(ex) {
         </span>
         <span class="ex-path-label">Filière <b>${path.numeral}</b> · ${escapeHtml(path.label)}</span>
       </div>
+      ${cues ? `
+      <details class="ex-cues">
+        <summary class="ex-cues-head">
+          <span class="ex-cues-ico" aria-hidden="true">${cxIcon("target")}</span>
+          <span>Consignes</span>
+          <span class="ex-cues-chev" aria-hidden="true">${cxIcon("chevron")}</span>
+        </summary>
+        <dl class="ex-cues-list">
+          <div><dt>Placement</dt><dd>${escapeHtml(cues.setup)}</dd></div>
+          <div><dt>Respiration</dt><dd>${escapeHtml(cues.breathe)}</dd></div>
+          <div><dt>À éviter</dt><dd>${escapeHtml(cues.avoid)}</dd></div>
+        </dl>
+      </details>` : ""}
       <div class="ex-foot">
         <span class="xp-pill">+${xp} XP</span>
         ${added
@@ -17835,20 +18523,7 @@ function toggleTask(id, position, actuals) {
   const before = levelInfo(p.xp);
 
   if (isDone) {
-    task.doneDate = null;
-    p.xp = Math.max(0, p.xp - task.xp);
-    p.questsDone = Math.max(0, p.questsDone - 1);
-    p.volume = Math.max(0, p.volume - task.sets * task.reps);
-    const entry = state.history[today];
-    if (entry) {
-      entry.xp = Math.max(0, (entry.xp || 0) - task.xp);
-      entry.tasks = Math.max(0, (entry.tasks || 0) - 1);
-      entry.volume = Math.max(0, (entry.volume || 0) - task.sets * task.reps);
-      if (entry.levels && entry.levels[task.level]) {
-        entry.levels[task.level] = Math.max(0, entry.levels[task.level] - 1);
-        if (!entry.levels[task.level]) delete entry.levels[task.level];
-      }
-    }
+    reverseTaskCompletion(task);
     save();
     renderAll();
     showToast({ icon: "reset", title: "Quête annulée", desc: `−${task.xp} XP · ${task.name}`, tone: "neutral" });
@@ -17864,9 +18539,11 @@ function toggleTask(id, position, actuals) {
   p.musclesDone = p.musclesDone && typeof p.musclesDone === "object" ? p.musclesDone : {};
   if (task.muscle) p.musclesDone[task.muscle] = true;
 
+  const streakBefore = p.lastCompletionDay === today ? null : streakSnapshot(p);
   const streakUpdate = advanceStreak(p, today);
 
   const entry = state.history[today] || (state.history[today] = { xp: 0, tasks: 0, volume: 0 });
+  if (streakBefore && !entry.streakBefore) entry.streakBefore = streakBefore;
   entry.xp = (entry.xp || 0) + task.xp;
   entry.tasks = (entry.tasks || 0) + 1;
   entry.volume = (entry.volume || 0) + task.sets * task.reps;
@@ -17935,6 +18612,9 @@ function reverseTaskCompletion(task) {
       entry.levels[task.level] = Math.max(0, entry.levels[task.level] - 1);
       if (!entry.levels[task.level]) delete entry.levels[task.level];
     }
+    // Plus aucune quête validée aujourd'hui : on rend la série et le gel
+    // exactement dans l'état d'avant la première validation du jour.
+    if (entry.tasks === 0 && entry.streakBefore) restoreStreakSnapshot(p, entry);
   }
   task.doneDate = null;
 }
@@ -18252,6 +18932,31 @@ document.addEventListener("click", (event) => {
     case "open-session":
       openSession();
       break;
+    case "open-warmup":
+      openWarmup();
+      break;
+    case "warmup-toggle":
+      warmupToggle();
+      break;
+    case "warmup-skip":
+      warmupSkip();
+      break;
+    case "warmup-prev":
+      warmupPrev();
+      break;
+    case "warmup-step":
+      warmupStepTo(id);
+      break;
+    case "warmup-close":
+      closeWarmup();
+      break;
+    case "warmup-quests":
+      closeWarmup();
+      setView("quests");
+      break;
+    case "warmup-session":
+      warmupStartSession();
+      break;
     case "open-free-builder":
       openFreeBuilder();
       break;
@@ -18482,6 +19187,32 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       tourPrev();
+      return;
+    }
+    return;
+  }
+  const warmupOverlay = $("warmup");
+  if (warmupOverlay && !warmupOverlay.hidden) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeWarmup();
+      return;
+    }
+    const warmupTag = String((event.target && event.target.tagName) || "").toLowerCase();
+    const warmupTyping = ["button", "input", "textarea", "select", "a"].includes(warmupTag);
+    if (event.key === " " && !warmupTyping) {
+      event.preventDefault();
+      warmupToggle();
+      return;
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      warmupSkip();
+      return;
+    }
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      warmupPrev();
       return;
     }
     return;
