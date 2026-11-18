@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
   <!-- Version autonome : CSS, JS et polices integres. -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#05070c" />
-  <meta name="description" content="Calisthenix — le Système des Porteurs. Transforme ton entraînement au poids du corps en aventure : portes, bêtes, quêtes, chapitres, contrats et évolution." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#05070c">
+  <meta name="description" content="Calisthenix — le Système des Porteurs. Transforme ton entraînement au poids du corps en aventure : portes, bêtes, quêtes, chapitres, contrats et évolution.">
   <title>Calisthenix — Système des Porteurs</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='10'%20fill='%23050810'/%3E%3Cpath%20d='M32%208%2054%2032%2032%2056%2010%2032Z'%20fill='none'%20stroke='%2335e0ff'%20stroke-width='2'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='14'%20fill='none'%20stroke='%2335e0ff'%20stroke-width='1.2'%20stroke-dasharray='3%204'/%3E%3Cpath%20d='M32%2018v28M18%2032h28'%20stroke='%237a5cff'%20stroke-width='1.4'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='3.4'%20fill='%2335e0ff'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='10'%20fill='%23050810'/%3E%3Cpath%20d='M32%208%2054%2032%2032%2056%2010%2032Z'%20fill='none'%20stroke='%2335e0ff'%20stroke-width='2'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='14'%20fill='none'%20stroke='%2335e0ff'%20stroke-width='1.2'%20stroke-dasharray='3%204'/%3E%3Cpath%20d='M32%2018v28M18%2032h28'%20stroke='%237a5cff'%20stroke-width='1.4'/%3E%3Ccircle%20cx='32'%20cy='32'%20r='3.4'%20fill='%2335e0ff'/%3E%3C/svg%3E">
   <style data-source="styles.css">
 /* ============================================================
    CALISTHENIX — Codex des Porteurs
@@ -6044,6 +6044,7 @@ body.is-booting { overflow: hidden; }
   color: var(--ink);
 }
 .program-row.is-rest .program-focus { color: var(--dim); }
+.program-dose { color: var(--ink-3); }
 .program-detail {
   display: block;
   margin-top: 3px;
@@ -6138,12 +6139,103 @@ body.is-booting { overflow: hidden; }
   color: var(--dim);
 }
 
+/* Surcharge progressive : cycle de 5 semaines travaillées */
+.program-cycle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 18px;
+  flex-wrap: wrap;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(90deg, rgba(53, 224, 255, 0.06), transparent 64%),
+    rgba(7, 10, 17, 0.3);
+}
+.program-cycle-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.program-cycle-kicker {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+}
+.program-cycle-main b {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.program-cycle-main > span:last-child {
+  font-family: var(--font-mono);
+  font-size: 6.8px;
+  line-height: 1.6;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.program-cycle-track {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.program-cycle-track li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 34px;
+}
+.program-cycle-track i {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: rgba(147, 180, 240, 0.16);
+}
+.program-cycle-track li.is-past i { background: rgba(53, 224, 255, 0.45); }
+.program-cycle-track li.is-now i {
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(53, 224, 255, 0.6);
+}
+.program-cycle-track li.is-deload i { background: rgba(155, 123, 255, 0.35); }
+.program-cycle-track li.is-now.is-deload i {
+  background: rgba(155, 123, 255, 0.9);
+  box-shadow: 0 0 10px rgba(155, 123, 255, 0.55);
+}
+.program-cycle-track span {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+}
+.program-cycle-track li.is-now span { color: var(--cyan); }
+.program-cycle-track li.is-now.is-deload span { color: #b79bff; }
+.program-cycle.is-deload {
+  background:
+    linear-gradient(90deg, rgba(155, 123, 255, 0.08), transparent 64%),
+    rgba(7, 10, 17, 0.3);
+}
+.program-cycle.is-deload .program-cycle-kicker { color: #b79bff; }
+
 @media (max-width: 520px) {
   .program-row { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; padding: 10px 14px; }
   .program-focus { font-size: 12.5px; }
   .program-side .btn { min-width: 0; padding: 9px 11px; font-size: 8px; }
   .program-card .card-head { padding: 14px; }
   .program-note { padding: 11px 14px 13px; }
+  .program-dose { display: none; }
+  .program-cycle { padding: 11px 14px; }
+  .program-cycle-track { width: 100%; justify-content: space-between; }
+  .program-cycle-track li { flex: 1; width: auto; }
   .program-cal { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 12px 14px; }
   .program-cal-icon { width: 24px; height: 24px; }
   .program-cal-main b { font-size: 13px; }
@@ -8355,7 +8447,14 @@ h1, h2, h3, h4 {
 
 @media (max-width: 560px) {
   .ex-grid { grid-template-columns: 1fr; }
-  .program-detail { -webkit-line-clamp: 3; line-height: 1.5; }
+  /* Interlettrage resserré : à 11,5 px, l'interlettrage large de la version
+     bureau fait déborder les noms sur une ligne de séparateur orpheline. */
+  .program-detail { -webkit-line-clamp: 4; line-height: 1.5; letter-spacing: 0.03em; }
+  /* Sur mobile, la ligne du jour donne toute la largeur aux noms d'exercices
+     et pose le bouton « Charger » sous le texte. */
+  .program-row.is-today { flex-wrap: wrap; row-gap: 8px; }
+  .program-row.is-today .program-main { flex: 1 1 calc(100% - 50px); }
+  .program-row.is-today .program-side { flex: 0 0 100%; display: flex; justify-content: flex-end; }
   .quest { gap: 8px; padding: 11px 0; }
   .quest-title { flex-wrap: wrap; }
   .quest-name { min-width: 0; overflow: visible; white-space: normal; }
@@ -10129,6 +10228,138 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
 }
 .free-foot-actions { flex: none; display: flex; gap: 8px; }
+
+/* ------------------------------------------------------------
+   22 bis. REMPLACEMENT D'UN EXERCICE
+   ------------------------------------------------------------ */
+.program-swap {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dotted transparent;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s;
+}
+.program-swap:hover { color: var(--ink); border-bottom-color: var(--hairline-3); }
+.program-swap svg { width: 9px; height: 9px; color: var(--ink-5); opacity: 0.65; }
+.program-swap:hover svg,
+.program-swap:focus-visible svg { color: var(--cyan); opacity: 1; }
+
+/* Au doigt, il n'y a pas de survol : le nom doit se voir comme cliquable et
+   offrir une cible plus haute que la seule hauteur de ligne. */
+@media (max-width: 560px) {
+  .program-swap {
+    padding: 2px 0;
+    border-bottom-color: var(--hairline-2);
+  }
+  .program-swap svg { width: 8px; height: 8px; opacity: 0.5; }
+}
+
+.swap-main {
+  position: relative;
+  z-index: 4;
+  flex: 1;
+  min-height: 0;
+  width: min(880px, 100%);
+  margin: 0 auto;
+  padding: clamp(18px, 3vh, 34px) 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.swap-head { margin-bottom: 16px; }
+.swap-head .session-title { margin: 10px 0 8px; font-size: clamp(24px, 4vw, 38px); }
+.swap-head .session-sub { max-width: 60ch; line-height: 1.65; }
+.swap-current {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-hot);
+  background:
+    linear-gradient(90deg, rgba(53, 224, 255, 0.1), rgba(7, 12, 21, 0.6) 62%);
+}
+.swap-glyph {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: var(--cyan);
+  border: 1px solid rgba(53, 224, 255, 0.32);
+  background: rgba(53, 224, 255, 0.06);
+}
+.swap-glyph svg { width: 18px; height: 18px; }
+.swap-current-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.swap-tag {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.swap-current-main b {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.swap-current-main span:last-child { color: var(--ink-3); font-size: 11px; }
+.swap-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.swap-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--hairline);
+  background: rgba(7, 12, 21, 0.55);
+  transition: border-color 0.18s, background 0.18s;
+}
+.swap-item:hover { border-color: var(--hairline-2); background: rgba(9, 16, 27, 0.8); }
+.swap-item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.swap-item-main b {
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.swap-item-main span { color: var(--ink-4); font-size: 10.5px; line-height: 1.5; }
+.swap-item .btn { flex: none; }
+.swap-item .btn svg { width: 11px; height: 11px; }
+.swap-empty { margin-top: 8px; }
+.swap-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+}
+
+@media (max-width: 560px) {
+  .swap-main { padding: 12px 0; }
+  .swap-head .session-title { font-size: 24px; }
+  .swap-current { align-items: flex-start; padding: 12px; }
+  .swap-current-main b { font-size: 17px; }
+  .swap-item { flex-wrap: wrap; gap: 10px; }
+  .swap-item-main { flex: 1 1 100%; }
+  .swap-item .btn { order: 3; width: 100%; justify-content: center; }
+  .swap-foot { flex-direction: column-reverse; }
+  .swap-foot .btn { width: 100%; justify-content: center; }
+}
 
 /* ------------------------------------------------------------
    23. VISITE GUIDÉE & ARCHIVES DU LORE
@@ -12105,6 +12336,2546 @@ h1, h2, h3, h4 {
 }
 
   </style>
+  <style data-source="css/finish.css">
+/* ============================================================
+   CALISTHENIX — couche de finition « A + matières de B »
+   finish.css — chargée en dernier, après windows.css.
+
+   Intention : garder l'obsidienne et le cyan de la direction A,
+   mais adoucir les formes (rayons 6 à 10 px), remplacer le glow
+   diffus par une lumière d'arête, et réserver un laiton discret
+   aux récompenses : sceaux, niveau, butin, record.
+
+   Aucune donnée, aucun comportement : uniquement de la matière.
+   ============================================================ */
+
+:root {
+  /* laiton — récompenses uniquement */
+  --brass: #d8b273;
+  --brass-bright: #f6e3bd;
+  --brass-deep: #a8813f;
+  --brass-line: rgba(216, 178, 115, 0.36);
+  --brass-soft: rgba(216, 178, 115, 0.08);
+
+  /* rayons */
+  --r-panel: 10px;
+  --r-inner: 6px;
+
+  /* lumière d'arête + ombre portée */
+  --edge-light: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  --lift: 0 18px 40px -30px rgba(0, 0, 0, 0.95), 0 2px 10px -6px rgba(0, 0, 0, 0.7);
+}
+
+/* ------------------------------------------------------------
+   1. PANNEAUX — on arrondit, on retire les coupes d'angle
+   ------------------------------------------------------------ */
+.card,
+.win,
+.ex-card,
+.attr-card,
+.archive-card,
+.record-card,
+.ach-card,
+.seal,
+.tour-card,
+.levelup-card,
+.session-confirm-box,
+.quest-form-card,
+.heat-card,
+.week-card,
+.hub-dock {
+  border-radius: var(--r-panel);
+  clip-path: none;
+}
+
+/* Le liseré lumineux du dock reste visible malgré l'arrondi. */
+.hub-dock::before {
+  top: 0;
+}
+
+/* Les cartes à fond propre n'ont pas besoin de découpe : le rayon suffit.
+   `.program-card` et `.slog-card` gardent leur `overflow: hidden` d'origine. */
+.card,
+.win {
+  box-shadow: var(--edge-light), var(--lift);
+}
+.win.is-win-active {
+  box-shadow:
+    var(--edge-light),
+    0 0 0 1px rgba(95, 233, 255, 0.12),
+    0 26px 56px -32px rgba(0, 0, 0, 0.98);
+}
+
+/* Les cartes imbriquées ne portent qu'un liseré de lumière : pas de
+   seconde ombre portée, qui alourdirait les grilles. */
+.ex-card,
+.attr-card,
+.archive-card,
+.record-card,
+.ach-card,
+.seal {
+  box-shadow: var(--edge-light);
+}
+.ex-card {
+  overflow: hidden;
+}
+/* La barre d'accent des records doit suivre l'arrondi, pas le dépasser. */
+.record-card {
+  overflow: hidden;
+}
+/* Cadre intérieur de la montée de niveau : même famille que l'extérieur. */
+.levelup-card::before {
+  border-radius: 7px;
+  clip-path: none;
+}
+
+/* Le laiton reste discret : une seule arête chaude sur les blocs de butin. */
+.hunt-loot-card {
+  border-radius: 14px;
+  clip-path: none;
+  border-color: var(--brass-line);
+  box-shadow:
+    var(--edge-light),
+    0 0 90px rgba(216, 178, 115, 0.14),
+    0 40px 100px rgba(0, 0, 0, 0.7);
+}
+
+/* ------------------------------------------------------------
+   2. FENÊTRES — plus de crochets d'angle, rail et pied arrondis
+   ------------------------------------------------------------ */
+.win::before,
+.win::after {
+  display: none;
+}
+.win > .win-head {
+  border-radius: calc(var(--r-panel) - 1px) calc(var(--r-panel) - 1px) 0 0;
+}
+.win > .win-foot {
+  border-radius: 0 0 calc(var(--r-panel) - 1px) calc(var(--r-panel) - 1px);
+}
+
+/* ------------------------------------------------------------
+   3. COMMANDES — lames adoucies, cibles intactes
+   ------------------------------------------------------------ */
+.btn {
+  border-radius: var(--r-inner);
+  clip-path: none;
+}
+.btn:hover {
+  box-shadow: inset 0 0 0 1px rgba(95, 233, 255, 0.12);
+}
+
+.input,
+.select,
+.name-input {
+  border-radius: var(--r-inner);
+  clip-path: none;
+}
+
+.chip {
+  border-radius: 999px;
+}
+
+.filter-btn {
+  border-radius: 999px;
+  clip-path: none;
+}
+
+.segmented {
+  border-radius: 7px;
+}
+.seg:first-child {
+  border-radius: var(--r-inner) 0 0 var(--r-inner);
+}
+.seg:last-child {
+  border-radius: 0 var(--r-inner) var(--r-inner) 0;
+}
+
+.cal-nav,
+.cal-today {
+  border-radius: var(--r-inner);
+}
+.cal-cell {
+  border-radius: var(--r-inner);
+}
+
+.session-stepper {
+  border-radius: 8px;
+  clip-path: none;
+  overflow: hidden;
+}
+.session-stepper .session-step:first-child {
+  border-radius: 7px 0 0 7px;
+}
+.session-stepper .session-step:last-child {
+  border-radius: 0 7px 7px 0;
+}
+.session-reps-input {
+  border-radius: 0;
+}
+
+.toast {
+  border-radius: 8px;
+  clip-path: none;
+}
+
+/* Petites pièces encore coupées : on les remet dans la même famille. */
+.quest,
+.quest-check,
+.ach-icon,
+.rank-badge,
+.daily-glyph,
+.program-cal-icon,
+.warmup-zone,
+.pl-steps li,
+.pl-step-btn,
+.pl-value,
+.pl-preset,
+.pl-result,
+.session-hold,
+.session-summary-grid div,
+.hunt-loot-item,
+.hunt-threat,
+.hunt-quit,
+.session-quit,
+.toast-icon,
+.next-ach-icon,
+.hero-chip,
+.sys-kicker,
+.mh-level,
+.nav-item {
+  clip-path: none;
+}
+
+.quest-check { border-radius: 4px; }
+.rank-badge { border-radius: 4px; }
+.daily-glyph { border-radius: 7px; }
+.program-cal-icon { border-radius: 5px; }
+.warmup-zone,
+.pl-steps li,
+.pl-step-btn,
+.pl-value,
+.pl-preset,
+.pl-result,
+.session-summary-grid div,
+.hunt-loot-item { border-radius: var(--r-inner); }
+.session-hold { border-radius: 8px; }
+.hunt-threat,
+.hunt-quit,
+.session-quit { border-radius: var(--r-inner); }
+.toast-icon,
+.next-ach-icon { border-radius: 7px; }
+.hero-chip { border-radius: 999px; }
+.sys-kicker { border-radius: 3px; }
+.mh-level { border-radius: 5px; }
+.nav-item { border-radius: 8px; }
+
+/* ------------------------------------------------------------
+   4. LAITON — sceaux, niveau, butin, record
+   ------------------------------------------------------------ */
+.seal.is-unlocked {
+  border-color: var(--brass-line);
+  background:
+    linear-gradient(180deg, rgba(216, 178, 115, 0.07), transparent 72%),
+    rgba(7, 10, 17, 0.55);
+}
+.seal.is-unlocked .seal-glyph {
+  border-color: var(--brass-line);
+  background: var(--brass-soft);
+  color: var(--brass-bright);
+  box-shadow: inset 0 0 14px rgba(216, 178, 115, 0.12);
+}
+.seal.is-unlocked .seal-state {
+  color: var(--brass);
+}
+
+/* Sceau de niveau du QG */
+.seal-level {
+  background: linear-gradient(180deg, #fff6e4 0%, #f3d8a9 40%, #c99a52 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 22px rgba(216, 178, 115, 0.34));
+}
+.seal-rank {
+  border-color: var(--brass-line);
+  background: var(--brass-soft);
+  color: var(--brass-bright);
+  box-shadow: inset 0 0 12px rgba(216, 178, 115, 0.08);
+}
+
+/* Butin de chasse */
+.hunt-loot-kicker {
+  color: var(--brass);
+}
+.hunt-loot-item b {
+  color: var(--brass-bright);
+}
+
+/* Palier de record */
+.record-tag {
+  border-radius: 3px;
+}
+.record-tag.is-up {
+  border-color: var(--brass-line);
+  background: var(--brass-soft);
+  color: var(--brass);
+}
+
+/* Montée de niveau */
+.levelup-card {
+  border-color: var(--brass-line);
+  box-shadow:
+    var(--edge-light),
+    0 0 70px rgba(216, 178, 115, 0.1),
+    0 40px 120px rgba(0, 0, 0, 0.7);
+}
+
+/* ------------------------------------------------------------
+   5. SURFACES SECONDAIRES — même famille de rayons
+   ------------------------------------------------------------ */
+/* Le bilan est une seule dalle : on arrondit le cadre, pas les
+   cellules, pour ne pas casser les filets de séparation. */
+.bilan,
+.daily-item,
+.cal-detail,
+.lib-tally,
+.chapter {
+  border-radius: var(--r-inner);
+}
+.bilan {
+  overflow: hidden;
+}
+/* La barre d'accent du détail calendrier suit le coin arrondi. */
+.cal-detail::before {
+  border-radius: var(--r-inner) 0 0 var(--r-inner);
+}
+
+/* Pastilles et petits boutons prennent la forme de leur fonction. */
+.xp-pill {
+  border-radius: 999px;
+}
+.vc-btn {
+  border-radius: 5px;
+}
+.heat-cell {
+  border-radius: 3px;
+}
+.heat-freeze-ico,
+.bilan-icon {
+  border-radius: var(--r-inner);
+}
+.lib-tally i {
+  border-radius: 2px;
+}
+.quest-xp {
+  border-radius: 4px;
+}
+/* Un segment seul ne doit pas dépasser de son rail. */
+.segmented {
+  overflow: hidden;
+}
+/* Sur les petits écrans, le rail de filtres doit tenir sans rogner
+   le dernier libellé. On resserre les marges internes, pas la police. */
+@media (max-width: 400px) {
+  .seg {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+}
+
+/* ------------------------------------------------------------
+   6. PETITES PIÈCES — icônes et chiffres
+   ------------------------------------------------------------ */
+.seal-glyph,
+.ach-icon {
+  border-radius: 7px;
+}
+.ach-lock {
+  border-radius: 4px;
+}
+
+.record-value,
+.program-dose,
+.session-reps b,
+.session-rest-count,
+.session-hold-read b,
+.hub-metrics b,
+.ring-level,
+.xp-label,
+.cal-num {
+  font-variant-numeric: tabular-nums;
+}
+
+  </style>
+  <style data-source="css/porteur.css">
+/* ============================================================
+   CALISTHENIX — « SYSTÈME »
+   porteur.css — chargée en dernier. Refonte visuelle complète :
+   rail d'icônes, fenêtres de statut, registre, bête, séance,
+   chapitre, éveil, notifications et récompense.
+   Aucune donnée, aucun comportement : uniquement apparence.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   0. JETONS
+   ------------------------------------------------------------ */
+:root {
+  --void: #03050a;
+  --obsidian: #060a12;
+  --obsidian-2: #080e18;
+  --slate: #0b1420;
+  --steel: #101b2a;
+
+  --cyan: #6ee7ff;
+  --cyan-deep: #1f9fc0;
+  --blue: #4b8dff;
+  --violet: #a58bff;
+  --mint: #7df0c8;
+  --amber: #e6c184;
+  --rose: #ff6f7f;
+
+  --ink: #f2f7ff;
+  --ink-2: #c9d7ea;
+  --ink-3: #95a8c3;
+  --ink-4: #6d7f99;
+  --ink-5: #5c6d85;
+
+  --hairline: rgba(120, 200, 255, 0.14);
+  --hairline-2: rgba(120, 200, 255, 0.3);
+  --hairline-3: rgba(120, 200, 255, 0.46);
+  --veil: rgba(3, 6, 12, 0.8);
+
+  --brass: #e6c184;
+  --brass-bright: #f9e9c8;
+  --brass-deep: #a8792f;
+  --brass-line: rgba(230, 193, 132, 0.32);
+  --brass-soft: rgba(230, 193, 132, 0.07);
+
+  --danger: #ff6f7f;
+  --danger-soft: rgba(255, 111, 127, 0.08);
+
+  --rail-w: 78px;
+  --gutter: clamp(18px, 3vw, 40px);
+  --panel-face: rgba(7, 13, 23, 0.86);
+  --panel-face-2: rgba(10, 18, 30, 0.92);
+
+  --r-panel: 0px;
+  --r-inner: 0px;
+  --edge-light: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --lift: 0 0 0 1px rgba(0, 0, 0, 0.55), 0 34px 90px -48px #000;
+  --win-line: var(--hairline);
+  --win-line-2: var(--hairline-2);
+  --win-line-hot: var(--hairline-2);
+  --win-face: var(--panel-face);
+  --win-rail: linear-gradient(90deg, rgba(110, 231, 255, 0.055), transparent 62%);
+  --win-shadow: var(--lift);
+}
+
+/* ------------------------------------------------------------
+   1. SOCLE — le vide, la trame, la lumière
+   ------------------------------------------------------------ */
+html { background: var(--void); }
+
+body {
+  background-color: var(--void);
+  background-image:
+    radial-gradient(1200px 760px at 74% -10%, rgba(110, 231, 255, 0.1), transparent 60%),
+    radial-gradient(900px 620px at 4% 108%, rgba(165, 139, 255, 0.07), transparent 62%),
+    radial-gradient(600px 400px at 50% 50%, rgba(110, 231, 255, 0.03), transparent 70%),
+    var(--void);
+  color: var(--ink-2);
+}
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+  background: none;
+}
+.ambient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(120, 200, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 200, 255, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(1100px 800px at 62% 18%, #000 10%, transparent 76%);
+  mask-image: radial-gradient(1100px 800px at 62% 18%, #000 10%, transparent 76%);
+}
+.ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.016) 0 1px, transparent 1px 3px);
+  opacity: 0.5;
+}
+.grain,
+.scanlines { display: none; }
+
+::selection { background: var(--cyan); color: #02141c; }
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb {
+  background: rgba(110, 231, 255, 0.16);
+  border: 3px solid var(--void);
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------
+   2. RAIL DE NAVIGATION
+   ------------------------------------------------------------ */
+.app {
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+  background: none;
+}
+
+.sidebar {
+  width: var(--rail-w);
+  padding: 22px 0 20px;
+  align-items: center;
+  background: none;
+  border-right: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+.sidebar::before {
+  width: 1px;
+  right: 0;
+  background: linear-gradient(180deg, transparent, rgba(120, 200, 255, 0.12) 18%, rgba(120, 200, 255, 0.12) 82%, transparent);
+  opacity: 1;
+}
+.sidebar::after { display: none; }
+
+.brand {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--hairline-2);
+  border-radius: 2px;
+  background: rgba(110, 231, 255, 0.05);
+  box-shadow: 0 0 26px -8px rgba(110, 231, 255, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  flex: none;
+}
+.brand-mark {
+  width: 100%;
+  height: 100%;
+  color: var(--cyan);
+  filter: none;
+}
+.brand-mark svg { width: 24px; height: 24px; }
+.brand-text { display: none; }
+
+.player-mini {
+  width: 100%;
+  padding: 24px 0 0;
+  border: 0;
+  background: none;
+  gap: 7px;
+}
+.pm-top { gap: 6px; }
+.pm-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-2);
+  background: rgba(120, 200, 255, 0.06);
+  clip-path: none;
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.pm-avatar svg { width: 100%; height: 100%; }
+.pm-level {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--ink-4);
+}
+.pm-level b { color: var(--ink-2); font-weight: 500; }
+.xp-bar {
+  width: 34px;
+  height: 2px;
+  background: rgba(120, 200, 255, 0.12);
+}
+.xp-fill { background: var(--cyan); box-shadow: 0 0 10px rgba(110, 231, 255, 0.7); }
+
+.side-nav {
+  flex: 1;
+  width: 100%;
+  padding: 38px 9px 0;
+  gap: 4px;
+}
+.nav-item {
+  width: 100%;
+  min-height: 50px;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: var(--ink-4);
+  opacity: 0.55;
+  font-size: 0;
+  letter-spacing: 0;
+  transition: opacity 0.18s, color 0.18s, background 0.18s;
+}
+.nav-item svg { width: 21px; height: 21px; opacity: 1; }
+.nav-item:hover {
+  opacity: 0.9;
+  color: var(--ink-2);
+  background: rgba(110, 231, 255, 0.03);
+}
+.nav-item[aria-current="page"] {
+  opacity: 1;
+  color: var(--cyan);
+  background: rgba(110, 231, 255, 0.06);
+  border: 0;
+}
+.nav-item[aria-current="page"] svg { filter: none; }
+.nav-item::before {
+  left: -9px;
+  top: 9px;
+  bottom: 9px;
+  height: auto;
+  width: 2px;
+  transform: none;
+  opacity: 0;
+  background: var(--cyan);
+  box-shadow: 0 0 14px rgba(110, 231, 255, 0.55);
+  transition: opacity 0.18s;
+}
+.nav-item[aria-current="page"]::before { transform: none; opacity: 1; }
+/* Étiquette au survol, à droite du rail */
+.nav-item > span:not(.nav-ico) {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  z-index: 40;
+  padding: 6px 10px;
+  border: 1px solid var(--hairline-2);
+  background: rgba(4, 8, 14, 0.96);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(-4px);
+  transition: opacity 0.16s, transform 0.16s;
+}
+.nav-item:hover > span:not(.nav-ico),
+.nav-item:focus-visible > span:not(.nav-ico) {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.side-foot {
+  gap: 12px;
+  padding: 0;
+}
+.streak-mini {
+  gap: 3px;
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  color: var(--ink-5);
+}
+.streak-mini .flame {
+  width: 22px;
+  height: 22px;
+  color: var(--brass);
+  filter: none;
+}
+.streak-mini .flame svg { width: 15px; height: 15px; }
+.streak-mini strong { color: var(--ink-3); font-size: 8px; }
+.side-version {
+  font-size: 7px;
+  color: var(--ink-5);
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
+   3. EN-TÊTE / NAV MOBILE
+   ------------------------------------------------------------ */
+.mobile-header {
+  background: rgba(3, 6, 12, 0.92);
+  border-bottom: 1px solid var(--hairline);
+  backdrop-filter: blur(14px);
+}
+.mh-brand .brand-mark {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--hairline-2);
+  border-radius: 2px;
+  background: rgba(110, 231, 255, 0.05);
+}
+.mh-brand .brand-mark svg { width: 18px; height: 18px; }
+.mh-brand strong {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+}
+.mh-streak { color: var(--brass); }
+.mh-level { color: var(--ink-4); }
+.mh-level b { color: var(--ink); }
+
+.mobile-nav {
+  background: rgba(3, 6, 12, 0.96);
+  border-top: 1px solid var(--hairline);
+  backdrop-filter: blur(14px);
+  padding: 5px 8px calc(5px + env(safe-area-inset-bottom));
+}
+.mn-item {
+  gap: 0;
+  min-height: 46px;
+  padding: 6px 2px;
+  font-size: 0;
+  color: var(--ink-4);
+  opacity: 0.55;
+}
+.mn-item svg { width: 21px; height: 21px; }
+.mn-item[aria-current="page"] { color: var(--cyan); opacity: 1; }
+.mn-item[aria-current="page"] svg { filter: none; }
+.mn-item[aria-current="page"]::before {
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--cyan);
+  box-shadow: 0 0 12px rgba(110, 231, 255, 0.7);
+}
+
+/* ------------------------------------------------------------
+   4. VUES DOCUMENT — Quêtes, Arsenal, Codex
+   ------------------------------------------------------------ */
+.view:not([data-view="dashboard"]) {
+  width: min(1180px, 100%);
+  padding: clamp(22px, 3vw, 40px) var(--gutter) 100px;
+}
+
+.eyebrow {
+  gap: 10px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+}
+.eyebrow::before {
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  box-shadow: none;
+  transform: none;
+}
+.page-head {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--hairline);
+  align-items: flex-start;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 0.94;
+  color: var(--ink);
+}
+.page-sub {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  max-width: 66ch;
+}
+
+/* ------------------------------------------------------------
+   5. FENÊTRES — le chrome allégé
+   ------------------------------------------------------------ */
+.win {
+  position: relative;
+  min-width: 0;
+  margin: 0 0 16px;
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+  background: linear-gradient(180deg, var(--panel-face-2), var(--panel-face));
+  box-shadow: var(--lift);
+  clip-path: none;
+  overflow: visible;
+}
+.win::before { display: none; }
+.win::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    linear-gradient(var(--cyan), var(--cyan)) 0 0 / 13px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 0 0 / 1px 13px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 13px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 1px 13px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 0 100% / 13px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 0 100% / 1px 13px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 13px 1px no-repeat,
+    linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 1px 13px no-repeat;
+}
+.win.is-win-active {
+  border-color: var(--hairline-2);
+  box-shadow: var(--lift);
+}
+.win.is-win-active::after { opacity: 0.85; }
+
+.win-head,
+.win.is-win-active > .win-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 0;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(110, 231, 255, 0.055), transparent 62%);
+}
+.win-head::before { display: none; }
+.win-head--tall { min-height: 0; padding: 13px 20px; gap: 12px; }
+
+.win-id {
+  flex: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.win-name,
+.win-head .win-name,
+.win--card > .win-head .card-title.win-name,
+.win-head--tall .section-title {
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+.win-stat {
+  margin-left: auto;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.win-aside {
+  margin-left: auto;
+  gap: 12px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.win-aside .chip,
+.win-aside .quests-completion span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+.win-leds,
+.win-bars,
+.vc-leds,
+.win-foot,
+.wf-slot,
+.win > .win-foot { display: none; }
+
+.win-toggle {
+  width: 24px;
+  height: 24px;
+  margin-left: 2px;
+  border: 1px solid transparent;
+  color: var(--ink-4);
+}
+.win-toggle:hover {
+  color: var(--cyan);
+  border-color: var(--hairline);
+  background: rgba(110, 231, 255, 0.05);
+}
+.win-toggle svg { width: 11px; height: 11px; }
+
+.win-body { padding: 20px 22px; }
+.win--card > .win-body { padding: 20px 22px; }
+.win--flush > .win-body { padding: 0; }
+.win--section { margin: 22px 0 0; }
+.win--section > .win-body { padding: 0; }
+.win--section > .win-body > .attr-grid,
+.win--section > .win-body > .seal-grid,
+.win--section > .win-body > .record-grid,
+.win--section > .win-body > .ach-grid { padding: 16px; }
+.win--flush > .win-body > .lib-toolbar { padding: 14px 18px; }
+.win--flush > .win-body > .ex-grid { padding: 16px 18px; }
+.win--flush > .win-body > .quest-hero,
+.win--flush > .win-body > .codex-hero { padding: 20px 22px; }
+.win.is-collapsed > .win-head { border-bottom-color: transparent; }
+.win.is-collapsed::after { opacity: 0.25; }
+
+/* Barre système de vue */
+.view-chrome {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  margin: 0 0 18px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--hairline);
+  background: none;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.view-chrome .vc-left { margin-right: auto; }
+.view-chrome .vc-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink-3);
+  font-size: 9px;
+}
+.view-chrome .vc-name::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(110, 231, 255, 0.55);
+}
+.vc-id,
+.vc-count,
+.vc-focus { display: none; }
+.vc-btn {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--hairline);
+  border-radius: 0;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+.vc-btn:hover {
+  color: var(--cyan);
+  border-color: var(--hairline-2);
+  background: rgba(110, 231, 255, 0.05);
+}
+.vc-save { color: var(--ink-4); font-size: 9px; }
+.vc-save i { width: 5px; height: 5px; border-radius: 50%; background: var(--mint); }
+.vc-clock { color: var(--ink-4); font-size: 9px; }
+
+/* ------------------------------------------------------------
+   6. QG — scène
+   ------------------------------------------------------------ */
+.hub {
+  position: relative;
+  display: block;
+  min-height: 100dvh;
+  padding: 0;
+  overflow: visible;
+  isolation: auto;
+  background: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.hub.is-in { opacity: 1; }
+.hub.is-paused * { animation-play-state: paused !important; }
+.hub-void {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 78% 6%, rgba(110, 231, 255, 0.07), transparent 62%),
+    radial-gradient(700px 500px at 8% 96%, rgba(165, 139, 255, 0.05), transparent 64%);
+}
+.hub-stage {
+  position: relative;
+  z-index: 1;
+  display: block;
+  flex: none;
+  max-width: 1460px;
+  min-height: 0;
+  padding: 20px 40px 64px;
+  min-width: 0;
+}
+
+.hub-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-topline b { color: var(--ink-3); font-weight: 500; }
+.hub-sep { color: rgba(120, 200, 255, 0.28); margin: 0 9px; }
+.hub-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 10px rgba(125, 240, 200, 0.8);
+  vertical-align: 1px;
+}
+
+.hub-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 36px;
+  padding: 18px 0 28px;
+  border-bottom: 1px solid var(--hairline);
+}
+.hub-hero-copy { min-width: 0; }
+.hub-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.hub-kicker::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  flex: none;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+}
+.hub-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(46px, 6.6vw, 92px);
+  line-height: 0.85;
+  letter-spacing: 0.004em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hub-title span {
+  display: block;
+  background: linear-gradient(180deg, #fff 6%, #c9f4ff 50%, #6ee7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 34px rgba(110, 231, 255, 0.22));
+}
+.hub-lede {
+  margin: 16px 0 0;
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+.hub-lede b,
+.hub-lede strong { color: var(--ink); font-weight: 600; }
+
+.hub-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin: 0;
+  padding-bottom: 4px;
+  flex-wrap: nowrap;
+}
+.hub-cta .hub-btn {
+  min-height: 52px;
+  padding: 0 22px;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+.hub-btn {
+  --cut: 0px;
+  min-height: 52px;
+  gap: 12px;
+  padding: 0 22px;
+  border-radius: 2px;
+  clip-path: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  white-space: normal;
+  text-align: left;
+}
+.hub-btn svg { width: 18px; height: 18px; }
+.hub-btn-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
+.hub-btn-text small {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+.hub-btn-main {
+  color: #02141c;
+  background: linear-gradient(180deg, #9df2ff, #4ad8f5);
+  border: 1px solid rgba(110, 231, 255, 0.5);
+  box-shadow: 0 18px 40px -22px rgba(110, 231, 255, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.hub-btn-main:hover {
+  background: linear-gradient(180deg, #b9f7ff, #63e1f8);
+  box-shadow: 0 22px 50px -20px rgba(110, 231, 255, 1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+.hub-btn-ghost {
+  color: var(--ink-2);
+  border: 1px solid var(--hairline-2);
+  background: rgba(120, 200, 255, 0.03);
+}
+.hub-btn-ghost:hover {
+  color: var(--ink);
+  border-color: var(--hairline-3);
+  background: rgba(120, 200, 255, 0.07);
+  box-shadow: none;
+}
+.hub-btn-wide { width: 100%; margin-top: 14px; min-height: 44px; }
+.hub-btn-sm { min-height: 34px; padding: 0 14px; font-size: 11px; }
+
+/* Métriques — barre dédiée, séparée du titre */
+.hub-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.hub-metrics > span + span::before { display: none; }
+.hub-metrics > span {
+  padding: 16px 0 15px;
+  min-width: 0;
+}
+.hub-metrics > span + span {
+  padding-left: 22px;
+  border-left: 1px solid var(--hairline);
+}
+.hub-metrics b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.hub-metrics b.is-up { color: var(--mint); }
+.hub-metrics b.is-down { color: var(--danger); }
+.hub-metrics small {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: normal;
+  color: var(--ink-4);
+}
+
+.hub-qg {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 20px;
+  padding-top: 24px;
+  align-items: start;
+}
+.hub-col { display: grid; gap: 20px; min-width: 0; align-content: start; }
+.hub .win { margin: 0; }
+.hub .hub-chapter { max-width: none; }
+.hub .win-body { padding: 20px 22px; }
+
+/* Titres internes de fenêtre */
+.hub-dia {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  background: var(--cyan);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgba(110, 231, 255, 0.55);
+}
+.hub-sys {
+  flex: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.hub-win-title {
+  margin: 0;
+  min-width: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.hub-win-meta {
+  margin-left: auto;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------
+   7. FENÊTRE DE STATUT
+   ------------------------------------------------------------ */
+.hub-status-grid {
+  display: grid;
+  grid-template-columns: 264px minmax(0, 1fr);
+  min-width: 0;
+}
+.hub-status-seal {
+  display: grid;
+  place-items: center;
+  padding: 26px 20px;
+  border-right: 1px solid var(--hairline);
+  background: radial-gradient(220px 220px at 50% 46%, rgba(110, 231, 255, 0.09), transparent 70%);
+  min-width: 0;
+}
+.hub-seal {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  width: 214px;
+  height: 214px;
+  display: grid;
+  place-items: center;
+  gap: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-align: center;
+  isolation: auto;
+  transform: none;
+  animation: none;
+}
+.hub-seal::before,
+.hub-seal::after { content: none; display: none; }
+.hub-seal svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.hub-seal-track { fill: none; stroke: rgba(120, 200, 255, 0.16); stroke-width: 2; }
+.hub-seal-fill {
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 9px rgba(110, 231, 255, 0.55));
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hub-seal-dash {
+  fill: none;
+  stroke: rgba(230, 193, 132, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 2 8;
+}
+.hub-seal-core {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.hub-seal-k {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.hub-seal-n {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 88px;
+  line-height: 0.9;
+  background: linear-gradient(180deg, #fffaf0 0%, #f3d9ab 42%, #c99a52 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 22px rgba(230, 193, 132, 0.4));
+}
+.hub-seal-c {
+  margin-top: 4px;
+  padding: 2px 7px;
+  border: 1px solid var(--brass-line);
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hub-status-body {
+  min-width: 0;
+  padding: 20px 22px;
+}
+.hub-id-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+.hub-id-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.hub-id-tag {
+  margin-left: auto;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hub-xp { margin-top: 14px; }
+.hub-xp-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-xp-head b { color: var(--ink-2); font-weight: 500; letter-spacing: 0.1em; }
+.hub-bar {
+  position: relative;
+  height: 6px;
+  margin-top: 7px;
+  background: rgba(120, 200, 255, 0.1);
+  overflow: hidden;
+}
+.hub-bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  background: linear-gradient(90deg, var(--cyan-deep), var(--cyan));
+  box-shadow: 0 0 14px rgba(110, 231, 255, 0.55);
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hub-bar-brass i {
+  background: linear-gradient(90deg, var(--brass-deep), var(--brass));
+  box-shadow: 0 0 14px rgba(230, 193, 132, 0.5);
+}
+.hub-bar-danger i {
+  background: linear-gradient(90deg, #a83446, var(--danger));
+  box-shadow: 0 0 14px rgba(255, 111, 127, 0.45);
+}
+.hub-xp-note {
+  margin: 6px 0 0;
+  color: var(--ink-4);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.hub-attrs {
+  display: grid;
+  gap: 11px;
+  margin-top: 18px;
+}
+.hub-attr {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr) 58px;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.hub-attr-k {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hub-attr-bar {
+  position: relative;
+  height: 5px;
+  background: rgba(120, 200, 255, 0.1);
+  overflow: hidden;
+}
+.hub-attr-bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, rgba(110, 231, 255, 0.4), var(--cyan));
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hub-attr-bar.is-brass i { background: linear-gradient(90deg, rgba(230, 193, 132, 0.4), var(--brass)); }
+.hub-attr-v {
+  text-align: right;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.hub-attr-v small { color: var(--ink-4); font-family: var(--font-mono); font-size: 9px; font-weight: 400; }
+
+.hub-status-foot {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--hairline);
+}
+.hub-status-foot > div { padding: 13px 18px; min-width: 0; }
+.hub-status-foot > div + div { border-left: 1px solid var(--hairline); }
+.hub-status-foot b {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.hub-foot-of { color: var(--ink-4); font-size: 16px; }
+.hub-status-foot span {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   8. REGISTRE DU JOUR
+   ------------------------------------------------------------ */
+.hub-qlist { border-top: 1px solid var(--hairline); }
+.hub-qrow {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto 28px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--hairline);
+  transition: background 0.16s;
+  min-width: 0;
+}
+.hub-qrow:last-child { border-bottom: 0; }
+.hub-qrow:hover { background: rgba(110, 231, 255, 0.035); }
+.hub-qn {
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.hub-qmain { min-width: 0; }
+.hub-qname {
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.hub-qmeta {
+  margin-top: 3px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.hub-qmeta em { font-style: normal; color: var(--cyan); opacity: 0.8; }
+.hub-qxp {
+  padding: 4px 8px;
+  border: 1px solid var(--brass-line);
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.hub-qbox {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--hairline-2);
+  border-radius: 0;
+  background: none;
+  color: transparent;
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s, color 0.16s;
+}
+.hub-qbox svg { width: 13px; height: 13px; }
+.hub-qbox:hover { border-color: var(--cyan); background: rgba(110, 231, 255, 0.08); color: rgba(110, 231, 255, 0.5); }
+.hub-qrow.is-done .hub-qname { color: var(--ink-4); }
+.hub-qrow.is-done .hub-qbox {
+  border-color: rgba(125, 240, 200, 0.5);
+  background: rgba(125, 240, 200, 0.1);
+  color: var(--mint);
+}
+.hub-qrow.is-done .hub-qxp {
+  color: var(--ink-4);
+  border-color: var(--hairline);
+  text-decoration: line-through;
+}
+.hub-qfoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--hairline);
+  flex-wrap: wrap;
+}
+.hub-qfoot p {
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.hub-qfoot p b { color: var(--danger); font-weight: 500; }
+.hub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hub-link svg { width: 15px; height: 15px; }
+.hub-link:hover { color: #b9f7ff; }
+.hub-empty {
+  padding: 22px 20px;
+  color: var(--ink-4);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.hub-empty .hub-link { margin-top: 8px; }
+
+/* ------------------------------------------------------------
+   9. BÊTE
+   ------------------------------------------------------------ */
+.hub-beast-body {
+  position: relative;
+  padding: 20px 22px 18px;
+  background: radial-gradient(300px 180px at 82% 0%, rgba(165, 139, 255, 0.12), transparent 70%);
+}
+.hub-beast-tag {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  padding: 3px 6px;
+  border: 1px solid rgba(255, 111, 127, 0.35);
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-beast-tag.is-done { border-color: rgba(125, 240, 200, 0.4); color: var(--mint); }
+.hub-beast-name {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #d9cdff;
+  padding-right: 64px;
+}
+.hub-beast-epi {
+  margin: 6px 0 0;
+  color: var(--ink-4);
+  font-size: 11.5px;
+  font-style: italic;
+}
+.hub-beast-hp {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-beast-hp b {
+  color: #d9cdff;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.hub-beast-note {
+  margin: 10px 0 0;
+  color: var(--ink-3);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.hub-beast-body .hub-btn { width: 100%; margin-top: 16px; min-height: 46px; }
+
+/* ------------------------------------------------------------
+   10. SÉANCE / CHAPITRE / SERMENT
+   ------------------------------------------------------------ */
+.hub-panel { padding: 20px 22px; min-width: 0; }
+.hub-panel-k {
+  margin: 0;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.hub-panel-title {
+  margin-top: 5px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.hub-panel-text {
+  margin: 7px 0 0;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.hub-panel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--hairline);
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.hub-panel-row b { color: var(--brass); font-weight: 500; }
+.hub-warmup { margin-top: 14px; }
+
+.hub-chapter-segs {
+  display: flex;
+  gap: 5px;
+  margin-top: 14px;
+}
+.hub-chapter-segs i {
+  flex: 1;
+  height: 4px;
+  background: rgba(120, 200, 255, 0.12);
+}
+.hub-chapter-segs i.is-on {
+  background: linear-gradient(90deg, var(--cyan-deep), var(--cyan));
+  box-shadow: 0 0 12px rgba(110, 231, 255, 0.4);
+}
+.hub-chapter-segs i.is-current { opacity: 0.75; }
+
+.hub-fragment {
+  margin: 16px 0 0;
+  padding: 13px 0 0;
+  max-width: none;
+  border-top: 1px solid var(--hairline);
+}
+.hub-frag-head {
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-frag-head b { color: var(--brass); font-weight: 500; }
+.hub-fragment figcaption {
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hub-fragment blockquote {
+  margin: 6px 0 0;
+  padding-left: 0;
+  border-left: 0;
+  color: var(--ink-4);
+  font-size: 11.5px;
+  font-style: italic;
+  line-height: 1.6;
+}
+.hub-fragment blockquote::before { content: "« "; }
+.hub-fragment blockquote::after { content: " »"; }
+
+.hub-oath {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+.hub-oath-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hub-oath-head b { color: var(--brass); font-weight: 500; letter-spacing: 0.1em; }
+.hub-oath-title {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.hub-oath-vow { color: var(--ink-4); font-size: 11.5px; line-height: 1.5; }
+.hub-oath .hub-btn { justify-self: start; margin-top: 2px; }
+.hub-oath-menu { display: none; }
+.hub.is-oath-open .hub-oath-menu { display: grid; gap: 6px; margin-top: 4px; }
+.hub-oath-menu button {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--hairline);
+  background: rgba(120, 200, 255, 0.03);
+  text-align: left;
+  cursor: pointer;
+}
+.hub-oath-menu button:hover {
+  border-color: var(--hairline-2);
+  background: rgba(110, 231, 255, 0.06);
+}
+.hub-oath-menu b {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hub-oath-menu span { color: var(--ink-4); font-size: 11px; line-height: 1.4; }
+
+/* ------------------------------------------------------------
+   11. NOTIFICATIONS — en haut à gauche
+   ------------------------------------------------------------ */
+.toast-stack {
+  position: fixed;
+  top: 16px;
+  left: calc(var(--rail-w) + 22px);
+  right: auto;
+  bottom: auto;
+  z-index: 120;
+  width: 346px;
+  max-width: calc(100vw - 110px);
+  gap: 9px;
+  pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 12px 14px 14px;
+  border: 1px solid var(--hairline-2);
+  border-left: 2px solid var(--toast-color, var(--cyan));
+  border-radius: 0;
+  background: rgba(5, 11, 20, 0.96);
+  box-shadow: 0 20px 50px -26px #000, 0 0 30px -12px color-mix(in srgb, var(--toast-color, var(--cyan)) 50%, transparent);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  animation: toastIn 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.toast::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--toast-color, var(--cyan));
+  opacity: 0.5;
+  transform-origin: left;
+  animation: toastLife var(--toast-life, 4000ms) linear both;
+}
+.toast.out { animation: toastOut 0.3s ease both; }
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border: 1px solid color-mix(in srgb, var(--toast-color, var(--cyan)) 30%, transparent);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--toast-color, var(--cyan)) 10%, transparent);
+  color: var(--toast-color, var(--cyan));
+}
+.toast-icon svg { width: 13px; height: 13px; }
+.toast-body { min-width: 0; }
+.toast-title {
+  color: var(--toast-color, var(--cyan));
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.toast-desc {
+  margin-top: 5px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.toast-desc + .toast-desc { text-transform: none; }
+.toast-action {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.toast-close {
+  width: 18px;
+  height: 18px;
+  color: var(--ink-4);
+}
+.toast-close svg { width: 10px; height: 10px; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateX(-14px);
+    margin-top: -9px;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 0;
+  }
+}
+@keyframes toastLife {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ------------------------------------------------------------
+   12. ÉVEIL — la fenêtre d'entrée
+   ------------------------------------------------------------ */
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(700px 520px at 50% 42%, rgba(110, 231, 255, 0.1), transparent 68%),
+    rgba(2, 4, 9, 0.97);
+  transition: opacity 0.55s ease, visibility 0.55s;
+}
+.boot[hidden] { display: none; }
+.boot.is-out { opacity: 0; visibility: hidden; pointer-events: none; }
+.boot-grid,
+.boot-noise,
+.boot-core,
+.boot-bar { display: none; }
+
+.boot-win {
+  position: relative;
+  width: min(600px, 100%);
+  overflow: hidden;
+  border: 1px solid var(--hairline-2);
+  background: linear-gradient(180deg, rgba(10, 19, 32, 0.97), rgba(5, 9, 16, 0.98));
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6), 0 60px 140px -60px #000, 0 0 90px -30px rgba(110, 231, 255, 0.4);
+  animation: bootIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.boot-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 90px;
+  top: -90px;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(110, 231, 255, 0.09), transparent);
+  animation: bootScan 4.5s linear infinite;
+}
+.boot-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.boot-top span:last-child { margin-left: auto; color: var(--ink-4); }
+.boot-in { padding: 34px 34px 30px; text-align: center; }
+.boot-sig {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(110, 231, 255, 0.5);
+  transform: rotate(45deg);
+  box-shadow: 0 0 40px -8px rgba(110, 231, 255, 0.6), inset 0 0 22px rgba(110, 231, 255, 0.14);
+  animation: bootPulse 3.2s ease-in-out infinite;
+}
+.boot-sig svg { width: 30px; height: 30px; transform: rotate(-45deg); color: var(--cyan); }
+.boot-k {
+  margin: 0;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.boot-title {
+  margin: 10px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fff, #c9f4ff 55%, #6ee7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 26px rgba(110, 231, 255, 0.3));
+}
+.boot-log {
+  display: grid;
+  gap: 8px;
+  max-width: 400px;
+  margin: 24px auto 0;
+  text-align: left;
+}
+.boot-log p {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: bootLine 0.45s ease forwards;
+}
+.boot-log p:nth-child(1) { animation-delay: 0.5s; }
+.boot-log p:nth-child(2) { animation-delay: 0.78s; }
+.boot-log p:nth-child(3) { animation-delay: 1.06s; }
+.boot-log p:nth-child(4) { animation-delay: 1.34s; }
+.boot-log b {
+  flex: none;
+  color: var(--cyan);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.boot-log i {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, rgba(120, 200, 255, 0.25) 0 3px, transparent 3px 7px);
+  transform: translateY(-3px);
+}
+.boot-log span { color: var(--ink-2); }
+.boot-warn {
+  margin: 16px 0 0;
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: bootLine 0.45s ease forwards;
+  animation-delay: 1.75s;
+}
+.boot-btn {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  margin-top: 22px;
+  padding: 0 18px;
+  border: 1px solid rgba(110, 231, 255, 0.5);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #9df2ff, #4ad8f5);
+  color: #02141c;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  clip-path: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: bootLine 0.45s ease forwards;
+  animation-delay: 2s;
+}
+.boot-btn:hover {
+  background: linear-gradient(180deg, #b9f7ff, #63e1f8);
+  border-color: rgba(110, 231, 255, 0.7);
+  box-shadow: 0 18px 40px -22px rgba(110, 231, 255, 0.95);
+}
+.boot-skip { display: none; }
+
+@keyframes bootIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bootLine {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bootPulse {
+  0%, 100% { box-shadow: 0 0 34px -10px rgba(110, 231, 255, 0.5), inset 0 0 20px rgba(110, 231, 255, 0.12); }
+  50% { box-shadow: 0 0 60px -6px rgba(110, 231, 255, 0.85), inset 0 0 30px rgba(110, 231, 255, 0.22); }
+}
+@keyframes bootScan {
+  to { transform: translateY(760px); }
+}
+
+/* ------------------------------------------------------------
+   13. RÉCOMPENSE — niveau supérieur en laiton
+   ------------------------------------------------------------ */
+.levelup {
+  background: rgba(2, 4, 9, 0.84);
+  backdrop-filter: blur(6px);
+}
+.levelup-scan { display: none; }
+.levelup-card {
+  border: 1px solid rgba(230, 193, 132, 0.4);
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(12, 22, 36, 0.98), rgba(5, 9, 16, 0.99));
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6), 0 50px 120px -50px #000, 0 0 90px -34px rgba(230, 193, 132, 0.6);
+  clip-path: none;
+}
+.levelup-card::before { display: none; }
+.confetti { display: none; }
+.lu-corner {
+  border-color: rgba(230, 193, 132, 0.55);
+}
+.lu-system {
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+}
+.lu-kicker {
+  margin-top: 8px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+}
+.levelup-card h2 {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #fffaf0, #f3d9ab 50%, #c99a52);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+.lu-seal {
+  position: relative;
+  margin: 22px auto 4px;
+  width: 112px;
+  height: 112px;
+  border: 0;
+  transform: none;
+  background: none;
+  box-shadow: none;
+  clip-path: none;
+  animation: none;
+}
+.lu-seal::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(230, 193, 132, 0.5);
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(249, 233, 200, 0.16), transparent 62%),
+    rgba(230, 193, 132, 0.04);
+  box-shadow: 0 0 44px -10px rgba(230, 193, 132, 0.6), inset 0 0 24px rgba(230, 193, 132, 0.14);
+  clip-path: none;
+  transform: rotate(45deg);
+}
+.lu-hex {
+  position: relative;
+  z-index: 1;
+  transform: none;
+  border: 0;
+  background: none;
+  color: var(--brass-bright);
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+  clip-path: none;
+  text-shadow: 0 0 24px rgba(230, 193, 132, 0.45);
+}
+.lu-class {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+.lu-chapter {
+  margin-top: 14px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.lu-stats {
+  margin-top: 22px;
+  border-top: 1px solid rgba(230, 193, 132, 0.22);
+  border-bottom: 1px solid rgba(230, 193, 132, 0.14);
+}
+.lu-stat { padding: 11px 2px; }
+.lu-stat span {
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+.lu-stat b {
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+}
+.levelup-card blockquote {
+  margin-top: 18px;
+  color: var(--ink-4);
+  font-size: 12px;
+  line-height: 1.6;
+  font-style: italic;
+}
+.levelup-card blockquote::before { color: var(--brass); }
+.levelup-card .btn,
+.levelup-card .btn-lime {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid rgba(230, 193, 132, 0.5);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #f9e9c8, #e6c184);
+  color: #20170a;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  clip-path: none;
+  box-shadow: 0 18px 40px -22px rgba(230, 193, 132, 0.8);
+}
+.levelup-card .btn:hover {
+  background: linear-gradient(180deg, #fff4dd, #f0d2a0);
+  color: #20170a;
+  box-shadow: 0 22px 50px -20px rgba(230, 193, 132, 0.9);
+}
+
+/* ------------------------------------------------------------
+   14. COMMANDES ET FORMULAIRES — même famille
+   ------------------------------------------------------------ */
+.btn {
+  border-radius: 2px;
+  clip-path: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+.btn svg { width: 16px; height: 16px; }
+.btn-lime,
+.btn-primary {
+  background: linear-gradient(180deg, #9df2ff, #4ad8f5);
+  border: 1px solid rgba(110, 231, 255, 0.5);
+  color: #02141c;
+  box-shadow: 0 16px 38px -22px rgba(110, 231, 255, 0.9);
+}
+.btn-lime:hover,
+.btn-primary:hover {
+  background: linear-gradient(180deg, #b9f7ff, #63e1f8);
+  color: #02141c;
+}
+.btn-ghost {
+  border-color: var(--hairline-2);
+  background: rgba(120, 200, 255, 0.03);
+  color: var(--ink-2);
+}
+.btn-ghost:hover {
+  border-color: var(--hairline-3);
+  background: rgba(120, 200, 255, 0.07);
+  color: var(--ink);
+}
+.btn-sm {
+  min-height: 34px;
+  padding: 8px 14px;
+  font-size: 11.5px;
+}
+
+.input,
+.select,
+.textarea,
+.name-input {
+  border-radius: 0;
+  border: 1px solid var(--hairline);
+  background: rgba(120, 200, 255, 0.04);
+  color: var(--ink);
+  clip-path: none;
+}
+.input:focus,
+.select:focus,
+.textarea:focus,
+.name-input:focus {
+  border-color: var(--hairline-2);
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
+}
+.chip,
+.filter-btn,
+.seg,
+.segmented,
+.cal-cell,
+.cal-nav,
+.cal-today,
+.quest-check,
+.rank-badge,
+.daily-glyph,
+.record-tag,
+.hero-chip,
+.toast-icon,
+.vc-btn,
+.heat-cell,
+.quest-xp {
+  border-radius: 0;
+  clip-path: none;
+}
+.chip { border-radius: 999px; }
+.heat-cell { border-radius: 0; }
+
+.card {
+  border-radius: 0;
+  border: 1px solid var(--hairline);
+  background: linear-gradient(180deg, var(--panel-face-2), var(--panel-face));
+  box-shadow: var(--lift);
+  clip-path: none;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.card-title .dot { display: none; }
+
+.quest {
+  border-radius: 0;
+  border-bottom: 1px solid var(--hairline);
+  background: none;
+}
+.quest:hover { background: rgba(110, 231, 255, 0.035); }
+.quest-name { color: var(--ink); }
+.quest-meta { color: var(--ink-4); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+.quest-xp { border: 1px solid var(--brass-line); color: var(--brass); background: none; }
+.quest-check { border: 1px solid var(--hairline-2); background: none; }
+.quest.is-done .quest-name { color: var(--ink-4); }
+
+.ex-card,
+.attr-card,
+.archive-card,
+.record-card,
+.ach-card,
+.seal {
+  border-radius: 0;
+  border: 1px solid var(--hairline);
+  background: rgba(120, 200, 255, 0.025);
+  box-shadow: none;
+  clip-path: none;
+}
+.ex-card:hover,
+.attr-card:hover,
+.archive-card:hover,
+.record-card:hover {
+  border-color: var(--hairline-2);
+  background: rgba(120, 200, 255, 0.05);
+}
+
+.seal.is-unlocked {
+  border-color: var(--brass-line);
+  background: linear-gradient(180deg, rgba(230, 193, 132, 0.07), transparent 72%), rgba(7, 10, 17, 0.55);
+}
+.seal.is-unlocked .seal-state { color: var(--brass); }
+
+.bilan,
+.daily-item,
+.cal-detail,
+.lib-tally,
+.chapter,
+.heat-card,
+.week-card {
+  border-radius: 0;
+}
+
+/* Les overlays de jeu gardent leur mise en scène, sans cadre arrondi. */
+.session-confirm-box,
+.quest-form-card,
+.tour-card,
+.hunt-loot-card { border-radius: 0; }
+
+/* ------------------------------------------------------------
+   15. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 1240px) {
+  .hub-stage { padding: 18px 28px 56px; }
+  .hub-status-grid { grid-template-columns: 236px minmax(0, 1fr); }
+  .hub-seal { width: 196px; height: 196px; }
+  .hub-seal-n { font-size: 78px; }
+}
+
+@media (max-width: 1120px) {
+  .hub-qg { grid-template-columns: minmax(0, 1fr); }
+  .hub-col.hub-side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .hub-col.hub-side > .hub-chapter { grid-column: 1 / -1; }
+  .hub-stage { padding: 18px 26px 54px; }
+}
+
+@media (max-width: 980px) {
+  .win-name,
+  .win-head .win-name,
+  .win--card > .win-head .card-title.win-name,
+  .win-head--tall .section-title,
+  .hub-win-title { font-size: 19px; }
+  .hub-hero { gap: 24px; }
+}
+
+@media (max-width: 900px) {
+  .toast-stack {
+    left: 12px;
+    right: 12px;
+    top: 10px;
+    width: auto;
+    max-width: none;
+  }
+  .hub-stage { padding: 16px 18px calc(92px + env(safe-area-inset-bottom)); }
+  .hub-topline { font-size: 9px; }
+  .hub-title { font-size: clamp(42px, 12vw, 64px); }
+}
+
+@media (max-width: 820px) {
+  .hub-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 12px 0 24px;
+  }
+  .hub-cta { flex-direction: row; flex-wrap: wrap; }
+  .hub-cta .hub-btn { flex: 1 1 150px; }
+  .hub-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hub-metrics > span:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .hub-metrics > span:nth-child(n + 3) { border-top: 1px solid var(--hairline); }
+  .hub-metrics > span:nth-child(3) { padding-left: 0; border-left: 0; }
+  .hub-status-grid { grid-template-columns: minmax(0, 1fr); }
+  .hub-status-seal {
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
+    padding: 22px 16px;
+  }
+  .hub-seal { width: 186px; height: 186px; }
+  .hub-seal-n { font-size: 76px; }
+  .hub-col.hub-side { grid-template-columns: minmax(0, 1fr); }
+  .hub-col.hub-side > .hub-chapter { grid-column: auto; }
+  .hub-win-title { font-size: 19px; }
+  .hub-win-meta { white-space: normal; text-align: right; }
+  .hub-beast-name { font-size: 30px; }
+  .hub-panel-title { font-size: 24px; }
+}
+
+@media (max-width: 640px) {
+  .win-head,
+  .win.is-win-active > .win-head,
+  .win-head--tall {
+    flex-wrap: wrap;
+    row-gap: 4px;
+    padding: 12px 15px;
+    gap: 10px;
+  }
+  .win-id,
+  .hub-sys { display: none; }
+  .hub-win-meta { font-size: 8.5px; }
+  .win-body,
+  .win--card > .win-body,
+  .hub .win-body { padding: 16px; }
+  .hub-panel { padding: 16px; }
+  .hub-beast-body { padding: 16px; }
+  .hub-qrow { grid-template-columns: minmax(0, 1fr) auto 26px; gap: 10px; padding: 11px 15px; }
+  .hub-qn { display: none; }
+  .hub-qname { font-size: 13.5px; }
+  .hub-qxp { font-size: 9px; padding: 3px 6px; }
+  .hub-qfoot { padding: 12px 15px; }
+  .hub-status-body { padding: 16px; }
+  .hub-id-name { font-size: 22px; }
+  .hub-id-tag { margin-left: 0; flex-basis: 100%; }
+  .hub-attr { grid-template-columns: 74px minmax(0, 1fr) 52px; gap: 10px; }
+  .hub-status-foot > div { padding: 11px 13px; }
+  .hub-status-foot b { font-size: 21px; }
+  .hub-status-foot span { font-size: 8px; letter-spacing: 0.12em; }
+  .hub-beast-name { font-size: 28px; padding-right: 58px; }
+  .hub-fragment figcaption { font-size: 14px; }
+  .win--flush > .win-body > .quest-hero,
+  .win--flush > .win-body > .codex-hero { padding: 16px; }
+  .win--flush > .win-body > .lib-toolbar,
+  .win--flush > .win-body > .ex-grid { padding: 12px; }
+}
+
+@media (max-width: 420px) {
+  .hub-stage { padding: 14px 14px calc(92px + env(safe-area-inset-bottom)); }
+  .hub-title { font-size: clamp(40px, 13vw, 54px); }
+  .hub-lede { font-size: 13px; }
+  .hub-cta { flex-direction: column; }
+  .hub-cta .hub-btn { width: 100%; flex: none; }
+  .hub-metrics b { font-size: 26px; }
+  .hub-status-foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hub-status-foot > div:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+    grid-column: 1 / -1;
+  }
+  .hub-attr { grid-template-columns: 68px minmax(0, 1fr) 48px; }
+  .hub-attr-k { font-size: 8px; letter-spacing: 0.12em; }
+  .hub-beast-name { font-size: 26px; }
+  .hub-panel-title { font-size: 22px; }
+  .toast-desc { font-size: 15px; }
+  .boot-in { padding: 26px 20px 24px; }
+  .levelup-card h2 { font-size: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .hub { opacity: 1; }
+  .boot-log p,
+  .boot-warn,
+  .boot-btn { opacity: 1; }
+  .toast::after { display: none; }
+}
+
+  </style>
 </head>
 <body>
   <a class="skip" href="#main">Aller au contenu</a>
@@ -12214,21 +14985,34 @@ h1, h2, h3, h4 {
 
   <!-- ============ BOOT / LIAISON SYSTÈME ============ -->
   <div class="boot" id="boot" hidden>
-    <div class="boot-grid" aria-hidden="true"></div>
-    <div class="boot-noise" aria-hidden="true"></div>
-    <div class="boot-core" aria-hidden="true">
-      <span class="boot-ring boot-ring--a"></span>
-      <span class="boot-ring boot-ring--b"></span>
-      <span class="boot-diamond"><i>CX</i></span>
+    <div class="boot-win" role="dialog" aria-modal="true" aria-labelledby="bootTitle">
+      <div class="boot-scan" aria-hidden="true"></div>
+      <div class="boot-top">
+        <span>SYS//LIAISON</span>
+        <span>CANAL SÉCURISÉ</span>
+        <span>SEUIL 07</span>
+      </div>
+      <div class="boot-in">
+        <div class="boot-sig" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 3 29 16 16 29 3 16Z" stroke="currentColor" stroke-width="1.1"/>
+            <circle cx="16" cy="16" r="8.6" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2.6"/>
+            <path d="M16 8v16M8 16h16" stroke="currentColor" stroke-width="1"/>
+            <circle cx="16" cy="16" r="2.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <p class="boot-k">Notification du Système</p>
+        <h2 class="boot-title" id="bootTitle">Le Système<br>s'est activé</h2>
+        <div class="boot-log" id="bootLog">
+          <p><b>IDENT</b><i aria-hidden="true"></i><span>lecture du porteur…</span></p>
+          <p><b>SEUIL</b><i aria-hidden="true"></i><span>canal ouvert</span></p>
+          <p><b>QUÊTES</b><i aria-hidden="true"></i><span>registre du jour chargé</span></p>
+          <p><b>OBJECTIF</b><i aria-hidden="true"></i><span>ne pas laisser la porte se refermer</span></p>
+        </div>
+        <p class="boot-warn">L'inaction est punie.</p>
+        <button class="boot-btn" type="button" data-skip-boot>Répondre à l'appel</button>
+      </div>
     </div>
-    <div class="boot-log" id="bootLog" aria-hidden="true">
-      <p><b>SYSTÈME</b> <span>initialisation du noyau…</span></p>
-      <p><b>IDENT</b> <span>lecture du porteur…</span></p>
-      <p><b>PORTAIL</b> <span>calibration des seuils…</span></p>
-      <p><b>ÉTAT</b> <span>liaison établie.</span></p>
-    </div>
-    <div class="boot-bar" aria-hidden="true"><i></i></div>
-    <button class="boot-skip" type="button" data-skip-boot>Passer</button>
   </div>
 
   <!-- ============ TOASTS ============ -->
@@ -12257,6 +15041,11 @@ h1, h2, h3, h4 {
   <!-- ============ SÉANCE LIBRE / ATELIER DE COMPOSITION ============ -->
   <div class="session free-builder" id="freeBuilder" role="dialog" aria-modal="true" aria-labelledby="freeTitle" hidden>
     <div class="session-frame" id="freeBuilderFrame"></div>
+  </div>
+
+  <!-- ============ REMPLACEMENT D'EXERCICE ============ -->
+  <div class="session swap" id="swap" role="dialog" aria-modal="true" aria-labelledby="swapTitle" hidden>
+    <div class="session-frame" id="swapFrame"></div>
   </div>
 
   <!-- ============ ÉVOLUTION / NIVEAU SUPÉRIEUR ============ -->
@@ -13207,9 +15996,9 @@ h1, h2, h3, h4 {
     <script data-source="js/hub.js">
 /* ============================================================
    CALISTHENIX — le Quartier Général
-   hub.js — scène persistante du Seuil. Montée une seule fois,
-   puis mise à jour ciblée depuis l'état réel du jeu.
-   Expose CX.hub.
+   hub.js — fenêtre de statut, registre du jour, bête, séance,
+   chapitre. Montée une seule fois, puis mise à jour ciblée
+   depuis l'état réel du jeu. Expose CX.hub.
    ============================================================ */
 (function () {
   "use strict";
@@ -13217,7 +16006,7 @@ h1, h2, h3, h4 {
   const CX = (window.CX = window.CX || {});
   if (!CX.icon) throw new Error("icons.js doit être chargé avant hub.js");
 
-  const ARC_C = 2 * Math.PI * 86;
+  const ARC_C = 2 * Math.PI * 104;
   const esc = (value) =>
     String(value == null ? "" : value)
       .replace(/&/g, "&amp;")
@@ -13235,139 +16024,181 @@ h1, h2, h3, h4 {
     full: "Journée close. La bête recule. Repos mérité, Porteur — reviens demain reprendre la chasse.",
   };
 
+  const CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9 17.5 20 6.5"/></svg>`;
+  const PLAY = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
+  const ROUTE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6a4 4 0 0 0 4-4V7"/></svg>`;
+  const BLADE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg>`;
+  const ARROW = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7"/></svg>`;
+
   const TEMPLATE = `
-    <div class="hub-gridtex" aria-hidden="true"></div>
-    <div class="hub-bloom" aria-hidden="true"></div>
-    <canvas class="hub-gate" aria-hidden="true"></canvas>
-    <div class="hub-fog" aria-hidden="true"></div>
-    <div class="hub-scale" aria-hidden="true"></div>
-    <div class="hub-vignette" aria-hidden="true"></div>
-
-    <div class="hub-stamp" aria-hidden="true">
-      <span data-live-clock>--:--</span>
-      <span><i class="hub-live"></i> SYSTÈME EN LIGNE</span>
-    </div>
-
+    <div class="hub-void" aria-hidden="true"></div>
     <div class="hub-stage">
-      <div class="hub-copy">
-        <span class="hub-kicker">
-          <i class="hub-live"></i> SEUIL 07 — <b data-bind="name">PORTEUR</b>
-        </span>
-        <h1 class="hub-title">LA PORTE<em>S'OUVRE</em></h1>
-        <p class="hub-lede" data-bind="lede"></p>
-        <div class="hub-cta">
-          <button class="btn btn-primary" type="button" data-bind="primary"></button>
-          <button class="btn btn-ghost" type="button" data-action="open-hunt">
-            ${CX.icon("blade")}<span>Chasser la bête</span>
-          </button>
+      <div class="hub-topline">
+        <div>
+          <span>SEUIL 07</span>
+          <span class="hub-sep">//</span>
+          <b data-bind="dateShort">--.--</b>
+          <span class="hub-sep">//</span>
+          <span data-live-clock>--:--</span>
         </div>
-        <div class="hub-metrics">
-          <span><b data-bind="streak">0</b><small>SÉRIE · JOURS</small></span>
-          <span><b data-bind="weekXp">0</b><small>XP · 7 JOURS</small></span>
-          <span><b data-bind="weekDelta">0 %</b><small>VS SEMAINE</small></span>
-          <span><b data-bind="volume">0</b><small>VOLUME · RÉPS</small></span>
-        </div>
-        <div class="hub-chapter">
-          <div class="chapter-top">
-            <span data-bind="chapterLabel">CHAPITRE I</span>
-            <strong data-bind="chapterTitle">L'Éveil du Porteur</strong>
-          </div>
-          <div class="chapter-track" data-bind="chapterTrack" aria-hidden="true"></div>
-          <span class="chapter-note" data-bind="chapterNote"></span>
-        </div>
-
-        <figure class="hub-fragment">
-          <span class="frag-head">FRAGMENT <b data-bind="loreN">01</b> / <span data-bind="loreTotal">15</span></span>
-          <figcaption data-bind="loreTitle">Le premier appui</figcaption>
-          <blockquote data-bind="loreText"></blockquote>
-        </figure>
+        <div><i class="hub-dot" aria-hidden="true"></i>SYSTÈME EN LIGNE</div>
       </div>
 
-    </div>
+      <header class="hub-hero">
+        <div class="hub-hero-copy">
+          <p class="hub-kicker">Registre du jour · <span data-bind="dateLong">aujourd'hui</span></p>
+          <h1 class="hub-title">LA PORTE<span>S'OUVRE</span></h1>
+          <p class="hub-lede" data-bind="lede"></p>
+        </div>
+        <div class="hub-cta">
+          <button class="btn hub-btn hub-btn-main" type="button" data-bind="primary"></button>
+          <button class="btn hub-btn hub-btn-ghost" type="button" data-action="open-hunt">
+            ${BLADE}
+            <span class="hub-btn-text">
+              <span>Chasser la bête</span>
+              <small data-bind="huntSmall">La bête de la semaine</small>
+            </span>
+          </button>
+        </div>
+      </header>
 
-    <div class="hub-seal" data-bind="seal" role="img" aria-label="Niveau 1, Recrue">
-      <span class="seal-halo" aria-hidden="true"></span>
-      <span class="seal-bevel" aria-hidden="true"></span>
-      <span class="seal-ticks" aria-hidden="true"></span>
-      <span class="seal-orbit" aria-hidden="true"><i></i><i></i><i></i></span>
-      <svg class="seal-svg" viewBox="0 0 200 200" aria-hidden="true">
-        <defs>
-          <linearGradient id="sealArcGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#5fe9ff"/>
-            <stop offset="52%" stop-color="#7ea8ff"/>
-            <stop offset="100%" stop-color="#9b7bff"/>
-          </linearGradient>
-        </defs>
-        <circle class="seal-track" cx="100" cy="100" r="86" stroke-width="1.4"/>
-        <circle class="seal-arc" data-bind="arc" cx="100" cy="100" r="86" stroke-width="3.2"
-          stroke-dasharray="${ARC_C.toFixed(2)}" stroke-dashoffset="${ARC_C.toFixed(2)}"/>
-      </svg>
-      <span class="seal-kicker"><i aria-hidden="true"></i>Niveau<i aria-hidden="true"></i></span>
-      <span class="seal-level" data-bind="level">1</span>
-      <span class="seal-rank" data-bind="rank">RECRUE · E</span>
-      <span class="seal-xp" data-bind="xp">0 / 100 XP</span>
-    </div>
+      <div class="hub-metrics">
+        <span><b data-bind="streak">0</b><small>Série · jours</small></span>
+        <span><b data-bind="weekXp">0</b><small>XP · 7 jours</small></span>
+        <span><b data-bind="weekDelta">0 %</b><small>VS semaine</small></span>
+        <span><b data-bind="volume">0</b><small>Volume · réps</small></span>
+      </div>
 
-    <div class="hub-dock">
-      <section class="dock-panel dock-ledger" aria-label="Quêtes du jour">
-        <div class="dock-head">
-          <span class="dock-label">Aujourd'hui</span>
-          <span class="dock-count"><b data-bind="done">0</b>/<span data-bind="total">0</span></span>
-        </div>
-        <div class="led-list" data-bind="ledger"></div>
-        <button class="dock-link" type="button" data-nav="quests">
-          Ouvrir le journal <span>→</span>
-        </button>
-      </section>
+      <div class="hub-qg">
+        <div class="hub-col">
+          <section class="win hub-status" aria-labelledby="hubStatusTitle">
+            <header class="win-head">
+              <i class="hub-dia" aria-hidden="true"></i>
+              <span class="hub-sys">SYS//STAT-01</span>
+              <h2 class="hub-win-title" id="hubStatusTitle">Fenêtre de statut</h2>
+              <span class="hub-win-meta" data-bind="rankLabel">Porteur · E</span>
+            </header>
+            <div class="hub-status-grid">
+              <div class="hub-status-seal">
+                <div class="hub-seal" data-bind="seal" role="img" aria-label="Niveau 1, Recrue, classe E">
+                  <svg viewBox="0 0 240 240" aria-hidden="true">
+                    <circle class="hub-seal-track" cx="120" cy="120" r="104"/>
+                    <circle class="hub-seal-fill" data-bind="arc" cx="120" cy="120" r="104"
+                      stroke-dasharray="${ARC_C.toFixed(2)}" stroke-dashoffset="${ARC_C.toFixed(2)}"/>
+                    <circle class="hub-seal-dash" cx="120" cy="120" r="86"/>
+                  </svg>
+                  <div class="hub-seal-core">
+                    <span class="hub-seal-k">Niveau</span>
+                    <b class="hub-seal-n" data-bind="level">1</b>
+                    <span class="hub-seal-c" data-bind="classLabel">E · Recrue</span>
+                  </div>
+                </div>
+              </div>
+              <div class="hub-status-body">
+                <div class="hub-id-row">
+                  <span class="hub-id-name" data-bind="name">Porteur</span>
+                  <span class="hub-id-tag" data-bind="memberSince">Membre depuis aujourd'hui</span>
+                </div>
+                <div class="hub-xp">
+                  <div class="hub-xp-head"><span>Expérience</span><b data-bind="xp">0 / 100</b></div>
+                  <div class="hub-bar"><i data-bind="xpFill" style="width:0%"></i></div>
+                  <p class="hub-xp-note" data-bind="xpNote"></p>
+                </div>
+                <div class="hub-attrs" data-bind="attrs"></div>
+              </div>
+            </div>
+            <footer class="hub-status-foot">
+              <div><b data-bind="done">0<span class="hub-foot-of"> / <span data-bind="total">0</span></span></b><span>Quêtes validées</span></div>
+              <div><b data-bind="streakFoot">0<span class="hub-foot-of"> j</span></b><span>Série en cours</span></div>
+              <div><b data-bind="volumeFoot">0</b><span>Volume · réps</span></div>
+            </footer>
+          </section>
 
-      <section class="dock-panel dock-ritual" aria-label="Rituel du jour">
-        <div class="dock-head">
-          <span class="dock-label">Rituel du jour</span>
-          <span class="dock-count" data-bind="programTier">Débutant</span>
+          <section class="win hub-quests" aria-labelledby="hubQuestsTitle">
+            <header class="win-head">
+              <i class="hub-dia" aria-hidden="true"></i>
+              <span class="hub-sys">SYS//QST-02</span>
+              <h2 class="hub-win-title" id="hubQuestsTitle">Quêtes du jour</h2>
+              <span class="hub-win-meta" data-bind="questMeta">0 / 0 · Ferme à minuit</span>
+            </header>
+            <div class="hub-qlist" data-bind="ledger"></div>
+            <footer class="hub-qfoot">
+              <p><b>Pénalité</b> · série gelée si le registre se referme vide.</p>
+              <button class="hub-link" type="button" data-nav="quests">Ouvrir le registre ${ARROW}</button>
+            </footer>
+          </section>
         </div>
-        <div class="ritual-main">
-          <strong data-bind="programTitle">Récupération</strong>
-          <span data-bind="programMeta">Repos planifié</span>
-        </div>
-        <button class="btn btn-ghost btn-sm" type="button" data-bind="programBtn"></button>
-        <button class="dock-link dock-warmup" type="button" data-action="open-warmup" data-bind="warmupBtn">
-          Échauffement 6 min <span aria-hidden="true">→</span>
-        </button>
-      </section>
 
-      <section class="dock-panel dock-oath" aria-label="Serment de la semaine">
-        <div class="dock-head">
-          <span class="dock-label">Serment</span>
-          <span class="dock-count" data-bind="oathWeek">S. —</span>
-        </div>
-        <div class="oath-body" data-bind="oathBody"></div>
-      </section>
+        <aside class="hub-col hub-side">
+          <section class="win hub-beast" aria-labelledby="hubBeastTitle">
+            <header class="win-head">
+              <i class="hub-dia" aria-hidden="true"></i>
+              <span class="hub-sys">SYS//HUNT-01</span>
+              <h2 class="hub-win-title" id="hubBeastTitle">Bête de la semaine</h2>
+              <span class="hub-win-meta" data-bind="bossDays">6 j</span>
+            </header>
+            <div class="hub-beast-body">
+              <span class="hub-beast-tag" data-bind="bossTag">Active</span>
+              <div class="hub-beast-name" data-bind="bossName">La Rouille</div>
+              <p class="hub-beast-epi" data-bind="bossEpithet">celle qui mange les articulations</p>
+              <div class="hub-beast-hp">
+                <span>Points de vie</span>
+                <b data-bind="bossHp">0 / 0</b>
+              </div>
+              <div class="hub-bar hub-bar-danger"><i data-bind="bossFill" style="width:0%"></i></div>
+              <p class="hub-beast-note">Chaque quête validée entaille la bête. Une seule bête par semaine.</p>
+              <button class="btn hub-btn hub-btn-ghost" type="button" data-action="open-hunt" data-bind="bossBtn">Engager le combat</button>
+            </div>
+          </section>
 
-      <section class="dock-panel dock-threat" aria-label="Épreuve de la semaine">
-        <div class="dock-head">
-          <span class="dock-label">Épreuve</span>
-          <span class="dock-count" data-bind="bossDays">6 j</span>
-        </div>
-        <strong class="threat-name" data-bind="bossName">La Rouille</strong>
-        <span class="threat-epithet" data-bind="bossEpithet">celle qui mange les articulations</span>
-        <div class="threat-meter" role="progressbar" data-bind="bossMeter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-          <i data-bind="bossFill" style="width:0%"></i>
-        </div>
-        <div class="threat-meta">
-          <span data-bind="bossHp">0 / 0</span>
-          <button class="dock-link" type="button" data-action="open-hunt">Engager <span>→</span></button>
-        </div>
-      </section>
+          <section class="win hub-session" aria-labelledby="hubSessionTitle">
+            <header class="win-head">
+              <i class="hub-dia" aria-hidden="true"></i>
+              <span class="hub-sys">SYS//RUN-01</span>
+              <h2 class="hub-win-title" id="hubSessionTitle">Prochaine séance</h2>
+              <span class="hub-win-meta" data-bind="programTier">Débutant</span>
+            </header>
+            <div class="hub-panel">
+              <p class="hub-panel-k">Rituel du jour</p>
+              <div class="hub-panel-title" data-bind="programTitle">Récupération</div>
+              <p class="hub-panel-text" data-bind="programMeta">Repos planifié</p>
+              <div class="hub-panel-row"><span>Gain estimé</span><b data-bind="programXp">+0 XP</b></div>
+              <div class="hub-panel-row"><span>Dernière séance</span><span data-bind="lastSession">Aucune</span></div>
+              <button class="btn hub-btn hub-btn-ghost hub-btn-wide" type="button" data-bind="programBtn"></button>
+              <button class="hub-link hub-warmup" type="button" data-action="open-warmup" data-bind="warmupBtn">Échauffement 6 min ${ARROW}</button>
+            </div>
+          </section>
+
+          <section class="win hub-chapter" aria-labelledby="hubChapterTitle">
+            <header class="win-head">
+              <i class="hub-dia" aria-hidden="true"></i>
+              <span class="hub-sys">SYS//CDX-06</span>
+              <h2 class="hub-win-title" id="hubChapterTitle" data-bind="chapterLabel">Chapitre I</h2>
+              <span class="hub-win-meta" data-bind="chapterNote">Niveau 3 · chapitre II</span>
+            </header>
+            <div class="hub-panel">
+              <p class="hub-panel-k" data-bind="chapterTitle">L'Éveil du Porteur</p>
+              <div class="hub-chapter-segs" data-bind="chapterTrack" aria-hidden="true"></div>
+              <figure class="hub-fragment">
+                <span class="hub-frag-head">Fragment <b data-bind="loreN">01</b> / <span data-bind="loreTotal">15</span></span>
+                <figcaption data-bind="loreTitle">Le premier appui</figcaption>
+                <blockquote data-bind="loreText"></blockquote>
+              </figure>
+              <div class="hub-oath" data-bind="oathBody"></div>
+            </div>
+          </section>
+        </aside>
+      </div>
     </div>
   `;
 
   const hub = {
     root: null,
     refs: null,
-    gate: null,
     active: true,
     mounted: false,
     _ledgerSig: "",
+    _attrSig: "",
     _chapterCount: 0,
 
     mount(container) {
@@ -13378,12 +16209,9 @@ h1, h2, h3, h4 {
         const key = el.dataset.bind;
         if (!this.refs[key]) this.refs[key] = el;
       });
-      this.refs.ledgerSig = "";
-      this.gate = CX.gate.create(this.root.querySelector(".hub-gate"));
-      if (!this.gate) {
-        this.root.classList.add("no-gate");
-        console.info("[Calisthenix] Portail : repli statique (aucun contexte graphique).");
-      }
+      this._ledgerSig = "";
+      this._attrSig = "";
+      this._chapterCount = 0;
       this.mounted = true;
       const clock = this.root.querySelector("[data-live-clock]");
       if (clock && typeof window.hudStamp === "function") clock.textContent = window.hudStamp();
@@ -13414,20 +16242,40 @@ h1, h2, h3, h4 {
       if (!m || !this.refs) return;
       const r = this.refs;
 
-      /* identité */
-      if (r.name) r.name.textContent = m.name || "Porteur";
+      /* bandeau */
+      setText(r.dateShort, m.dateShort);
+      setText(r.dateLong, m.dateLong);
 
       /* sceau */
       const offset = ARC_C * (1 - clamp(m.levelPct || 0, 0, 100) / 100);
       if (r.arc) r.arc.setAttribute("stroke-dashoffset", offset.toFixed(2));
-      if (r.level) r.level.textContent = m.level;
-      if (r.rank) r.rank.textContent = `${String(m.rank || "").toUpperCase()} · ${m.className || "E"}`;
-      if (r.xp) r.xp.textContent = `${num(m.xpCurrent)} / ${num(m.xpNeed)} XP`;
-      if (r.seal && r.seal.setAttribute) {
+      setText(r.level, m.level);
+      setText(r.classLabel, `${m.className || "E"} · ${m.rank || "Recrue"}`);
+      setText(r.rankLabel, `Porteur · ${m.rankLabel || m.rank || "Recrue"}`);
+      if (r.seal) {
         r.seal.setAttribute(
           "aria-label",
           `Niveau ${m.level}, rang ${m.rank}, classe ${m.className}. ${num(m.xpCurrent)} sur ${num(m.xpNeed)} XP.`
         );
+      }
+
+      /* identité */
+      setText(r.name, m.name || "Porteur");
+      setText(r.memberSince, `Membre depuis ${m.memberSince || "aujourd'hui"}`);
+
+      /* expérience */
+      setText(r.xp, `${num(m.xpCurrent)} / ${num(m.xpNeed)}`);
+      if (r.xpFill) r.xpFill.style.width = `${clamp(m.levelPct || 0, 0, 100)}%`;
+      setText(
+        r.xpNote,
+        `${num(m.xpToNext)} XP avant le niveau ${m.level + 1} · ${num(m.weekXp)} XP gagnés cette semaine`
+      );
+
+      /* attributs */
+      const attrSig = (m.attributes || []).map((a) => `${a.id}:${a.value}`).join("|");
+      if (r.attrs && attrSig !== this._attrSig) {
+        this._attrSig = attrSig;
+        r.attrs.innerHTML = (m.attributes || []).map(attrRow).join("");
       }
 
       /* métriques */
@@ -13438,34 +16286,11 @@ h1, h2, h3, h4 {
       if (r.weekDelta) r.weekDelta.classList.toggle("is-down", m.weekDelta < 0);
       setText(r.volume, num(m.volumeToday));
 
-      /* chapitre */
-      setText(r.chapterLabel, `CHAPITRE ${m.chapter.n}`);
-      setText(r.chapterTitle, m.chapter.title);
-      setText(
-        r.chapterNote,
-        m.chapter.nextLevel
-          ? `Niveau ${m.chapter.nextLevel} pour ouvrir le chapitre ${m.chapter.nextN}`
-          : "Dernier chapitre du Système"
-      );
-      if (r.chapterTrack && this._chapterCount !== m.chapter.total) {
-        this._chapterCount = m.chapter.total;
-        r.chapterTrack.innerHTML = Array.from({ length: m.chapter.total }, () => "<i></i>").join("");
-      }
-      if (r.chapterTrack) {
-        Array.from(r.chapterTrack.children).forEach((seg, i) => {
-          const index = i + 1;
-          seg.className = index < m.chapter.index ? "is-on" : index === m.chapter.index ? "is-on is-current" : index === m.chapter.index + 1 ? "is-next" : "";
-        });
-      }
-
-      /* fragment du codex */
-      if (m.lore) {
-        setText(r.loreN, String(m.lore.n).padStart(2, "0"));
-        setText(r.loreTotal, String(m.lore.total).padStart(2, "0"));
-        setText(r.loreTitle, m.lore.title);
-        setText(r.loreText, m.lore.text);
-        if (r.loreText) r.loreText.setAttribute("cite", "Codex des Porteurs");
-      }
+      /* pied de statut */
+      setText(r.done, m.questsDone);
+      setText(r.total, m.questsTotal);
+      setText(r.streakFoot, m.streak);
+      setText(r.volumeFoot, num(m.volumeToday));
 
       /* discours */
       const rest = Math.max(0, m.questsTotal - m.questsDone);
@@ -13480,22 +16305,32 @@ h1, h2, h3, h4 {
       /* action principale */
       if (r.primary) {
         const isProgram = m.questsTotal === 0 && m.program.items > 0;
+        const closed = !m.resume && m.questsTotal > 0 && m.questsDone >= m.questsTotal;
         const label = m.resume
           ? "Reprendre la séance"
           : isProgram
             ? "Charger le programme"
-            : m.questsDone >= m.questsTotal && m.questsTotal > 0
-              ? "Séance close — revoir le journal"
+            : closed
+              ? "Séance close — voir le journal"
               : "Entrer dans la séance";
         if (r.primary.dataset.label !== label) {
           r.primary.dataset.label = label;
-          r.primary.innerHTML = `${CX.icon(isProgram ? "route" : "play")}<span>${esc(label)}</span>`;
+          const small = isProgram
+            ? `${m.program.items} exercice${m.program.items > 1 ? "s" : ""} · +${num(m.program.xp)} XP`
+            : m.resume
+              ? "Séance en cours"
+              : closed
+                ? `${m.questsTotal} quêtes validées`
+                : `${m.program.items || 0} exercice${m.program.items > 1 ? "s" : ""} · +${num(m.program.xp)} XP`;
+          r.primary.innerHTML = `${isProgram ? ROUTE : PLAY}<span class="hub-btn-text"><span>${esc(label)}</span><small>${esc(small)}</small></span>`;
         }
         if (isProgram) {
           r.primary.dataset.action = "load-program";
           r.primary.dataset.id = String(m.program.index);
-        } else if (!m.resume && m.questsDone >= m.questsTotal && m.questsTotal > 0) {
+          delete r.primary.dataset.nav;
+        } else if (closed) {
           delete r.primary.dataset.action;
+          delete r.primary.dataset.id;
           r.primary.dataset.nav = "quests";
         } else {
           r.primary.dataset.action = "open-session";
@@ -13504,43 +16339,53 @@ h1, h2, h3, h4 {
         }
       }
 
+      /* bête */
+      setText(r.huntSmall, `${m.boss.name} · ${num(m.boss.maxHp)} PV`);
+      setText(r.bossName, m.boss.name);
+      setText(r.bossEpithet, `« ${m.boss.epithet} »`);
+      setText(r.bossDays, m.boss.defeated ? "Brisée" : m.boss.daysLeft === 0 ? "Dernier jour" : `${m.boss.daysLeft} j`);
+      setText(r.bossTag, m.boss.defeated ? "Vaincue" : "Active");
+      if (r.bossTag) r.bossTag.classList.toggle("is-done", Boolean(m.boss.defeated));
+      const remaining = Math.max(0, m.boss.maxHp - Math.min(m.boss.damage, m.boss.maxHp));
+      setText(r.bossHp, `${num(remaining)} / ${num(m.boss.maxHp)}`);
+      if (r.bossFill) r.bossFill.style.width = `${m.boss.maxHp ? clamp((remaining / m.boss.maxHp) * 100, 0, 100) : 0}%`;
+      if (r.bossBtn) setText(r.bossBtn, m.boss.defeated ? (m.boss.claimed ? "Butin récupéré" : "Réclamer le butin") : "Engager le combat");
+
       /* registre */
-      setText(r.done, m.questsDone);
-      setText(r.total, m.questsTotal);
-      const sig = m.quests.map((q) => `${q.id}:${q.done ? 1 : 0}`).join("|");
+      setText(r.questMeta, `${m.questsDone} / ${m.questsTotal} · Ferme à minuit`);
+      const sig = m.quests.map((q) => `${q.id}:${q.done ? 1 : 0}:${q.sets}:${q.reps}:${q.unit}`).join("|");
       if (r.ledger && sig !== this._ledgerSig) {
         this._ledgerSig = sig;
         r.ledger.innerHTML = m.quests.length
-          ? m.quests.slice(0, 4).map((q) => ledRow(q)).join("")
-          : `<div class="led-empty">Aucune quête armée.<br><button class="dock-link" type="button" data-nav="library">Choisir dans l'arsenal <span>→</span></button></div>`;
+          ? m.quests.slice(0, 6).map(questRow).join("")
+          : `<div class="hub-empty">Aucune quête armée.<br><button class="hub-link" type="button" data-nav="library">Choisir dans l'arsenal ${ARROW}</button></div>`;
       }
 
-      /* programme */
+      /* séance */
       setText(r.programTier, m.program.tier);
       setText(r.programTitle, m.program.title);
       setText(
         r.programMeta,
         m.program.items > 0
-          ? `${m.program.items} exercice${m.program.items > 1 ? "s" : ""} · +${num(m.program.xp)} XP`
-          : m.program.lore || "Repos planifié"
+          ? `${m.program.items} exercice${m.program.items > 1 ? "s" : ""} · échauffement guidé de ${m.warmup ? m.warmup.minutes : 6} minutes.`
+          : m.program.lore || "Repos planifié."
       );
+      setText(r.programXp, `+${num(m.program.xp)} XP`);
+      setText(r.lastSession, m.lastSession || "Aucune");
       if (r.programBtn) {
         const loaded = m.program.loaded >= m.program.items && m.program.items > 0;
         const label = !m.program.items
           ? "Voir le programme"
           : loaded
             ? "Programme engagé"
-            : "Charger le programme";
+            : "Lancer la séance";
         if (r.programBtn.dataset.label !== label) {
           r.programBtn.dataset.label = label;
           r.programBtn.textContent = label;
         }
-        if (!m.program.items) {
+        if (!m.program.items || loaded) {
           delete r.programBtn.dataset.action;
-          r.programBtn.dataset.nav = "quests";
-          r.programBtn.disabled = false;
-        } else if (loaded) {
-          delete r.programBtn.dataset.action;
+          delete r.programBtn.dataset.id;
           r.programBtn.dataset.nav = "quests";
           r.programBtn.disabled = false;
         } else {
@@ -13550,34 +16395,59 @@ h1, h2, h3, h4 {
           r.programBtn.disabled = false;
         }
       }
-
-      /* échauffement */
       if (r.warmupBtn && m.warmup) {
         const label = m.warmup.done
           ? "Échauffement fait · refaire"
           : `Échauffement ${m.warmup.minutes} min`;
         if (r.warmupBtn.dataset.label !== label) {
           r.warmupBtn.dataset.label = label;
-          r.warmupBtn.innerHTML = `${esc(label)} <span aria-hidden="true">→</span>`;
+          r.warmupBtn.innerHTML = `${esc(label)} ${ARROW}`;
         }
       }
 
+      /* chapitre + fragment */
+      setText(r.chapterLabel, `Chapitre ${m.chapter.n}`);
+      setText(r.chapterTitle, m.chapter.title);
+      setText(
+        r.chapterNote,
+        m.chapter.nextLevel
+          ? `Niveau ${m.chapter.nextLevel} · chapitre ${m.chapter.nextN}`
+          : "Dernier chapitre"
+      );
+      if (r.chapterTrack && this._chapterCount !== m.chapter.total) {
+        this._chapterCount = m.chapter.total;
+        r.chapterTrack.innerHTML = Array.from({ length: m.chapter.total }, () => "<i></i>").join("");
+      }
+      if (r.chapterTrack) {
+        Array.from(r.chapterTrack.children).forEach((seg, i) => {
+          const index = i + 1;
+          seg.className = index < m.chapter.index ? "is-on" : index === m.chapter.index ? "is-on is-current" : "";
+        });
+      }
+      if (m.lore) {
+        setText(r.loreN, String(m.lore.n).padStart(2, "0"));
+        setText(r.loreTotal, String(m.lore.total).padStart(2, "0"));
+        setText(r.loreTitle, m.lore.title);
+        setText(r.loreText, m.lore.text);
+        if (r.loreText) r.loreText.setAttribute("cite", "Codex des Porteurs");
+      }
+
       /* serment */
-      setText(r.oathWeek, m.weekLabel || "S. —");
       if (r.oathBody) {
         const oath = m.oath;
-        const sig = oath.active ? `${oath.id}:${oath.progress}:${oath.target}` : "none";
-        if (r.oathBody.dataset.sig !== sig) {
-          r.oathBody.dataset.sig = sig;
+        const oathSig = oath.active ? `${oath.id}:${oath.progress}:${oath.target}` : "none";
+        if (r.oathBody.dataset.sig !== oathSig) {
+          r.oathBody.dataset.sig = oathSig;
           r.oathBody.innerHTML = oath.active
-            ? `<strong class="oath-title">${esc(oath.title)}</strong>
-               <span class="oath-vow">${esc(oath.vow)}</span>
-               <div class="threat-meter oath-meter"><i style="width:${oath.pct}%"></i></div>
-               <span class="oath-count">${num(oath.progress)} / ${num(oath.target)}${oath.done ? " · tenu" : ""}</span>`
-            : `<strong class="oath-title">Une promesse</strong>
-               <span class="oath-vow">Lie-toi jusqu'à dimanche.</span>
-               <button class="btn btn-ghost btn-sm" type="button" data-hub-oath-toggle aria-expanded="false">Prêter serment</button>
-               <div class="oath-menu">
+            ? `<div class="hub-oath-head"><span>Serment · ${esc(m.weekLabel || "S. —")}</span><b>${num(oath.progress)} / ${num(oath.target)}${oath.done ? " · tenu" : ""}</b></div>
+               <strong class="hub-oath-title">${esc(oath.title)}</strong>
+               <span class="hub-oath-vow">${esc(oath.vow)}</span>
+               <div class="hub-bar hub-bar-brass"><i style="width:${oath.pct}%"></i></div>`
+            : `<div class="hub-oath-head"><span>Serment · ${esc(m.weekLabel || "S. —")}</span></div>
+               <strong class="hub-oath-title">Une promesse</strong>
+               <span class="hub-oath-vow">Lie-toi jusqu'à dimanche.</span>
+               <button class="btn hub-btn hub-btn-ghost hub-btn-sm" type="button" data-hub-oath-toggle aria-expanded="false">Prêter serment</button>
+               <div class="hub-oath-menu">
                  ${(oath.choices || []).map((choice) => `
                    <button type="button" data-action="take-oath" data-id="${esc(choice.id)}">
                      <b>${esc(choice.title)}</b><span>${esc(choice.vow)}</span>
@@ -13585,25 +16455,14 @@ h1, h2, h3, h4 {
                </div>`;
         }
       }
-
-      /* épreuve */
-      setText(r.bossName, m.boss.name);
-      setText(r.bossEpithet, m.boss.epithet);
-      setText(r.bossDays, m.boss.defeated ? "brisée" : m.boss.daysLeft === 0 ? "dernier jour" : `${m.boss.daysLeft} j`);
-      setText(r.bossHp, `${num(Math.min(m.boss.damage, m.boss.maxHp))} / ${num(m.boss.maxHp)}`);
-      if (r.bossFill) r.bossFill.style.width = `${m.boss.pct}%`;
-      if (r.bossMeter) r.bossMeter.setAttribute("aria-valuenow", String(m.boss.pct));
     },
 
     setActive(next) {
       this.active = Boolean(next);
-      if (this.gate) this.gate.setActive(this.active);
       if (this.root) this.root.classList.toggle("is-paused", !this.active);
     },
 
     destroy() {
-      if (this.gate) this.gate.destroy();
-      this.gate = null;
       this.root = null;
       this.refs = null;
       this.mounted = false;
@@ -13618,16 +16477,30 @@ h1, h2, h3, h4 {
     const text = String(value == null ? "" : value);
     if (el.textContent !== text) el.textContent = text;
   }
-  function ledRow(q) {
-    const label = q.done ? "Annuler la quête" : "Valider la quête";
+  function attrRow(attr) {
+    const brass = attr.id === "souplesse" || attr.id === "discipline";
     return `
-      <div class="led-row ${q.done ? "is-done" : ""}">
-        <button class="led-check" type="button" data-action="toggle-task" data-id="${esc(q.id)}"
+      <div class="hub-attr">
+        <span class="hub-attr-k">${esc(attr.name)}</span>
+        <span class="hub-attr-bar${brass ? " is-brass" : ""}"><i style="width:${clamp(attr.value, 0, attr.max)}%"></i></span>
+        <span class="hub-attr-v">${attr.value} <small>/ ${attr.max}</small></span>
+      </div>`;
+  }
+  function questRow(q, index) {
+    const label = q.done ? "Annuler la quête" : "Valider la quête";
+    const unit = q.unit === "sec" ? " S" : "";
+    return `
+      <div class="hub-qrow${q.done ? " is-done" : ""}">
+        <span class="hub-qn">${String(index + 1).padStart(2, "0")}</span>
+        <div class="hub-qmain">
+          <div class="hub-qname">${esc(q.name)}</div>
+          <div class="hub-qmeta">${esc(q.sets)} × ${esc(q.reps)}${unit} · <em>${esc(q.muscle)}</em> · ${esc(q.level)}</div>
+        </div>
+        <span class="hub-qxp">+${num(q.xp)} XP</span>
+        <button class="hub-qbox" type="button" data-action="toggle-task" data-id="${esc(q.id)}"
           aria-pressed="${q.done ? "true" : "false"}" aria-label="${label} : ${esc(q.name)}">
-          ${CX.icon("check", { stroke: 2.6 })}
+          ${CHECK}
         </button>
-        <span class="led-name">${esc(q.name)}</span>
-        <span class="led-xp">${q.done ? CX.icon("check", { stroke: 2.4 }) : `+${num(q.xp)}`}</span>
       </div>`;
   }
 
@@ -14772,17 +17645,69 @@ function programTierLabel() {
   return ["Débutant", "Intermédiaire", "Pro"][programTierIndex()];
 }
 
+/* Surcharge progressive — le cycle compte les semaines réellement travaillées.
+   Chaque semaine active ajoute un cran ; la 5e est une décharge. */
+function programWeek(date = new Date()) {
+  const limit = weekStartKey(date);
+  const ceiling = dayKey(date);
+  const weeks = new Set();
+  Object.keys(state.history || {}).forEach((key) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(key) || key > ceiling) return;
+    const entry = state.history[key];
+    if (!entry) return;
+    const xp = Number(entry.xp) || 0;
+    const tasks = Number(entry.tasks) || 0;
+    if (xp <= 0 && tasks <= 0) return;
+    const week = weekStartKey(parseKey(key));
+    if (week <= limit) weeks.add(week);
+  });
+  return clamp(weeks.size || 1, 1, 52);
+}
+
+function programCycle(date = new Date()) {
+  const week = programWeek(date);
+  const slot = ((week - 1) % 5) + 1;
+  return {
+    week,
+    slot,
+    cycle: Math.floor((week - 1) / 5) + 1,
+    step: Math.min(5, week - 1),
+    deload: slot === 5,
+  };
+}
+
+function programDose(ex, cycle) {
+  const prog = cycle || programCycle();
+  const gain = ex.unit === "sec" ? Math.min(25, prog.step * 5) : prog.step;
+  return {
+    sets: prog.deload ? Math.max(1, Math.round(ex.sets * 0.6)) : ex.sets,
+    reps: ex.reps + gain,
+  };
+}
+
 function programDayIndex(date = new Date()) {
   return (date.getDay() + 6) % 7;
 }
 
-function programDayPlan(dayIndex) {
-  const day = PROGRAM[clamp(parseInt(dayIndex, 10) || 0, 0, PROGRAM.length - 1)];
+function programDayPlan(dayIndex, date = new Date()) {
+  const idx = clamp(parseInt(dayIndex, 10) || 0, 0, PROGRAM.length - 1);
+  const day = PROGRAM[idx];
   const tier = programTierIndex();
+  const cycle = programCycle(date);
+  const swaps = state.settings && state.settings.swaps && typeof state.settings.swaps === "object"
+    ? state.settings.swaps
+    : {};
   const items = day.slots
-    .map((slot) => LIBRARY.find((ex) => ex.id === (slot.variants[tier] || slot.variants[0])))
+    .map((slot, slotIndex) => {
+      const swapId = swaps[`${idx}-${slotIndex}`];
+      const ex = LIBRARY.find((item) => item.id === swapId)
+        || LIBRARY.find((item) => item.id === (slot.variants[tier] || slot.variants[0]));
+      if (!ex) return null;
+      const dose = programDose(ex, cycle);
+      return { ...ex, slotIndex, sets: dose.sets, reps: dose.reps, baseSets: ex.sets, baseReps: ex.reps };
+    })
     .filter(Boolean);
-  return { ...day, index: dayIndex, items, xp: items.reduce((sum, ex) => sum + exerciseXp(ex), 0) };
+  return { ...day, index: idx, items, cycle, xp: items.reduce((sum, ex) => sum + exerciseXp(ex), 0) };
 }
 
 function programToday() {
@@ -14793,8 +17718,22 @@ function programLoadedIds() {
   return new Set(state.tasks.map((task) => task.exerciseId).filter(Boolean));
 }
 
-function loadProgramDay(dayIndex) {
-  const plan = programDayPlan(dayIndex);
+function programStale(plan, allow = true) {
+  if (!allow) return [];
+  const today = dayKey();
+  return plan.items
+    .map((ex) => {
+      const task = state.tasks.find((item) => item.exerciseId === ex.id);
+      if (!task || task.doneDate === today) return null;
+      if (Number(task.sets) === Number(ex.sets) && Number(task.reps) === Number(ex.reps)) return null;
+      return { task, ex };
+    })
+    .filter(Boolean);
+}
+
+function loadProgramDay(dayIndex, dateKey) {
+  const plan = programDayPlan(dayIndex, dateKey ? parseKey(dateKey) : new Date());
+  const allowStale = !dateKey || dateKey >= dayKey();
   if (!plan.items.length) {
     showToast({
       icon: "clock",
@@ -14808,7 +17747,8 @@ function loadProgramDay(dayIndex) {
 
   const existing = programLoadedIds();
   const missing = plan.items.filter((ex) => !existing.has(ex.id));
-  if (!missing.length) {
+  const stale = programStale(plan, allowStale);
+  if (!missing.length && !stale.length) {
     showToast({
       icon: "check",
       title: "Programme déjà chargé",
@@ -14819,17 +17759,223 @@ function loadProgramDay(dayIndex) {
     return;
   }
 
-  state.tasks.unshift(...missing.map((ex) => taskFromExercise(ex)));
+  if (missing.length) state.tasks.unshift(...missing.map((ex) => taskFromExercise(ex)));
+  stale.forEach(({ task, ex }) => {
+    task.sets = ex.sets;
+    task.reps = ex.reps;
+    task.unit = ex.unit;
+    task.xp = exerciseXp(ex);
+  });
   save();
   renderAll();
+  const bits = [];
+  if (missing.length) bits.push(`${missing.length} exercice${missing.length > 1 ? "s" : ""} ajouté${missing.length > 1 ? "s" : ""}`);
+  if (stale.length) bits.push(`${stale.length} dose${stale.length > 1 ? "s" : ""} ajustée${stale.length > 1 ? "s" : ""}`);
   showToast({
-    icon: "route",
-    title: "Programme chargé",
-    desc: `${plan.title} · ${missing.length} exercice${missing.length > 1 ? "s" : ""} ajouté${missing.length > 1 ? "s" : ""} · +${plan.xp} XP à portée.`,
+    icon: missing.length ? "route" : "reset",
+    title: missing.length ? "Programme chargé" : "Dose du jour appliquée",
+    desc: `${plan.title} · ${bits.join(" · ")} · +${plan.xp} XP à portée.`,
     tone: "lime",
     duration: 3800,
   });
-  beep("add");
+  beep(missing.length ? "add" : "complete");
+}
+
+/* ------------------------------------------------------------
+   2 ter. REMPLACEMENT D'UN EXERCICE
+   Matériel manquant, douleur, préférence : chaque case du
+   programme peut changer de mouvement sans casser la séance.
+   ------------------------------------------------------------ */
+let swapState = null;
+
+function swapKey(dayIndex, slotIndex) {
+  return `${dayIndex}-${slotIndex}`;
+}
+
+function swapOriginal(dayIndex, slotIndex) {
+  const day = PROGRAM[dayIndex];
+  const slot = day && day.slots[slotIndex];
+  if (!slot) return null;
+  const tier = programTierIndex();
+  return LIBRARY.find((ex) => ex.id === (slot.variants[tier] || slot.variants[0])) || null;
+}
+
+function swapCurrent(dayIndex, slotIndex) {
+  return programDayPlan(dayIndex).items.find((ex) => ex.slotIndex === slotIndex) || null;
+}
+
+function swapAlternatives(current, dayIndex) {
+  if (!current) return [];
+  const used = new Set(programDayPlan(dayIndex).items.map((ex) => ex.id));
+  return LIBRARY
+    .filter((ex) => ex.id !== current.id && ex.muscle === current.muscle && !used.has(ex.id))
+    .sort((a, b) => {
+      const da = Math.abs(LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(current.level));
+      const db = Math.abs(LEVEL_ORDER.indexOf(b.level) - LEVEL_ORDER.indexOf(current.level));
+      if (da !== db) return da - db;
+      return a.name.localeCompare(b.name, "fr");
+    });
+}
+
+function swapDoseLabel(ex) {
+  const dose = programDose(ex, programCycle());
+  return `${dose.sets}×${dose.reps}${ex.unit === "sec" ? " s" : ""}`;
+}
+
+function renderSwap() {
+  const frame = $("swapFrame");
+  if (!frame || !swapState) return;
+  const { dayIndex, slotIndex } = swapState;
+  const day = PROGRAM[dayIndex];
+  const current = swapCurrent(dayIndex, slotIndex);
+  const original = swapOriginal(dayIndex, slotIndex);
+  if (!day || !current) return;
+  const swapped = Boolean(original && original.id !== current.id);
+  const alternatives = swapAlternatives(current, dayIndex);
+  const currentLevel = LEVELS[current.level] || LEVELS.debutant;
+
+  frame.innerHTML = `
+    <div class="session-grid" aria-hidden="true"></div>
+    <button class="session-quit" type="button" data-action="swap-close" aria-label="Fermer le remplacement">${CLOSE_SVG}</button>
+
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">ARSENAL // PROGRAMME // ${escapeHtml(day.label.toUpperCase())}</span>
+        <span class="session-phase session-phase--free"><i></i> REMPLACEMENT</span>
+      </div>
+    </header>
+
+    <main class="swap-main">
+      <div class="swap-head">
+        <span class="session-kicker"><i></i> MÊME GROUPE MUSCULAIRE</span>
+        <h2 class="session-title" id="swapTitle">Remplacer ${escapeHtml(current.name)}</h2>
+        <p class="session-sub">Le mouvement choisi prend sa place dans le programme de ce jour. S'il est déjà au registre, la quête suit immédiatement — sans toucher à ton XP ni à ta série.</p>
+      </div>
+
+      <div class="swap-current">
+        <span class="swap-glyph" aria-hidden="true">${cxIcon(cxMuscle(current.muscle))}</span>
+        <div class="swap-current-main">
+          <span class="swap-tag">${swapped ? "REMPLACEMENT ACTIF" : "MOUVEMENT ACTUEL"}</span>
+          <b>${escapeHtml(current.name)}</b>
+          <span>${escapeHtml(current.muscle)} · ${currentLevel.label} · ${swapDoseLabel(current)}</span>
+        </div>
+      </div>
+
+      ${alternatives.length
+        ? `<ul class="swap-list">
+            ${alternatives.map((ex) => {
+              const cfg = LEVELS[ex.level] || LEVELS.debutant;
+              return `
+                <li class="swap-item">
+                  <span class="swap-glyph" aria-hidden="true">${cxIcon(cxMuscle(ex.muscle))}</span>
+                  <div class="swap-item-main">
+                    <b>${escapeHtml(ex.name)}</b>
+                    <span>${cfg.label} · ${swapDoseLabel(ex)} · ${escapeHtml(ex.tip)}</span>
+                  </div>
+                  <button class="btn btn-ghost btn-sm" type="button" data-action="swap-pick" data-ex="${ex.id}">
+                    ${cxIcon("reset")}<span>Choisir</span>
+                  </button>
+                </li>`;
+            }).join("")}
+          </ul>`
+        : `<div class="empty swap-empty">
+            <span class="empty-icon">${cxIcon("search")}</span>
+            <div class="empty-title">Aucune alternative</div>
+            <div class="empty-text">Cet arsenal ne propose pas d'autre mouvement pour ${escapeHtml(current.muscle)}.</div>
+          </div>`}
+
+      <footer class="swap-foot">
+        ${swapped && original
+          ? `<button class="btn btn-ghost" type="button" data-action="swap-reset">${cxIcon("reset")}<span>Revenir à ${escapeHtml(original.name)}</span></button>`
+          : ""}
+        <button class="btn btn-ghost" type="button" data-action="swap-close">Annuler</button>
+      </footer>
+    </main>`;
+}
+
+function openSwap(dayIndex, slotIndex) {
+  const overlay = $("swap");
+  if (!overlay || !overlay.hidden || activeOverlay()) return;
+  const current = swapCurrent(dayIndex, slotIndex);
+  if (!current) return;
+  swapState = {
+    dayIndex: clamp(parseInt(dayIndex, 10) || 0, 0, PROGRAM.length - 1),
+    slotIndex: clamp(parseInt(slotIndex, 10) || 0, 0, 6),
+  };
+  rememberOverlayFocus("swap");
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  syncModalState();
+  renderSwap();
+  beep("engage");
+  window.setTimeout(() => {
+    const first = overlay.querySelector(".swap-item .btn") || overlay.querySelector("[data-action='swap-close']");
+    if (first) first.focus({ preventScroll: true });
+  }, 120);
+}
+
+function closeSwap(restoreFocus = true) {
+  const overlay = $("swap");
+  if (!overlay || overlay.hidden) return;
+  swapState = null;
+  overlay.hidden = true;
+  const frame = $("swapFrame");
+  if (frame) frame.innerHTML = "";
+  if (!activeOverlay()) document.body.classList.remove("no-scroll");
+  syncModalState();
+  if (restoreFocus) restoreOverlayFocus("swap");
+}
+
+function swapPick(exId) {
+  if (!swapState) return;
+  const { dayIndex, slotIndex } = swapState;
+  const original = swapOriginal(dayIndex, slotIndex);
+  const next = LIBRARY.find((ex) => ex.id === exId);
+  if (!original || !next) return;
+  const previous = swapCurrent(dayIndex, slotIndex);
+  const key = swapKey(dayIndex, slotIndex);
+  if (next.id === original.id) delete state.settings.swaps[key];
+  else state.settings.swaps[key] = next.id;
+
+  if (previous) {
+    const task = state.tasks.find((item) => item.exerciseId === previous.id && item.doneDate !== dayKey());
+    if (task) {
+      const updated = programDayPlan(dayIndex).items.find((ex) => ex.slotIndex === slotIndex);
+      const twin = state.tasks.find((item) => item !== task && item.exerciseId === updated.id);
+      if (twin) state.tasks = state.tasks.filter((item) => item !== task);
+      else Object.assign(task, {
+        exerciseId: updated.id,
+        name: updated.name,
+        level: updated.level,
+        muscle: updated.muscle,
+        sets: updated.sets,
+        reps: updated.reps,
+        unit: updated.unit,
+        icon: cxMuscle(updated.muscle),
+        xp: exerciseXp(updated),
+      });
+    }
+  }
+
+  save();
+  renderAll();
+  const chosen = programDayPlan(dayIndex).items.find((ex) => ex.slotIndex === slotIndex);
+  closeSwap(false);
+  if (chosen) {
+    showToast({
+      icon: "reset",
+      title: "Mouvement remplacé",
+      desc: `${chosen.name} · ${chosen.sets}×${chosen.reps}${chosen.unit === "sec" ? " s" : ""} · ${PROGRAM[dayIndex].label}`,
+      tone: "lime",
+      duration: 3400,
+    });
+  }
+  beep("complete");
+}
+
+function swapReset() {
+  const original = swapState ? swapOriginal(swapState.dayIndex, swapState.slotIndex) : null;
+  if (original) swapPick(original.id);
 }
 
 /* ------------------------------------------------------------
@@ -14890,7 +18036,7 @@ function calendarMonth(month) {
     const volume = Math.max(0, Number(entry.volume) || 0);
     const inMonth = date.getMonth() === first.getMonth();
     const dayIndex = programDayIndex(date);
-    const planned = programDayPlan(dayIndex).items.length > 0;
+    const planned = programDayPlan(dayIndex, date).items.length > 0;
     const sessionCount = log.get(key) || 0;
     const done = tasks > 0 || xp > 0 || sessionCount > 0;
     const future = key > today;
@@ -14943,7 +18089,7 @@ function calendarDetailHTML(key) {
   const volume = Math.max(0, Number(entry.volume) || 0);
   const date = parseKey(key);
   const today = dayKey();
-  const plan = programDayPlan(programDayIndex(date));
+  const plan = programDayPlan(programDayIndex(date), date);
   const loadedIds = programLoadedIds();
   const loaded = plan.items.filter((ex) => loadedIds.has(ex.id)).length;
   const complete = plan.items.length > 0 && loaded >= plan.items.length;
@@ -15008,16 +18154,18 @@ function calendarDetailHTML(key) {
           ]
         : [{ value: "—", label: "REPOS" }];
 
+  const stale = key >= today ? programStale(plan) : [];
+  const needsDose = complete && stale.length > 0;
   const action = before || !plan.items.length
     ? ""
-    : complete
+    : complete && !needsDose
       ? `<button class="btn btn-ghost btn-sm" type="button" disabled>${cxIcon("check")}<span>Déjà au registre</span></button>`
-      : `<button class="btn btn-lime btn-sm" type="button" data-action="load-program" data-id="${plan.index}">
-          ${cxIcon("plus")}<span>${isFuture ? "Charger cette séance" : isToday ? "Charger la séance" : done ? "Recharger la séance" : "Rattraper aujourd'hui"}</span>
+      : `<button class="btn ${needsDose ? "btn-ghost" : "btn-lime"} btn-sm" type="button" data-action="load-program" data-id="${plan.index}" data-day="${key}">
+          ${cxIcon(needsDose ? "reset" : "plus")}<span>${needsDose ? "Ajuster la dose" : isFuture ? "Charger cette séance" : isToday ? "Charger la séance" : done ? "Recharger la séance" : "Rattraper aujourd'hui"}</span>
         </button>`;
 
   const planLine = plan.items.length && !before
-    ? `<p class="cal-plan">${plan.items.map((ex) => escapeHtml(ex.name)).join(" · ")}</p>`
+    ? `<p class="cal-plan">${escapeHtml(plan.items.map((ex) => `${ex.name} ${ex.sets}×${ex.reps}${ex.unit === "sec" ? " s" : ""}`).join(" · "))}</p>`
     : "";
 
   const logHTML = log.length
@@ -18611,7 +21759,7 @@ function defaultState() {
     records: {},
     templates: [],
     lore: { seen: [] },
-    settings: { sound: true, rest: 60, tourDone: false, warmupDay: null, placement: null },
+    settings: { sound: true, rest: 60, tourDone: false, warmupDay: null, placement: null, swaps: {} },
   };
 }
 
@@ -18727,6 +21875,15 @@ function normalizeState(raw) {
   merged.profile.oathsKept = Math.max(0, Number(merged.profile.oathsKept) || 0);
   merged.profile.sessions = Math.max(0, Number(merged.profile.sessions) || 0);
   merged.settings.rest = clamp(parseInt(merged.settings.rest, 10) || 60, 15, 300);
+  const rawSwaps = merged.settings.swaps && typeof merged.settings.swaps === "object" && !Array.isArray(merged.settings.swaps)
+    ? merged.settings.swaps
+    : {};
+  merged.settings.swaps = {};
+  Object.keys(rawSwaps).forEach((key) => {
+    if (!/^\d-\d+$/.test(key)) return;
+    const swapId = rawSwaps[key];
+    if (typeof swapId === "string" && LIBRARY.some((ex) => ex.id === swapId)) merged.settings.swaps[key] = swapId;
+  });
   merged.settings.warmupDay = typeof merged.settings.warmupDay === "string"
     && /^\d{4}-\d{2}-\d{2}$/.test(merged.settings.warmupDay)
     ? merged.settings.warmupDay
@@ -18871,13 +22028,28 @@ function loadState() {
   }
 }
 
+let saveWarned = false;
 function save() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     if (window.CX && CX.windows) CX.windows.pulseSave();
+    saveWarned = false;
     return true;
   } catch (err) {
     console.warn("[Calisthenix] Impossible d'enregistrer les données.", err);
+    if (!saveWarned) {
+      saveWarned = true;
+      window.setTimeout(() => {
+        if (typeof showToast !== "function") return;
+        showToast({
+          icon: "shield",
+          title: "Sauvegarde impossible",
+          desc: "Stockage plein ou bloqué. Exporte ta sauvegarde depuis le Codex avant de continuer.",
+          tone: "danger",
+          duration: 8000,
+        });
+      }, 0);
+    }
     return false;
   }
 }
@@ -19328,7 +22500,7 @@ const FOCUSABLE_SELECTOR = [
 const overlayFocusReturn = new Map();
 
 function activeOverlay() {
-  return ["tour", "levelUp", "hunt", "warmup", "placement", "session", "freeBuilder"]
+  return ["tour", "levelUp", "hunt", "warmup", "placement", "session", "freeBuilder", "swap"]
     .map((id) => $(id))
     .find((el) => el && !el.hidden) || null;
 }
@@ -19557,6 +22729,18 @@ function hubModel() {
   const oathTotal = oath ? oath.target : 0;
   const oathDone = oath ? oathProgress(oath) : 0;
   const cls = rankClass(info.rank);
+  const attrs = attributes();
+  const created = new Date(p.createdAt);
+  const memberSince = Number.isNaN(created.getTime())
+    ? "aujourd'hui"
+    : capitalize(created.toLocaleDateString("fr-FR", { month: "long", year: "numeric" }));
+  const now = new Date();
+  const dateShort = now.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" });
+  const dateLong = capitalize(now.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }));
+  const lastEntry = Array.isArray(state.sessions) && state.sessions.length ? state.sessions[0] : null;
+  const lastSession = lastEntry
+    ? new Date(Number(lastEntry.endedAt) || Date.now()).toLocaleDateString("fr-FR", { day: "2-digit", month: "short" })
+    : null;
 
   const quests = state.tasks
     .map((task) => ({
@@ -19564,17 +22748,35 @@ function hubModel() {
       name: task.name,
       xp: task.xp,
       done: task.doneDate === today,
-    }))
-    .sort((a, b) => Number(a.done) - Number(b.done));
+      sets: task.sets,
+      reps: task.reps,
+      unit: task.unit === "sec" ? "sec" : "reps",
+      muscle: task.muscle || "Full body",
+      level: (LEVELS[task.level] || LEVELS.debutant).label,
+    }));
 
   return {
     name: p.name,
     rank: info.rank,
     className: cls,
+    rankLabel: `${info.rank} · ${cls}`,
+    memberSince,
+    dateShort,
+    dateLong,
     level,
     levelPct: info.pct,
     xpCurrent: info.current,
     xpNeed: info.need,
+    xpToNext: info.toNext,
+    attributes: attrs.map((attr) => ({
+      id: attr.id,
+      name: attr.name,
+      value: attr.value,
+      max: 100,
+      tier: attr.tier,
+      note: attr.note,
+    })),
+    lastSession,
     streak: displayStreak(),
     weekXp: last7Keys().reduce((sum, key) => sum + ((state.history[key] && state.history[key].xp) || 0), 0),
     weekDelta: weekComparison().delta,
@@ -19674,7 +22876,7 @@ function renderQuests() {
   const trioMissing = trio.length - trioLoaded;
   const placement = placementRecord();
   const placementTier = placementMeasuredIndex();
-  const planChip = plan.items.length ? `${programTierLabel()} · +${plan.xp} XP` : "Repos planifié";
+  const planChip = plan.items.length ? `${programTierLabel()} · S${plan.cycle.slot} · +${plan.xp} XP` : "Repos planifié";
   const xpToday = doneTasks.reduce((sum, task) => sum + (Number(task.xp) || 0), 0);
   const volumeToday = doneTasks.reduce((sum, task) => sum + (Number(task.sets) || 0) * (Number(task.reps) || 0), 0);
   const dateLabel = capitalize(new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }));
@@ -19849,22 +23051,46 @@ function renderQuests() {
               const isToday = index === programDayIndex();
               const loaded = dayPlan.items.filter((ex) => loadedIds.has(ex.id)).length;
               const complete = dayPlan.items.length > 0 && loaded >= dayPlan.items.length;
+              const stale = isToday ? programStale(dayPlan) : [];
+              const needsDose = complete && stale.length > 0;
               return `
                 <div class="program-row ${isToday ? "is-today" : ""} ${dayPlan.items.length ? "" : "is-rest"}">
                   <span class="program-day">${escapeHtml(day.label.slice(0, 3).toUpperCase())}</span>
                   <div class="program-main">
                     <span class="program-focus">${escapeHtml(day.title)}</span>
                     <span class="program-detail">${dayPlan.items.length
-                      ? dayPlan.items.map((ex) => escapeHtml(ex.name)).join(" · ")
+                      ? dayPlan.items.map((ex) => `<button class="program-swap" type="button" data-action="open-swap" data-day="${index}" data-slot="${ex.slotIndex}" title="Remplacer ${escapeHtml(ex.name)}">${escapeHtml(ex.name)}${cxIcon("reset")}</button> <span class="program-dose">${ex.sets}×${ex.reps}${ex.unit === "sec" ? " s" : ""}</span>`).join(" · ")
                       : escapeHtml(day.lore)}</span>
                   </div>
                   <div class="program-side">
                     ${isToday && dayPlan.items.length
-                      ? `<button class="btn btn-sm ${complete ? "btn-ghost" : "btn-lime"}" type="button" data-action="load-program" data-id="${index}" ${complete ? "disabled" : ""}>${complete ? "Chargé" : "Charger"}</button>`
+                      ? `<button class="btn btn-sm ${complete && !needsDose ? "btn-ghost" : "btn-lime"}" type="button" data-action="load-program" data-id="${index}" ${complete && !needsDose ? "disabled" : ""}>${complete && !needsDose ? "Chargé" : needsDose ? "Ajuster" : "Charger"}</button>`
                       : `<span class="program-count">${dayPlan.items.length ? `${dayPlan.items.length} ex.` : "—"}</span>`}
                   </div>
                 </div>`;
             }).join("")}
+          </div>
+          <div class="program-cycle ${plan.cycle.deload ? "is-deload" : ""}">
+            <div class="program-cycle-main">
+              <span class="program-cycle-kicker">CYCLE ${plan.cycle.cycle} · SEMAINE ${plan.cycle.slot} SUR 5</span>
+              <b>${plan.cycle.deload
+                ? "Décharge"
+                : plan.cycle.step === 0
+                  ? "Semaine de calibrage"
+                  : plan.cycle.step >= 5
+                    ? "Palier haut · consolidation"
+                    : `+${plan.cycle.step} cran${plan.cycle.step > 1 ? "s" : ""} de charge`}</b>
+              <span>${plan.cycle.deload
+                ? "Séries réduites, répétitions conservées : le corps assimile avant de repartir."
+                : plan.cycle.step === 0
+                  ? "Pas encore de surcharge : installe le geste, le souffle et le rythme."
+                  : plan.cycle.step >= 5
+                    ? "La charge ne monte plus : consolide jusqu'à la décharge."
+                    : "Répétitions +1 et tenues +5 s par semaine travaillée. Décharge à la 5e."}</span>
+            </div>
+            <ol class="program-cycle-track" aria-hidden="true">
+              ${[1, 2, 3, 4, 5].map((n) => `<li class="${n < plan.cycle.slot ? "is-past" : n === plan.cycle.slot ? "is-now" : ""} ${n === 5 ? "is-deload" : ""}"><i></i><span>S${n}</span></li>`).join("")}
+            </ol>
           </div>
           <div class="program-cal ${placement ? "is-done" : ""}">
             <span class="program-cal-icon" aria-hidden="true">${cxIcon(placement ? "target" : "flame")}</span>
@@ -20984,7 +24210,19 @@ document.addEventListener("click", (event) => {
       freeDeleteTemplate(id);
       break;
     case "load-program":
-      loadProgramDay(parseInt(actionEl.dataset.id, 10) || 0);
+      loadProgramDay(parseInt(actionEl.dataset.id, 10) || 0, actionEl.dataset.day || "");
+      break;
+    case "open-swap":
+      openSwap(parseInt(actionEl.dataset.day, 10) || 0, parseInt(actionEl.dataset.slot, 10) || 0);
+      break;
+    case "swap-pick":
+      swapPick(actionEl.dataset.ex || "");
+      break;
+    case "swap-reset":
+      swapReset();
+      break;
+    case "swap-close":
+      closeSwap();
       break;
     case "load-daily":
       loadDailyTrio();
@@ -21293,6 +24531,11 @@ document.addEventListener("keydown", (event) => {
       closeFreeBuilder();
       return;
     }
+    const swapOverlay = $("swap");
+    if (swapOverlay && !swapOverlay.hidden) {
+      closeSwap();
+      return;
+    }
     if (sessionState) {
       if (sessionState.confirmQuit) sessionCancelQuit();
       else sessionRequestQuit();
@@ -21351,7 +24594,12 @@ if (levelUpOverlay) {
 window.setInterval(() => {
   const today = dayKey();
   if (today !== ui.today) {
+    const wasToday = ui.calDay === ui.today;
     ui.today = today;
+    if (wasToday) {
+      ui.calMonth = monthOf(today);
+      ui.calDay = today;
+    }
     renderAll();
     showToast({ icon: "spark", title: "Nouveau jour, nouvelles quêtes", desc: "Ta série est en jeu. À toi de jouer.", tone: "amber", duration: 4200 });
   }
@@ -21393,7 +24641,7 @@ function runBoot(onDone) {
 
   const skip = boot.querySelector("[data-skip-boot]");
   if (skip) skip.addEventListener("click", finish, { once: true });
-  window.setTimeout(finish, 2800);
+  window.setTimeout(finish, 4600);
 }
 
 /* ------------------------------------------------------------
