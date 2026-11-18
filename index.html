@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <!-- Version autonome : CSS, JS et polices integres. -->
@@ -6016,6 +6016,11 @@ body.is-booting { overflow: hidden; }
   gap: 14px;
   padding: 11px 18px;
   border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.program-row:hover:not(.is-today) {
+  background: linear-gradient(90deg, rgba(147, 180, 240, 0.06), transparent 78%);
+  box-shadow: inset 2px 0 0 rgba(147, 180, 240, 0.28);
 }
 .program-row.is-today {
   background: linear-gradient(90deg, rgba(53, 224, 255, 0.09), transparent 72%);
@@ -6337,6 +6342,11 @@ body.is-booting { overflow: hidden; }
   background:
     linear-gradient(180deg, rgba(147, 180, 240, 0.04), transparent 60%),
     rgba(7, 10, 17, 0.55);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.daily-item:hover {
+  border-color: rgba(53, 224, 255, 0.26);
+  transform: translateY(-1px);
 }
 .daily-item.is-added {
   border-color: rgba(53, 224, 255, 0.3);
@@ -6414,6 +6424,421 @@ body.is-booting { overflow: hidden; }
   .daily-grid { grid-template-columns: 1fr; }
   .daily-foot { align-items: stretch; flex-direction: column; }
   .daily-foot .btn { width: 100%; }
+}
+
+/* ------------------------------------------------------------
+   18 sexies. CALENDRIER DES SÉANCES
+   ------------------------------------------------------------ */
+.card.calendar-card { margin: 18px 0 0; }
+.cal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 18px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.cal-month {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+.cal-nav {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 1px solid var(--line);
+  background: rgba(7, 10, 17, 0.6);
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.cal-nav:hover {
+  color: var(--cyan);
+  border-color: rgba(53, 224, 255, 0.4);
+  background: rgba(53, 224, 255, 0.06);
+}
+.cal-nav:focus-visible,
+.cal-today:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
+}
+.cal-nav svg { width: 13px; height: 13px; }
+.cal-nav.is-prev svg { transform: rotate(180deg); }
+.cal-month-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 0 2px;
+}
+.cal-month-label b {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.cal-month-label span {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  color: var(--dim);
+}
+.cal-today {
+  margin-left: 4px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.cal-today:hover:not(:disabled) {
+  color: var(--cyan);
+  border-color: rgba(53, 224, 255, 0.4);
+}
+.cal-today:disabled { opacity: 0.35; cursor: default; }
+.cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.cal-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.cal-swatch {
+  width: 9px;
+  height: 9px;
+  flex: none;
+}
+.cal-swatch.is-done {
+  background: linear-gradient(135deg, var(--cyan), #2f7dff);
+  box-shadow: 0 0 8px rgba(53, 224, 255, 0.5);
+}
+.cal-swatch.is-missed {
+  border: 1px dashed rgba(155, 123, 255, 0.7);
+}
+.cal-swatch.is-planned {
+  border: 1px solid rgba(147, 180, 240, 0.35);
+  background: rgba(147, 180, 240, 0.08);
+}
+.cal-week,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.cal-week { margin-bottom: 6px; }
+.cal-week span {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+  text-align: center;
+  color: var(--dim);
+}
+.cal-grid.is-next { animation: calInNext 0.28s cubic-bezier(0.2, 0.7, 0.3, 1); }
+.cal-grid.is-prev { animation: calInPrev 0.28s cubic-bezier(0.2, 0.7, 0.3, 1); }
+@keyframes calInNext {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes calInPrev {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: none; }
+}
+.cal-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 56px;
+  padding: 7px 8px 11px;
+  overflow: hidden;
+  text-align: left;
+  color: var(--ink-4);
+  border: 1px solid var(--hairline);
+  background: rgba(7, 10, 17, 0.55);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+.cal-cell:hover {
+  border-color: rgba(53, 224, 255, 0.32);
+  background: rgba(53, 224, 255, 0.045);
+  transform: translateY(-1px);
+}
+.cal-cell:focus-visible {
+  outline: 1px solid var(--cyan);
+  outline-offset: 1px;
+}
+.cal-cell.is-out { opacity: 0.3; }
+.cal-cell.is-rest { background: rgba(7, 10, 17, 0.35); }
+.cal-cell.is-done {
+  border-color: rgba(53, 224, 255, 0.28);
+  background:
+    linear-gradient(160deg, rgba(53, 224, 255, calc(0.05 + var(--heat) * 0.13)), rgba(47, 125, 255, calc(0.02 + var(--heat) * 0.07))),
+    rgba(7, 10, 17, 0.6);
+  box-shadow: inset 0 0 22px rgba(53, 224, 255, calc(0.03 + var(--heat) * 0.09));
+}
+.cal-cell.is-done::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: calc(18% + var(--heat) * 74%);
+  background: linear-gradient(90deg, var(--cyan), rgba(47, 125, 255, 0.2));
+  box-shadow: 0 0 8px rgba(53, 224, 255, 0.35);
+}
+.cal-cell.is-today { outline: 1px solid rgba(53, 224, 255, 0.75); outline-offset: 1px; }
+.cal-cell.is-selected {
+  border-color: rgba(155, 123, 255, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(155, 123, 255, 0.35);
+}
+.cal-cell.is-selected::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 7px solid rgba(155, 123, 255, 0.8);
+  border-left: 7px solid transparent;
+}
+.cal-cell.is-missed {
+  border-style: dashed;
+  border-color: rgba(155, 123, 255, 0.22);
+}
+.cal-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink-3);
+}
+.cal-cell.is-done .cal-num { color: var(--ink); }
+.cal-cell.is-today .cal-num { color: var(--cyan); }
+.cal-cell.is-out .cal-num { color: var(--dim); }
+.cal-xp {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.06em;
+  color: rgba(53, 224, 255, 0.85);
+}
+.cal-mark {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.cal-cell.is-planned .cal-mark {
+  border-color: rgba(147, 180, 240, 0.4);
+  background: rgba(147, 180, 240, 0.08);
+}
+.cal-cell.is-missed .cal-mark {
+  background: rgba(155, 123, 255, 0.6);
+  box-shadow: 0 0 6px rgba(155, 123, 255, 0.5);
+}
+.cal-cell.is-today .cal-mark {
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(53, 224, 255, 0.7);
+}
+.cal-cell.is-done .cal-mark { display: none; }
+
+/* Détail du jour */
+.cal-detail {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 14px;
+  padding: 16px 18px 16px 20px;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background:
+    linear-gradient(120deg, rgba(53, 224, 255, 0.05), transparent 55%),
+    rgba(7, 10, 17, 0.6);
+}
+.cal-detail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), rgba(155, 123, 255, 0.35) 70%, transparent);
+}
+.cal-detail.is-missed {
+  background:
+    linear-gradient(120deg, rgba(155, 123, 255, 0.06), transparent 55%),
+    rgba(7, 10, 17, 0.6);
+}
+.cal-detail.is-missed::before {
+  background: linear-gradient(180deg, rgba(155, 123, 255, 0.8), transparent);
+}
+.cal-detail.is-rest { background: rgba(7, 10, 17, 0.45); }
+.cal-detail.is-rest::before {
+  background: linear-gradient(180deg, rgba(147, 180, 240, 0.3), transparent);
+}
+.cal-detail.is-before { background: rgba(7, 10, 17, 0.35); }
+.cal-detail.is-before::before {
+  background: linear-gradient(180deg, rgba(147, 180, 240, 0.16), transparent);
+}
+.cal-detail.is-before .cal-detail-kicker { color: var(--dim); }
+.cal-detail.is-before .cal-detail-title { color: var(--ink-3); }
+.cal-detail.is-before .cal-detail-note { color: var(--dim); }
+.cal-detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.cal-detail-kicker {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+}
+.cal-detail.is-done .cal-detail-kicker { color: var(--cyan); }
+.cal-detail.is-missed .cal-detail-kicker { color: #b79bff; }
+.cal-detail-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.cal-detail-note {
+  margin: 0;
+  max-width: 52ch;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-4);
+}
+.cal-plan {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+.cal-log {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cal-log li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--ink-3);
+}
+.cal-log-time {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+.cal-log-name { font-weight: 600; }
+.cal-log-meta {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  color: var(--ink-4);
+  white-space: nowrap;
+}
+.cal-detail-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+.cal-stats {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.cal-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+.cal-stat b {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+.cal-stat small {
+  font-family: var(--font-mono);
+  font-size: 6px;
+  letter-spacing: 0.16em;
+  color: var(--dim);
+}
+.cal-detail-side .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .cal-detail { grid-template-columns: 1fr; gap: 14px; }
+  .cal-detail-side { align-items: stretch; }
+  .cal-stat { text-align: left; }
+}
+
+@media (max-width: 640px) {
+  .cal-top { align-items: flex-start; }
+  .cal-legend { width: 100%; justify-content: space-between; gap: 8px; }
+  .cal-grid, .cal-week { gap: 4px; }
+  .cal-cell { min-height: 46px; padding: 5px 5px 9px; }
+  .cal-num { font-size: 11px; }
+  .cal-xp { display: none; }
+  .cal-month-label b { font-size: 13px; }
+  .cal-today { padding: 5px 8px; }
+  .cal-detail { padding: 14px 14px 14px 16px; }
+  .cal-detail-title { font-size: 16px; }
+}
+
+@media (max-width: 400px) {
+  .cal-nav { width: 26px; height: 26px; }
+  .cal-cell { min-height: 44px; }
+  .cal-today { margin-left: auto; }
 }
 
 /* ------------------------------------------------------------
@@ -13311,6 +13736,13 @@ h1, h2, h3, h4 {
     return items ? `${done}/${items} chargé${done === 1 ? "" : "s"}` : "3 axes";
   }
 
+  function statCalendar(win) {
+    const marked = count(win, ".cal-cell.is-done");
+    const label = win.querySelector(".cal-month-label b");
+    const month = label ? clean(label.textContent) : "";
+    return `${month} · ${marked} marqué${marked > 1 ? "s" : ""}`.trim();
+  }
+
   function statFilters(win, root) {
     const pressed = win.querySelector('.filter-btn[aria-pressed="true"]');
     const label = pressed ? clean(pressed.textContent) : "Tous";
@@ -13344,6 +13776,7 @@ h1, h2, h3, h4 {
         { sel: ".quest-register", id: "QST-02", name: "Quêtes du jour", card: true, stat: statRegister },
         { sel: ".quest-form-card", id: "QST-03", name: "Nouvelle quête", card: true, stat: statForm },
         { sel: ".program-card", id: "QST-04", name: "Programme", card: true, stat: statProgram },
+        { sel: ".calendar-card", id: "QST-06", name: "Calendrier", card: true, stat: statCalendar },
       ],
     },
     library: {
@@ -14397,6 +14830,329 @@ function loadProgramDay(dayIndex) {
     duration: 3800,
   });
   beep("add");
+}
+
+/* ------------------------------------------------------------
+   2 quater. CALENDRIER DES SÉANCES
+   Une vue mensuelle du registre : ce qui a été fait, ce qui est
+   prévu, ce qui est passé sans séance. Le décalage est permis :
+   une séance manquée peut être chargée aujourd'hui.
+   ------------------------------------------------------------ */
+function monthOf(key) {
+  return String(key || dayKey()).slice(0, 7);
+}
+
+function shiftMonthKey(month, delta) {
+  const [y, m] = String(month).split("-").map(Number);
+  const base = new Date(y || new Date().getFullYear(), (m || 1) - 1 + delta, 1);
+  return `${base.getFullYear()}-${pad2(base.getMonth() + 1)}`;
+}
+
+function monthTitle(month) {
+  return capitalize(parseKey(`${month}-01`).toLocaleDateString("fr-FR", { month: "long", year: "numeric" }));
+}
+
+function sessionsByDay() {
+  const map = new Map();
+  (Array.isArray(state.sessions) ? state.sessions : []).forEach((entry) => {
+    if (!entry || !entry.day) return;
+    map.set(entry.day, (map.get(entry.day) || 0) + 1);
+  });
+  return map;
+}
+
+function createdDayKey() {
+  const created = new Date(state.profile.createdAt);
+  return Number.isNaN(created.getTime()) ? null : dayKey(created);
+}
+
+function calendarMonth(month) {
+  const first = parseKey(`${month}-01`);
+  const offset = (first.getDay() + 6) % 7; // lundi = 0
+  const daysInMonth = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+  const weeks = Math.ceil((offset + daysInMonth) / 7);
+  const start = new Date(first.getFullYear(), first.getMonth(), 1 - offset);
+  const today = dayKey();
+  const since = createdDayKey();
+  const log = sessionsByDay();
+  const cells = [];
+  let max = 1;
+  let active = 0;
+  let monthXp = 0;
+  let monthSessions = 0;
+
+  for (let i = 0; i < weeks * 7; i += 1) {
+    const date = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+    const key = dayKey(date);
+    const entry = state.history[key] || {};
+    const xp = Math.max(0, Number(entry.xp) || 0);
+    const tasks = Math.max(0, Number(entry.tasks) || 0);
+    const volume = Math.max(0, Number(entry.volume) || 0);
+    const inMonth = date.getMonth() === first.getMonth();
+    const dayIndex = programDayIndex(date);
+    const planned = programDayPlan(dayIndex).items.length > 0;
+    const sessionCount = log.get(key) || 0;
+    const done = tasks > 0 || xp > 0 || sessionCount > 0;
+    const future = key > today;
+    const missed = !done && !future && key !== today && planned && (!since || key >= since);
+    if (inMonth) {
+      if (done) active += 1;
+      monthXp += xp;
+      monthSessions += sessionCount;
+    }
+    max = Math.max(max, xp);
+    cells.push({
+      key,
+      date,
+      day: date.getDate(),
+      inMonth,
+      future,
+      today: key === today,
+      done,
+      missed,
+      planned,
+      xp,
+      tasks,
+      volume,
+      sessions: sessionCount,
+      dayIndex,
+    });
+  }
+  return { month, cells, max, active, monthXp, monthSessions, weeks };
+}
+
+function syncCalendarState() {
+  const today = dayKey();
+  if (!/^\d{4}-\d{2}$/.test(String(ui.calMonth || ""))) ui.calMonth = monthOf(today);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(ui.calDay || ""))) ui.calDay = today;
+  if (monthOf(ui.calDay) !== ui.calMonth) {
+    ui.calDay = ui.calMonth === monthOf(today) ? today : `${ui.calMonth}-01`;
+  }
+}
+
+function clockTime(ts) {
+  if (!Number(ts)) return "—";
+  const date = new Date(Number(ts));
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+}
+
+function calendarDetailHTML(key) {
+  const entry = state.history[key] || {};
+  const xp = Math.max(0, Number(entry.xp) || 0);
+  const tasks = Math.max(0, Number(entry.tasks) || 0);
+  const volume = Math.max(0, Number(entry.volume) || 0);
+  const date = parseKey(key);
+  const today = dayKey();
+  const plan = programDayPlan(programDayIndex(date));
+  const loadedIds = programLoadedIds();
+  const loaded = plan.items.filter((ex) => loadedIds.has(ex.id)).length;
+  const complete = plan.items.length > 0 && loaded >= plan.items.length;
+  const log = (Array.isArray(state.sessions) ? state.sessions : [])
+    .filter((item) => item && item.day === key)
+    .slice(0, 3);
+  const done = tasks > 0 || xp > 0 || log.length > 0;
+  const isFuture = key > today;
+  const isToday = key === today;
+  const since = createdDayKey();
+  const before = Boolean(since && key < since);
+
+  const kicker = before
+    ? "AVANT TON REGISTRE"
+    : done
+      ? "SÉANCE ENREGISTRÉE"
+      : !plan.items.length
+        ? "REPOS PLANIFIÉ"
+        : isFuture
+          ? "SÉANCE PRÉVUE"
+          : isToday
+            ? "AUJOURD'HUI"
+            : "SÉANCE NON ENREGISTRÉE";
+  const tone = before
+    ? "is-before"
+    : done
+      ? "is-done"
+      : isFuture
+        ? "is-future"
+        : isToday
+          ? "is-today"
+          : plan.items.length
+            ? "is-missed"
+            : "is-rest";
+
+  const note = before
+    ? "Ce jour précède ton entrée dans la Porte. Rien à rattraper : le registre commence avec toi."
+    : done
+      ? xp || tasks
+        ? `${formatNumber(xp)} XP · ${tasks} quête${tasks > 1 ? "s" : ""} validée${tasks > 1 ? "s" : ""} · ${formatNumber(volume)} répétition${volume > 1 ? "s" : ""}.`
+        : `${log.length} séance${log.length > 1 ? "s" : ""} libre${log.length > 1 ? "s" : ""} enregistrée${log.length > 1 ? "s" : ""}.`
+      : isFuture
+        ? plan.lore
+        : isToday
+          ? plan.lore
+          : plan.items.length
+            ? "Aucune séance enregistrée. Le décalage est permis : charge-la aujourd'hui, elle rejoindra ton registre."
+            : plan.lore;
+
+  const stats = before
+    ? [{ value: "—", label: "HORS REGISTRE" }]
+    : done
+      ? [
+          { value: formatNumber(xp), label: "XP" },
+          { value: String(tasks), label: "QUÊTES" },
+          { value: formatNumber(volume), label: "RÉPS" },
+        ]
+      : plan.items.length
+        ? [
+            { value: String(plan.items.length), label: "EXERCICES" },
+            { value: `+${plan.xp}`, label: "XP PRÉVUS" },
+          ]
+        : [{ value: "—", label: "REPOS" }];
+
+  const action = before || !plan.items.length
+    ? ""
+    : complete
+      ? `<button class="btn btn-ghost btn-sm" type="button" disabled>${cxIcon("check")}<span>Déjà au registre</span></button>`
+      : `<button class="btn btn-lime btn-sm" type="button" data-action="load-program" data-id="${plan.index}">
+          ${cxIcon("plus")}<span>${isFuture ? "Charger cette séance" : isToday ? "Charger la séance" : done ? "Recharger la séance" : "Rattraper aujourd'hui"}</span>
+        </button>`;
+
+  const planLine = plan.items.length && !before
+    ? `<p class="cal-plan">${plan.items.map((ex) => escapeHtml(ex.name)).join(" · ")}</p>`
+    : "";
+
+  const logHTML = log.length
+    ? `<ul class="cal-log">${log.map((item) => `
+        <li>
+          <span class="cal-log-time">${clockTime(item.startedAt || item.endedAt)}</span>
+          <span class="cal-log-name">${item.free ? "Séance libre" : "Séance guidée"}</span>
+          <span class="cal-log-meta">${formatMinutes(item.duration)} · ${formatNumber(item.xp)} XP</span>
+        </li>`).join("")}</ul>`
+    : "";
+
+  return `
+    <div class="cal-detail ${tone}">
+      <div class="cal-detail-main">
+        <span class="cal-detail-kicker">${kicker}</span>
+        <h3 class="cal-detail-title">${capitalize(date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }))}</h3>
+        <p class="cal-detail-note">${note}</p>
+        ${planLine}
+        ${logHTML}
+      </div>
+      <div class="cal-detail-side">
+        <div class="cal-stats">
+          ${stats.map((stat) => `<span class="cal-stat"><b>${stat.value}</b><small>${stat.label}</small></span>`).join("")}
+        </div>
+        ${action}
+      </div>
+    </div>`;
+}
+
+function calendarHTML() {
+  const month = calendarMonth(ui.calMonth);
+  const today = dayKey();
+  const selected = ui.calDay;
+  const heatOf = (xp) => Math.min(1, xp / month.max);
+  const weekdays = ["L", "M", "M", "J", "V", "S", "D"];
+  const activeLabel = `${month.active} jour${month.active > 1 ? "s" : ""} actif${month.active > 1 ? "s" : ""}`;
+  const sessionLabel = `${month.monthSessions} séance${month.monthSessions > 1 ? "s" : ""}`;
+
+  return `
+    <section class="card calendar-card" aria-label="Calendrier des séances">
+      <div class="card-head">
+        <h2 class="card-title"><span class="dot"></span> Calendrier</h2>
+        <span class="chip">${formatNumber(month.monthXp)} XP</span>
+      </div>
+      <div class="cal-top">
+        <div class="cal-month">
+          <button class="cal-nav is-prev" type="button" data-action="cal-prev" aria-label="Mois précédent">${cxIcon("chevron")}</button>
+          <div class="cal-month-label">
+            <b>${monthTitle(month.month)}</b>
+            <span>${activeLabel} · ${sessionLabel}</span>
+          </div>
+          <button class="cal-nav is-next" type="button" data-action="cal-next" aria-label="Mois suivant">${cxIcon("chevron")}</button>
+          <button class="cal-today" type="button" data-action="cal-today" ${month.month === monthOf(today) && selected === today ? "disabled" : ""}>Aujourd'hui</button>
+        </div>
+        <ul class="cal-legend">
+          <li><i class="cal-swatch is-done"></i>Séance</li>
+          <li><i class="cal-swatch is-missed"></i>Non faite</li>
+          <li><i class="cal-swatch is-planned"></i>Prévue</li>
+        </ul>
+      </div>
+      <div class="cal-week" aria-hidden="true">${weekdays.map((day) => `<span>${day}</span>`).join("")}</div>
+      <div class="cal-grid ${ui.calAnim ? `is-${ui.calAnim}` : ""}" role="group" aria-label="${monthTitle(month.month)}">
+        ${month.cells.map((cell) => {
+          const heat = heatOf(cell.xp);
+          const classes = [
+            "cal-cell",
+            cell.inMonth ? "" : "is-out",
+            cell.done ? "is-done" : "",
+            cell.today ? "is-today" : "",
+            cell.key === selected ? "is-selected" : "",
+            cell.planned ? "is-planned" : "is-rest",
+            cell.missed ? "is-missed" : "",
+          ].filter(Boolean).join(" ");
+          const bits = [capitalize(cell.date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }))];
+          if (cell.done) {
+            bits.push(`${formatNumber(cell.xp)} XP`);
+            bits.push(`${cell.tasks} quête${cell.tasks > 1 ? "s" : ""}`);
+          } else if (cell.today) {
+            bits.push("aujourd'hui");
+          } else if (cell.future) {
+            bits.push(cell.planned ? "séance prévue" : "repos");
+          } else if (cell.missed) {
+            bits.push("séance non enregistrée");
+          } else {
+            bits.push("repos");
+          }
+          return `
+            <button class="${classes}" type="button" data-action="cal-select" data-day="${cell.key}"
+              style="--heat:${heat.toFixed(3)}" aria-pressed="${cell.key === selected}" aria-label="${escapeHtml(bits.join(" · "))}">
+              <span class="cal-num">${cell.day}</span>
+              ${cell.done
+                ? `<span class="cal-xp">${formatNumber(cell.xp)}</span>`
+                : `<span class="cal-mark" aria-hidden="true"></span>`}
+            </button>`;
+        }).join("")}
+      </div>
+      ${calendarDetailHTML(selected)}
+    </section>`;
+}
+
+function focusCalCell(key) {
+  const cell = document.querySelector(`.cal-cell[data-day="${key}"]`);
+  if (cell) cell.focus({ preventScroll: true });
+}
+
+function focusCalControl(selector) {
+  const el = document.querySelector(selector);
+  if (el && !el.disabled) el.focus({ preventScroll: true });
+}
+
+function calMove(delta) {
+  const month = shiftMonthKey(ui.calMonth, delta);
+  const today = dayKey();
+  ui.calMonth = month;
+  ui.calDay = month === monthOf(today) ? today : `${month}-01`;
+  ui.calAnim = delta > 0 ? "next" : "prev";
+  renderQuests();
+  focusCalControl(delta > 0 ? ".cal-nav.is-next" : ".cal-nav.is-prev");
+}
+
+function calToday(fromKeyboard = false) {
+  ui.calMonth = monthOf(dayKey());
+  ui.calDay = dayKey();
+  ui.calAnim = "next";
+  renderQuests();
+  if (fromKeyboard) focusCalCell(ui.calDay);
+  else focusCalControl(".cal-today");
+}
+
+function calSelect(key) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(key || ""))) return;
+  ui.calDay = key;
+  ui.calMonth = monthOf(key);
+  renderQuests();
+  focusCalCell(key);
 }
 
 /* ------------------------------------------------------------
@@ -18139,6 +18895,9 @@ const ui = {
   formLevel: "intermediaire",
   editTaskId: null,
   today: dayKey(),
+  calMonth: monthOf(dayKey()),
+  calDay: dayKey(),
+  calAnim: "",
 };
 
 let audioCtx = null;
@@ -18880,6 +19639,7 @@ function hubModel() {
    ------------------------------------------------------------ */
 function renderQuests() {
   const today = dayKey();
+  syncCalendarState();
   const total = state.tasks.length;
   const doneTasks = state.tasks.filter((t) => t.doneDate === today);
   const done = doneTasks.length;
@@ -19123,8 +19883,11 @@ function renderQuests() {
         </section>
       </aside>
     </div>
+
+    ${calendarHTML()}
   `;
 
+  ui.calAnim = "";
   if (window.CX && CX.windows) CX.windows.decorate("quests");
 }
 
@@ -20226,6 +20989,18 @@ document.addEventListener("click", (event) => {
     case "load-daily":
       loadDailyTrio();
       break;
+    case "cal-prev":
+      calMove(-1);
+      break;
+    case "cal-next":
+      calMove(1);
+      break;
+    case "cal-today":
+      calToday();
+      break;
+    case "cal-select":
+      calSelect(actionEl.dataset.day);
+      break;
     case "session-set":
       sessionFinishSet();
       break;
@@ -20488,6 +21263,20 @@ document.addEventListener("keydown", (event) => {
       return;
     }
     return;
+  }
+  const calCell = event.target && event.target.closest ? event.target.closest(".cal-cell") : null;
+  if (calCell) {
+    const steps = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+    if (steps[event.key]) {
+      event.preventDefault();
+      calSelect(shiftKey(calCell.dataset.day, steps[event.key]));
+      return;
+    }
+    if (event.key === "Home") {
+      event.preventDefault();
+      calToday(true);
+      return;
+    }
   }
   if (event.key === "Escape") {
     const levelUp = $("levelUp");
