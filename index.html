@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <!-- Version autonome : CSS, JS et polices integres. -->
@@ -5586,6 +5586,241 @@ body.is-booting { overflow: hidden; }
 .dock-warmup span { transition: transform 0.2s; }
 .dock-warmup:hover span { transform: translateX(3px); }
 
+/* Test de niveau initial — même cadre que la séance, accents dorés. */
+.placement .session-frame {
+  background:
+    radial-gradient(80% 64% at 50% 34%, rgba(255, 200, 87, 0.08), transparent 64%),
+    radial-gradient(70% 60% at 50% 104%, rgba(53, 224, 255, 0.1), transparent 62%),
+    linear-gradient(180deg, #03050b, #060b15 56%, #020409);
+}
+.placement.is-done .session-frame {
+  background:
+    radial-gradient(80% 64% at 50% 34%, rgba(53, 224, 255, 0.14), transparent 64%),
+    radial-gradient(70% 60% at 50% 104%, rgba(139, 92, 246, 0.14), transparent 62%),
+    linear-gradient(180deg, #03050b, #060b15 56%, #020409);
+}
+.placement-main .session-sub {
+  max-width: 46ch;
+  margin: 0 auto;
+  font-size: 10.5px;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  text-align: center;
+  color: var(--muted);
+}
+.pl-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(520px, 100%);
+  margin: 18px auto 0;
+  padding: 0;
+  list-style: none;
+}
+.pl-steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  background: rgba(8, 14, 24, 0.62);
+  clip-path: var(--clip-sm);
+  text-align: left;
+}
+.pl-step-n {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+.pl-step-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.pl-step-main b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.pl-step-main small {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.pl-step-unit {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.pl-note {
+  max-width: 54ch;
+  margin: 14px auto 0;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+}
+.pl-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 3vw, 22px);
+  margin: clamp(16px, 3vh, 30px) 0 8px;
+}
+.pl-step-btn {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line-strong);
+  background: rgba(8, 14, 24, 0.72);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  clip-path: var(--clip-sm);
+  transition: color 0.2s, border-color 0.2s, transform 0.15s;
+}
+.pl-step-btn:hover { color: #d7fbff; border-color: var(--line-hot); transform: translateY(-1px); }
+.pl-step-btn:active { transform: translateY(0); }
+.pl-step-btn:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+.pl-value {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: 8px 16px 6px;
+  border: 1px solid var(--line);
+  background: rgba(8, 14, 24, 0.6);
+  clip-path: var(--clip-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.pl-value:focus-within { border-color: rgba(53, 224, 255, 0.55); box-shadow: 0 0 26px rgba(53, 224, 255, 0.16); }
+.pl-value input {
+  width: 3.6ch;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #f2fdff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(64px, 17vw, 118px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-align: center;
+  text-shadow: 0 0 34px rgba(53, 224, 255, 0.35);
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.pl-value input:focus { outline: none; }
+.pl-value input::-webkit-outer-spin-button,
+.pl-value input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pl-unit {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.pl-presets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  width: min(440px, 100%);
+  margin: 0 auto;
+}
+.pl-preset {
+  min-width: 54px;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: rgba(8, 14, 24, 0.55);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  clip-path: var(--clip-sm);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.pl-preset:hover,
+.pl-preset.is-on { color: var(--cyan); border-color: rgba(53, 224, 255, 0.5); background: rgba(53, 224, 255, 0.08); }
+.pl-preset:focus-visible { outline: 1px solid var(--cyan); outline-offset: 2px; }
+.pl-core { margin-top: 2px; }
+.pl-ring .sr-fill { stroke: var(--gold); filter: drop-shadow(0 0 9px rgba(255, 200, 87, 0.55)); }
+.pl-hold-note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pl-icon { display: inline-flex; }
+.pl-icon-pause { display: none; }
+.placement.is-running .pl-icon-play { display: none; }
+.placement.is-running .pl-icon-pause { display: inline-flex; }
+.pl-done { width: 100%; }
+.pl-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: min(520px, 100%);
+  margin: 4px 0 14px;
+}
+.pl-result {
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  background: rgba(9, 16, 27, 0.7);
+  box-shadow: inset 0 2px 0 var(--tier, var(--line-hot));
+  clip-path: var(--clip-sm);
+}
+.pl-result span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.pl-result b {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--ink);
+}
+.pl-result em {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 6.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tier, var(--muted));
+}
+.pl-done .session-done-log { max-width: 460px; }
+.pl-done .session-title { margin-bottom: 10px; }
+
 .btn:disabled {
   opacity: 0.42;
   cursor: not-allowed;
@@ -5825,6 +6060,68 @@ body.is-booting { overflow: hidden; }
   text-transform: uppercase;
   color: var(--dim);
 }
+.program-cal {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, rgba(255, 200, 87, 0.07), transparent 70%);
+}
+.program-cal-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--gold);
+  border: 1px solid rgba(255, 200, 87, 0.34);
+  background: rgba(255, 200, 87, 0.08);
+  clip-path: var(--clip-sm);
+}
+.program-cal-icon svg { width: 15px; height: 15px; }
+.program-cal-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.program-cal-kicker {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.program-cal-main b {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.program-cal-main span {
+  font-family: var(--font-mono);
+  font-size: 6.8px;
+  line-height: 1.5;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.program-cal .btn { min-width: 0; }
+.program-cal.is-done { background: linear-gradient(90deg, rgba(53, 224, 255, 0.08), transparent 70%); }
+.program-cal.is-done .program-cal-icon {
+  color: var(--cyan);
+  border-color: rgba(53, 224, 255, 0.32);
+  background: rgba(53, 224, 255, 0.08);
+}
+.program-card.is-flash { animation: programFlash 1.3s ease; }
+@keyframes programFlash {
+  0%, 100% { box-shadow: none; }
+  30% { box-shadow: 0 0 0 1px rgba(53, 224, 255, 0.5), 0 0 26px rgba(53, 224, 255, 0.22); }
+}
 .program-note {
   margin: 0;
   padding: 12px 18px 14px;
@@ -5842,6 +6139,21 @@ body.is-booting { overflow: hidden; }
   .program-side .btn { min-width: 0; padding: 9px 11px; font-size: 8px; }
   .program-card .card-head { padding: 14px; }
   .program-note { padding: 11px 14px 13px; }
+  .program-cal { grid-template-columns: 24px minmax(0, 1fr); gap: 10px; padding: 12px 14px; }
+  .program-cal-icon { width: 24px; height: 24px; }
+  .program-cal-main b { font-size: 13px; }
+  .program-cal .btn { grid-column: 1 / -1; width: 100%; justify-content: center; }
+  .pl-steps li { padding: 9px 11px; gap: 9px; }
+  .pl-step-main b { font-size: 14px; }
+  .pl-step-main small { font-size: 7px; }
+  .pl-counter { gap: 8px; }
+  .pl-step-btn { width: 42px; height: 42px; font-size: 23px; }
+  .pl-value { padding: 7px 12px 5px; }
+  .pl-preset { min-width: 46px; padding: 6px 8px; }
+  .pl-result { padding: 10px 6px; }
+  .pl-result b { font-size: 20px; }
+  .pl-result em { font-size: 6px; letter-spacing: 0.08em; }
+  .placement-main .session-sub { font-size: 10px; }
 }
 
 /* ------------------------------------------------------------
@@ -6003,6 +6315,105 @@ body.is-booting { overflow: hidden; }
   .sys-kicker { font-size: 6px; }
   .stage-sub { font-size: 12.5px; }
   .stat-value { font-size: 21px; }
+}
+
+/* ------------------------------------------------------------
+   18 quinquies. TRIO DU JOUR
+   ------------------------------------------------------------ */
+.card.daily-card { margin-bottom: 14px; }
+.daily-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 2px;
+}
+.daily-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px 13px;
+  border: 1px solid var(--hairline);
+  background:
+    linear-gradient(180deg, rgba(147, 180, 240, 0.04), transparent 60%),
+    rgba(7, 10, 17, 0.55);
+}
+.daily-item.is-added {
+  border-color: rgba(53, 224, 255, 0.3);
+  background:
+    linear-gradient(90deg, rgba(53, 224, 255, 0.07), transparent 72%),
+    rgba(7, 10, 17, 0.55);
+}
+.daily-glyph {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  color: var(--cyan);
+  border: 1px solid rgba(53, 224, 255, 0.28);
+  background: rgba(53, 224, 255, 0.06);
+  clip-path: var(--clip-sm);
+}
+.daily-glyph svg { width: 15px; height: 15px; }
+.daily-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.daily-kicker {
+  font-family: var(--font-mono);
+  font-size: 6.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.daily-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.daily-dose {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: var(--ink-4);
+}
+.daily-state {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--mint);
+}
+.daily-state svg { width: 13px; height: 13px; }
+.daily-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.daily-note {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--ink-4);
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .daily-grid { grid-template-columns: 1fr; }
+  .daily-foot { align-items: stretch; flex-direction: column; }
+  .daily-foot .btn { width: 100%; }
 }
 
 /* ------------------------------------------------------------
@@ -7051,11 +7462,14 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
 }
 .program-detail {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   color: var(--ink-4);
   font-size: 11.5px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.45;
+  white-space: normal;
 }
 .program-side { flex: none; }
 .program-count {
@@ -7516,7 +7930,11 @@ h1, h2, h3, h4 {
 
 @media (max-width: 560px) {
   .ex-grid { grid-template-columns: 1fr; }
-  .program-detail { white-space: normal; }
+  .program-detail { -webkit-line-clamp: 3; line-height: 1.5; }
+  .quest { gap: 8px; padding: 11px 0; }
+  .quest-title { flex-wrap: wrap; }
+  .quest-name { min-width: 0; overflow: visible; white-space: normal; }
+  .quest .done-tag { display: none; }
   .quest-meta .chip:nth-child(3) { display: none; }
   .toast { padding: 11px 12px; }
 }
@@ -8052,12 +8470,11 @@ h1, h2, h3, h4 {
 .slog-main b { color: var(--ink-2); font-size: 11.5px; font-weight: 500; }
 .slog-main span { color: var(--ink-4); font-size: 10px; }
 .slog-main em {
-  overflow: hidden;
   color: var(--ink-5);
   font-size: 10px;
   font-style: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.55;
+  white-space: normal;
 }
 .slog-empty { margin: 0; padding: 18px 18px 20px; color: var(--ink-4); font-size: 11.5px; line-height: 1.6; }
 
@@ -8128,17 +8545,18 @@ h1, h2, h3, h4 {
 }
 .ach-lock svg { width: 9px; height: 9px; }
 .ach-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-.ach-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ach-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .ach-name {
-  overflow: hidden;
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  text-overflow: ellipsis;
+  line-height: 1.15;
   text-transform: uppercase;
-  white-space: nowrap;
+  white-space: normal;
 }
 .ach-tag {
   display: inline-flex;
@@ -10330,12 +10748,12 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 .threat-epithet {
-  overflow: hidden;
+  overflow: visible;
   color: var(--ink-4);
   font-size: 10px;
   font-style: italic;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.45;
+  white-space: normal;
 }
 .threat-meter {
   position: relative;
@@ -11059,6 +11477,8 @@ h1, h2, h3, h4 {
 .win--card > .win-head {
   justify-content: flex-start;
   margin: 0;
+  flex-wrap: wrap;
+  row-gap: 6px;
 }
 .win--card > .win-head .card-title { gap: 0; }
 .win--card > .win-head .card-title .dot { display: none; }
@@ -11068,6 +11488,10 @@ h1, h2, h3, h4 {
   font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 0.14em;
+  line-height: 1.15;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
 }
 .win--card > .win-body { padding: 16px 20px 18px; }
 
@@ -11220,10 +11644,9 @@ h1, h2, h3, h4 {
   .win--card .win-aside .progress { display: none; }
   .win--card .win-aside .chip {
     display: inline-block;
-    max-width: 86px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
   }
   .win--card > .win-head .card-title.win-name { flex: 1 1 auto; }
 }
@@ -11399,6 +11822,11 @@ h1, h2, h3, h4 {
   <!-- ============ ÉCHAUFFEMENT GUIDÉ ============ -->
   <div class="session warmup" id="warmup" role="dialog" aria-modal="true" aria-labelledby="warmupTitle" hidden>
     <div class="session-frame" id="warmupFrame"></div>
+  </div>
+
+  <!-- ============ TEST DE NIVEAU INITIAL ============ -->
+  <div class="session placement" id="placement" role="dialog" aria-modal="true" aria-labelledby="placementTitle" hidden>
+    <div class="session-frame" id="placementFrame"></div>
   </div>
 
   <!-- ============ SÉANCE LIBRE / ATELIER DE COMPOSITION ============ -->
@@ -12877,6 +13305,12 @@ h1, h2, h3, h4 {
     return text(win, ".chip") || "7 jours";
   }
 
+  function statDaily(win) {
+    const items = count(win, ".daily-item");
+    const done = count(win, ".daily-item.is-added");
+    return items ? `${done}/${items} chargé${done === 1 ? "" : "s"}` : "3 axes";
+  }
+
   function statFilters(win, root) {
     const pressed = win.querySelector('.filter-btn[aria-pressed="true"]');
     const label = pressed ? clean(pressed.textContent) : "Tous";
@@ -12906,6 +13340,7 @@ h1, h2, h3, h4 {
       label: "Registre",
       targets: [
         { sel: ".quest-hero", id: "QST-01", name: "Registre du jour", lead: true, flush: true, stat: statHero },
+        { sel: ".daily-card", id: "QST-05", name: "Trio du jour", card: true, stat: statDaily },
         { sel: ".quest-register", id: "QST-02", name: "Quêtes du jour", card: true, stat: statRegister },
         { sel: ".quest-form-card", id: "QST-03", name: "Nouvelle quête", card: true, stat: statForm },
         { sel: ".program-card", id: "QST-04", name: "Programme", card: true, stat: statProgram },
@@ -13598,6 +14033,27 @@ const LIBRARY = [
     sets: 3, reps: 12, unit: "reps",
     tip: "Allongé sur le ventre, décolle bras et jambes, tiens 2 secondes en haut.",
   },
+  /* Mobilité : amplitude d'abord, jamais de performance. */
+  {
+    id: "rotations-thoraciques", name: "Rotations thoraciques", level: "debutant", muscle: "Dos",
+    sets: 2, reps: 10, unit: "reps",
+    tip: "Assis, mains derrière la tête, tourne le haut du corps sans balancer les hanches. Change de côté à chaque répétition.",
+  },
+  {
+    id: "chat-vache", name: "Chat-vache", level: "debutant", muscle: "Dos",
+    sets: 2, reps: 10, unit: "reps",
+    tip: "À quatre pattes, alterne dos creusé et dos rond au rythme de la respiration, sans à-coup.",
+  },
+  {
+    id: "ouverture-hanches", name: "Ouverture des hanches", level: "debutant", muscle: "Jambes",
+    sets: 2, reps: 8, unit: "reps",
+    tip: "En fente basse, pousse les hanches vers l'avant sans creuser le bas du dos. Alterne les jambes.",
+  },
+  {
+    id: "cercles-epaules", name: "Cercles d'épaules", level: "debutant", muscle: "Épaules",
+    sets: 2, reps: 12, unit: "reps",
+    tip: "Debout, bras tendus, dessine de grands cercles avec les épaules dans les deux sens.",
+  },
 
   /* --- Intermédiaire --- */
   {
@@ -13782,6 +14238,26 @@ const FORM_CUES = {
     breathe: "Inspire en descendant, expire en poussant.",
     avoid: "Ne cambre pas le dos et ne pose pas la tête violemment au sol.",
   },
+  "rotations-thoraciques": {
+    setup: "Assis au sol ou sur une chaise, dos droit, mains derrière la tête, coudes ouverts.",
+    breathe: "Inspire au centre, expire en tournant, reviens au centre en inspirant.",
+    avoid: "Ne tire pas sur la nuque et ne fais pas bouger les hanches : seul le haut du dos tourne.",
+  },
+  "chat-vache": {
+    setup: "À quatre pattes, mains sous les épaules, genoux sous les hanches, dos neutre.",
+    breathe: "Inspire en creusant le dos, expire en arrondissant, sans jamais bloquer.",
+    avoid: "Ne force pas l'amplitude et ne bloque pas les coudes : le mouvement reste lent.",
+  },
+  "ouverture-hanches": {
+    setup: "Un genou au sol, autre pied devant, bassin face à l'avant, buste droit.",
+    breathe: "Respiration longue, expire en poussant doucement les hanches vers l'avant.",
+    avoid: "Ne creuse pas le bas du dos pour gagner de l'amplitude : la hanche travaille, pas les lombaires.",
+  },
+  "cercles-epaules": {
+    setup: "Debout, pieds largeur de bassin, bras tendus le long du corps, épaules relâchées.",
+    breathe: "Respiration continue, ample et sans blocage.",
+    avoid: "Ne monte pas les épaules vers les oreilles et ne cambre pas pour accompagner le cercle.",
+  },
 };
 
 /* ------------------------------------------------------------
@@ -13854,9 +14330,9 @@ const PROGRAM = [
 
 function programTierIndex() {
   const level = levelInfo(state.profile.xp).level;
-  if (level >= 9) return 2;
-  if (level >= 4) return 1;
-  return 0;
+  const byLevel = level >= 9 ? 2 : level >= 4 ? 1 : 0;
+  const measured = placementMeasuredIndex();
+  return measured === null ? byLevel : Math.max(byLevel, measured);
 }
 
 function programTierLabel() {
@@ -13917,6 +14393,85 @@ function loadProgramDay(dayIndex) {
     icon: "route",
     title: "Programme chargé",
     desc: `${plan.title} · ${missing.length} exercice${missing.length > 1 ? "s" : ""} ajouté${missing.length > 1 ? "s" : ""} · +${plan.xp} XP à portée.`,
+    tone: "lime",
+    duration: 3800,
+  });
+  beep("add");
+}
+
+/* ------------------------------------------------------------
+   2 ter. TRIO DU JOUR — force, endurance, mobilité
+   Trois quêtes tournantes, déterministes par date : tout le monde
+   voit le même trio le même jour, et il change chaque jour.
+   ------------------------------------------------------------ */
+const DAILY_THEMES = [
+  {
+    id: "force", label: "Force", icon: "bolt",
+    pool: [
+      ["pompes-inclinees", "pompes-classiques", "pompes-archer"],
+      ["tractions-australiennes", "tractions-pronation", "tractions-lestees"],
+      ["squats-chaise", "squats-libres", "pistol-squats"],
+      ["dips-banc", "dips-barres", "dips-barres"],
+      ["fentes-avant", "fentes-avant", "fentes-avant"],
+    ],
+  },
+  {
+    id: "endurance", label: "Endurance", icon: "flame",
+    pool: [
+      ["planche-genoux", "mountain-climbers", "mountain-climbers"],
+      ["superman", "hollow-body", "dragon-flag"],
+      ["mollets-debout", "mollets-debout", "mollets-debout"],
+      ["planche-genoux", "planche", "hollow-body"],
+      ["superman", "planche", "dragon-flag"],
+    ],
+  },
+  {
+    id: "mobility", label: "Mobilité", icon: "spark",
+    pool: [
+      ["rotations-thoraciques", "rotations-thoraciques", "rotations-thoraciques"],
+      ["chat-vache", "chat-vache", "chat-vache"],
+      ["ouverture-hanches", "ouverture-hanches", "ouverture-hanches"],
+      ["cercles-epaules", "cercles-epaules", "cercles-epaules"],
+    ],
+  },
+];
+
+/* Le décalage par thème évite les trios figés : chaque jour avance
+   d'un cran et chaque thème pioche une entrée différente. */
+function dailyTrio() {
+  const dayNumber = Math.floor(Date.parse(`${dayKey()}T00:00:00Z`) / 86400000);
+  const tier = clamp(programTierIndex(), 0, 2);
+  return DAILY_THEMES.map((theme, index) => {
+    const pick = theme.pool[(dayNumber + index) % theme.pool.length];
+    const exercise = LIBRARY.find((ex) => ex.id === (pick[tier] || pick[0]));
+    return exercise ? { theme, exercise } : null;
+  }).filter(Boolean);
+}
+
+function loadDailyTrio() {
+  const trio = dailyTrio();
+  const existing = programLoadedIds();
+  const missing = trio
+    .filter((item) => !existing.has(item.exercise.id))
+    .map((item) => taskFromExercise(item.exercise));
+  if (!missing.length) {
+    showToast({
+      icon: "check",
+      title: "Trio déjà chargé",
+      desc: "Les trois quêtes du jour sont déjà dans ton registre.",
+      tone: "neutral",
+      duration: 2800,
+    });
+    return;
+  }
+  const xp = missing.reduce((sum, task) => sum + (Number(task.xp) || 0), 0);
+  state.tasks.unshift(...missing);
+  save();
+  renderAll();
+  showToast({
+    icon: "spark",
+    title: "Trio du jour chargé",
+    desc: `${missing.length} quête${missing.length > 1 ? "s" : ""} ajoutée${missing.length > 1 ? "s" : ""} · +${xp} XP à portée.`,
     tone: "lime",
     duration: 3800,
   });
@@ -16361,6 +16916,568 @@ function warmupStartSession() {
 }
 
 /* ------------------------------------------------------------
+   4 quater ter. TEST DE NIVEAU INITIAL
+   Trois épreuves courtes — pompes, squats, gainage — pour poser
+   le programme sur la bonne marche dès la première séance.
+   ------------------------------------------------------------ */
+const PLACEMENT_LABELS = ["Débutant", "Intermédiaire", "Pro"];
+const PLACEMENT_HOLD_CAP = 120;
+const PLACEMENT_TESTS = [
+  {
+    id: "pushups", name: "Pompes", unit: "RÉPS", muscle: "Haut du corps",
+    brief: "Maximum de répétitions propres d'affilée.",
+    cue: "Coudes à 45°, corps gainé, poitrine près du sol. Compte seulement les répétitions complètes.",
+    kind: "reps", max: 80, thresholds: [5, 15], presets: [5, 10, 15, 20, 25, 30],
+  },
+  {
+    id: "squats", name: "Squats", unit: "RÉPS", muscle: "Jambes",
+    brief: "Maximum de répétitions, sans élan.",
+    cue: "Talons au sol, hanches sous les genoux si possible. Monte à la force des jambes, sans rebond.",
+    kind: "reps", max: 100, thresholds: [15, 30], presets: [10, 20, 30, 40, 50, 60],
+  },
+  {
+    id: "plank", name: "Gainage", unit: "SEC", muscle: "Tronc",
+    brief: "Tenue chronométrée, jusqu'à la rupture.",
+    cue: "Bassin neutre, côtes descendues, fessiers serrés. Tiens tant que la ligne reste droite.",
+    kind: "hold", max: PLACEMENT_HOLD_CAP, thresholds: [30, 60], presets: [],
+  },
+];
+let placementState = null;
+let placementTimer = null;
+
+function placementRecord() {
+  const record = state.settings.placement;
+  if (!record || !Number.isFinite(Number(record.tier))) return null;
+  return record;
+}
+
+function placementMeasuredIndex() {
+  const record = placementRecord();
+  return record ? clamp(Math.round(Number(record.tier)), 0, 2) : null;
+}
+
+function placementTest() {
+  return PLACEMENT_TESTS[clamp(placementState.index, 0, PLACEMENT_TESTS.length - 1)];
+}
+
+function placementValue(id) {
+  const test = PLACEMENT_TESTS.find((item) => item.id === id);
+  const max = test ? test.max : 120;
+  return clamp(parseInt(placementState.values[id], 10) || 0, 0, max);
+}
+
+function placementTestTier(test, value) {
+  if (value >= test.thresholds[1]) return 2;
+  if (value >= test.thresholds[0]) return 1;
+  return 0;
+}
+
+/* Deux épreuves sur trois décident du palier : un point faible isolé
+   ne bloque pas un profil déjà solide sur les deux autres. */
+function placementResultTier(values) {
+  const tiers = PLACEMENT_TESTS.map((test) => placementTestTier(test, clamp(parseInt(values[test.id], 10) || 0, 0, test.max)));
+  const pro = tiers.filter((tier) => tier === 2).length;
+  const mid = tiers.filter((tier) => tier >= 1).length;
+  if (pro >= 2) return 2;
+  if (mid >= 2) return 1;
+  return 0;
+}
+
+function placementChrome(extra = "") {
+  return `
+    <div class="session-grid" aria-hidden="true"></div>
+    <span class="session-corner session-corner--tl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--tr" aria-hidden="true"></span>
+    <span class="session-corner session-corner--bl" aria-hidden="true"></span>
+    <span class="session-corner session-corner--br" aria-hidden="true"></span>
+    ${extra}`;
+}
+
+function placementIntroHTML() {
+  return `
+    ${placementChrome(`<button class="session-quit" type="button" data-action="placement-close" aria-label="Fermer le test de niveau">${CLOSE_SVG}</button>`)}
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">CALIBRAGE // TEST DE NIVEAU</span>
+        <span class="session-phase"><i></i> AVANT-PREMIÈRE SÉANCE</span>
+      </div>
+      <div class="session-progress-wrap">
+        <span class="session-progress-label">ÉPREUVES <b>0 / 3</b></span>
+        <span class="session-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><i style="width:0%"></i></span>
+      </div>
+    </header>
+    <main class="session-main placement-main">
+      <div class="session-head">
+        <span class="session-kicker"><i></i> CINQ MINUTES // SANS MATÉRIEL</span>
+        <h2 class="session-title" id="placementTitle">Test de niveau</h2>
+        <p class="session-sub">Trois épreuves pour placer le programme sur la bonne marche, dès la première séance.</p>
+      </div>
+      <ul class="pl-steps">
+        ${PLACEMENT_TESTS.map((test, i) => `
+          <li>
+            <span class="pl-step-n">${pad2(i + 1)}</span>
+            <span class="pl-step-main"><b>${escapeHtml(test.name)}</b><small>${escapeHtml(test.brief)}</small></span>
+            <span class="pl-step-unit">${test.kind === "hold" ? "CHRONO" : "MAX"}</span>
+          </li>`).join("")}
+      </ul>
+      <p class="pl-note">Arrête dès que la forme casse : un chiffre juste vaut mieux qu'un chiffre flatteur. Le test est facultatif, rejouable, et ne touche ni à ton XP ni à tes quêtes.</p>
+      <div class="session-actions">
+        <button class="btn btn-lime" type="button" data-action="placement-start">${cxIcon("play")}<span>Commencer</span></button>
+        <button class="btn btn-ghost" type="button" data-action="placement-close">Plus tard</button>
+      </div>
+      <p class="session-tip">Échap pour quitter · le programme actuel reste inchangé</p>
+    </main>
+    <footer class="session-foot">
+      <span>ÉPREUVES <b>03</b></span>
+      <span>DURÉE <b>≈ 05 MIN</b></span>
+      <span>INTENSITÉ <b>Maximale</b></span>
+    </footer>`;
+}
+
+function placementRepsHTML(test) {
+  const value = placementValue(test.id);
+  return `
+    <div class="pl-counter">
+      <button class="pl-step-btn" type="button" data-action="placement-minus" aria-label="Retirer une répétition">−</button>
+      <label class="pl-value">
+        <span class="sr-only">Répétitions réalisées</span>
+        <input id="placementInput" type="number" inputmode="numeric" min="0" max="${test.max}" step="1" value="${value}">
+        <span class="pl-unit" aria-hidden="true">${test.unit}</span>
+      </label>
+      <button class="pl-step-btn" type="button" data-action="placement-plus" aria-label="Ajouter une répétition">+</button>
+    </div>
+    <div class="pl-presets" role="group" aria-label="Valeurs rapides">
+      ${test.presets.map((n) => `<button class="pl-preset ${n === value ? "is-on" : ""}" type="button" data-action="placement-preset" data-id="${n}" aria-label="${n} répétitions">${n}</button>`).join("")}
+    </div>`;
+}
+
+function placementHoldHTML(test) {
+  const cap = test.max;
+  const elapsed = clamp(placementState.elapsed, 0, cap);
+  const offset = (1 - elapsed / cap) * SESSION_RING_C;
+  return `
+    <div class="session-rest pl-core">
+      <div class="session-ring pl-ring">
+        <svg viewBox="0 0 128 128" aria-hidden="true">
+          <circle class="sr-track" cx="64" cy="64" r="54"/>
+          <circle class="sr-fill" id="placementRingFill" cx="64" cy="64" r="54"
+            stroke-dasharray="${SESSION_RING_C.toFixed(2)}" stroke-dashoffset="${offset.toFixed(2)}"/>
+        </svg>
+        <span class="session-rest-count" id="placementCount" role="timer" aria-live="off">${Math.floor(elapsed)}</span>
+        <span class="session-rest-unit">SEC</span>
+      </div>
+      <p class="pl-hold-note" id="placementHoldNote">${elapsed > 0 ? `Tenue mesurée : ${Math.floor(elapsed)} s sur ${cap} maximum.` : "Démarre le chrono quand tu es en position."}</p>
+    </div>`;
+}
+
+function placementTestHTML() {
+  const test = placementTest();
+  const index = placementState.index;
+  const last = index === PLACEMENT_TESTS.length - 1;
+  const pct = (index / PLACEMENT_TESTS.length) * 100;
+  const hold = test.kind === "hold";
+  const elapsed = clamp(placementState.elapsed, 0, test.max);
+  return `
+    ${placementChrome(`<button class="session-quit" type="button" data-action="placement-close" aria-label="Quitter le test de niveau">${CLOSE_SVG}</button>`)}
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">CALIBRAGE // ÉPREUVE ${pad2(index + 1)} SUR 03</span>
+        <span class="session-phase"><i></i> ${hold && placementState.running ? "CHRONO EN COURS" : "ÉPREUVE PRÊTE"}</span>
+      </div>
+      <div class="session-progress-wrap">
+        <span class="session-progress-label">PROGRESSION <b>${Math.round(pct)} %</b></span>
+        <span class="session-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="${index}"><i style="width:${pct.toFixed(0)}%"></i></span>
+      </div>
+    </header>
+    <main class="session-main placement-main">
+      <div class="session-head">
+        <span class="session-kicker"><i></i> ${escapeHtml(test.muscle.toUpperCase())} // ${hold ? "TENUE MAXIMALE" : "SÉRIE MAXIMALE"}</span>
+        <h2 class="session-title" id="placementTitle">${escapeHtml(test.name)}</h2>
+        <p class="session-sub">${escapeHtml(test.cue)}</p>
+      </div>
+      ${hold ? placementHoldHTML(test) : placementRepsHTML(test)}
+      <div class="session-actions">
+        ${hold
+          ? `<button class="btn btn-lime" type="button" id="placementHold" data-action="placement-hold" ${elapsed >= test.max ? "disabled" : ""}>
+              <span class="pl-icon pl-icon-play">${cxIcon("play")}</span>
+              <span class="pl-icon pl-icon-pause">${cxIcon("pause")}</span>
+              <span id="placementHoldLabel">${elapsed >= test.max ? "Chrono terminé" : placementState.running ? "Pause" : elapsed > 0 ? "Reprendre" : "Démarrer le chrono"}</span>
+            </button>
+            <button class="btn btn-ghost" type="button" id="placementValidate" data-action="placement-validate" ${elapsed < 1 ? "disabled" : ""}>
+              ${cxIcon("check")}<span id="placementValidateLabel">Valider ${Math.floor(elapsed)} s</span>
+            </button>
+            ${elapsed > 0 && !placementState.running ? `<button class="btn btn-ghost btn-sm" type="button" data-action="placement-reset">Remettre à zéro</button>` : ""}`
+          : `<button class="btn btn-lime" type="button" data-action="placement-validate">
+              ${cxIcon("check")}<span>${last ? "Voir mon palier" : "Valider l'épreuve"}</span>
+            </button>`}
+      </div>
+      <p class="session-tip">${hold ? "Espace pour lancer ou arrêter le chrono · Échap pour quitter" : "Saisis ton total, puis valide · Échap pour quitter"}</p>
+      <p class="sr-only" id="placementLive" role="status" aria-live="polite">${escapeHtml(placementState.announce || "")}</p>
+    </main>
+    <footer class="session-foot">
+      <span>ÉPREUVE <b>${pad2(index + 1)} / 03</b></span>
+      <span>MESURE <b>${hold ? "Secondes" : "Répétitions"}</b></span>
+      <span>${last ? "SUITE <b>Résultat</b>" : `SUITE <b>${escapeHtml(PLACEMENT_TESTS[index + 1].name)}</b>`}</span>
+    </footer>`;
+}
+
+function placementDoneHTML() {
+  const measured = placementResultTier(placementState.values);
+  const effective = programTierIndex();
+  const level = levelInfo(state.profile.xp).level;
+  const plan = programToday();
+  const note = effective > measured
+    ? `Ton niveau ${level} maintient déjà le programme en ${PLACEMENT_LABELS[effective]}. Le test ne le rétrograde pas.`
+    : "Le programme suivra ce palier jusqu'au prochain test. Ton niveau global reste inchangé.";
+  return `
+    ${placementChrome(`<button class="session-quit" type="button" data-action="placement-close" aria-label="Fermer le résultat du test">${CLOSE_SVG}</button>`)}
+    <header class="session-top">
+      <div class="session-top-l">
+        <span class="session-code">CALIBRAGE // TEST DE NIVEAU // TERMINÉ</span>
+        <span class="session-phase"><i></i> PALIER MESURÉ</span>
+      </div>
+      <div class="session-progress-wrap">
+        <span class="session-progress-label">PROGRESSION <b>100 %</b></span>
+        <span class="session-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="3"><i style="width:100%"></i></span>
+      </div>
+    </header>
+    <main class="session-main placement-main">
+      <div class="session-done pl-done">
+        <span class="session-done-kicker">TROIS ÉPREUVES // UN PALIER</span>
+        <div class="session-done-icon" aria-hidden="true">${cxIcon("target")}</div>
+        <h2 class="session-title" id="placementTitle">Palier ${PLACEMENT_LABELS[measured].toLowerCase()}</h2>
+        <div class="pl-results">
+          ${PLACEMENT_TESTS.map((test) => {
+            const value = Math.round(placementValue(test.id));
+            const tier = placementTestTier(test, value);
+            return `
+              <div class="pl-result" style="--tier:${LEVELS[LEVEL_ORDER[tier]].color}">
+                <span>${escapeHtml(test.name)}</span>
+                <b>${value}${test.kind === "hold" ? " s" : ""}</b>
+                <em>${PLACEMENT_LABELS[tier]}</em>
+              </div>`;
+          }).join("")}
+        </div>
+        <p class="session-done-log">${escapeHtml(note)}</p>
+        <p class="session-done-sub">${plan.items.length
+          ? `Séance du jour : ${escapeHtml(plan.title)} · ${plan.items.length} exercice${plan.items.length > 1 ? "s" : ""} · +${plan.xp} XP à portée.`
+          : "Jour de repos planifié. Le programme reprendra demain avec ce palier."}</p>
+      </div>
+      <div class="session-actions">
+        ${plan.items.length ? `<button class="btn btn-lime" type="button" data-action="placement-load">${cxIcon("route")}<span>Charger la séance du jour</span></button>` : ""}
+        <button class="btn btn-ghost" type="button" data-action="placement-program">Voir le programme</button>
+        <button class="btn btn-ghost" type="button" data-action="placement-close">Fermer</button>
+      </div>
+      <p class="session-tip">Test enregistré pour aujourd'hui · rejouable depuis le programme ou le Codex</p>
+    </main>
+    <footer class="session-foot">
+      <span>PALIER <b>${PLACEMENT_LABELS[effective]}</b></span>
+      <span>NIVEAU <b>${level}</b></span>
+      <span>TEST <b>${shortDay(dayKey())}</b></span>
+    </footer>`;
+}
+
+function placementHTML() {
+  if (!placementState) return "";
+  if (placementState.phase === "intro") return placementIntroHTML();
+  if (placementState.phase === "done") return placementDoneHTML();
+  return placementTestHTML();
+}
+
+function focusPlacementPrimary() {
+  const overlay = $("placement");
+  if (!overlay || overlay.hidden) return;
+  const target = overlay.querySelector(".session-actions .btn-lime")
+    || overlay.querySelector("[data-action='placement-close']");
+  if (target && typeof target.focus === "function") target.focus({ preventScroll: true });
+}
+
+function renderPlacement(focusPrimary = false) {
+  const frame = $("placementFrame");
+  const overlay = $("placement");
+  if (!frame || !overlay || !placementState) return;
+  frame.innerHTML = placementHTML();
+  overlay.classList.toggle("is-running", !!placementState.running);
+  overlay.classList.toggle("is-done", placementState.phase === "done");
+  if (focusPrimary) window.setTimeout(focusPlacementPrimary, 30);
+}
+
+function openPlacement() {
+  const overlay = $("placement");
+  if (!overlay || !overlay.hidden) return;
+  if (sessionState) {
+    showToast({
+      icon: "hourglass",
+      title: "Séance en cours",
+      desc: "Termine ou quitte la séance avant de lancer le test de niveau.",
+      tone: "neutral",
+      duration: 3200,
+    });
+    return;
+  }
+  if (activeOverlay()) return;
+  placementStopTimer();
+  placementState = {
+    index: 0,
+    phase: "intro",
+    values: { pushups: 0, squats: 0, plank: 0 },
+    elapsed: 0,
+    running: false,
+    endsAt: 0,
+    announce: "",
+  };
+  rememberOverlayFocus("placement");
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  syncModalState();
+  renderPlacement();
+  beep("engage");
+  window.setTimeout(focusPlacementPrimary, 120);
+}
+
+function closePlacement() {
+  const overlay = $("placement");
+  if (!overlay || overlay.hidden) return;
+  placementStopTimer();
+  placementState = null;
+  overlay.hidden = true;
+  overlay.classList.remove("is-running", "is-done");
+  const frame = $("placementFrame");
+  if (frame) frame.innerHTML = "";
+  if (!activeOverlay()) document.body.classList.remove("no-scroll");
+  syncModalState();
+  renderAll();
+  restoreOverlayFocus("placement");
+}
+
+function placementStart() {
+  if (!placementState || placementState.phase !== "intro") return;
+  placementState.phase = "test";
+  placementState.index = 0;
+  placementState.values = { pushups: 0, squats: 0, plank: 0 };
+  placementState.elapsed = 0;
+  placementState.running = false;
+  placementState.announce = `Épreuve 1 sur 3 : ${PLACEMENT_TESTS[0].name}.`;
+  renderPlacement(true);
+  beep("add");
+}
+
+function placementSetValue(value) {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind !== "reps") return;
+  placementState.values[test.id] = clamp(parseInt(value, 10) || 0, 0, test.max);
+  placementSyncValue();
+}
+
+function placementAdjust(delta) {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind !== "reps") return;
+  placementSetValue(placementValue(test.id) + delta);
+}
+
+function placementSyncValue() {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind !== "reps") return;
+  const value = placementValue(test.id);
+  const input = $("placementInput");
+  if (input && document.activeElement !== input) input.value = String(value);
+  document.querySelectorAll("[data-action='placement-preset']").forEach((btn) => {
+    btn.classList.toggle("is-on", Number(btn.dataset.id) === value);
+  });
+}
+
+function placementStopTimer() {
+  if (placementTimer) {
+    window.clearInterval(placementTimer);
+    placementTimer = null;
+  }
+}
+
+function placementSyncUI() {
+  if (!placementState || placementState.phase !== "test") return;
+  const overlay = $("placement");
+  if (overlay) overlay.classList.toggle("is-running", !!placementState.running);
+  const test = placementTest();
+  if (test.kind !== "hold") {
+    placementSyncValue();
+    return;
+  }
+  const cap = test.max;
+  const elapsed = clamp(placementState.elapsed, 0, cap);
+  const count = $("placementCount");
+  if (count) count.textContent = String(Math.floor(elapsed));
+  const ring = $("placementRingFill");
+  if (ring) ring.style.strokeDashoffset = String((1 - elapsed / cap) * SESSION_RING_C);
+  const holdBtn = $("placementHold");
+  if (holdBtn) holdBtn.disabled = elapsed >= cap;
+  const holdLabel = $("placementHoldLabel");
+  if (holdLabel) {
+    holdLabel.textContent = elapsed >= cap
+      ? "Chrono terminé"
+      : placementState.running ? "Pause" : elapsed > 0 ? "Reprendre" : "Démarrer le chrono";
+  }
+  const validate = $("placementValidate");
+  if (validate) {
+    validate.disabled = elapsed < 1;
+    const label = $("placementValidateLabel");
+    if (label) label.textContent = `Valider ${Math.floor(elapsed)} s`;
+  }
+  const note = $("placementHoldNote");
+  if (note) {
+    note.textContent = elapsed > 0
+      ? `Tenue mesurée : ${Math.floor(elapsed)} s sur ${cap} maximum.`
+      : "Démarre le chrono quand tu es en position.";
+  }
+}
+
+function placementStartTimer() {
+  placementStopTimer();
+  placementTimer = window.setInterval(() => {
+    if (!placementState || placementState.phase !== "test" || !placementState.running) {
+      placementStopTimer();
+      return;
+    }
+    const cap = PLACEMENT_HOLD_CAP;
+    placementState.elapsed = clamp(cap - Math.max(0, (placementState.endsAt - Date.now()) / 1000), 0, cap);
+    if (placementState.elapsed >= cap) {
+      placementState.elapsed = cap;
+      placementState.running = false;
+      placementStopTimer();
+      placementSyncUI();
+      beep("complete");
+      const validate = $("placementValidate");
+      if (validate && typeof validate.focus === "function") validate.focus({ preventScroll: true });
+      return;
+    }
+    placementSyncUI();
+  }, 100);
+  placementSyncUI();
+}
+
+function placementToggleHold() {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind !== "hold") return;
+  const cap = test.max;
+  if (placementState.running) {
+    placementState.running = false;
+    placementStopTimer();
+    renderPlacement();
+    const nextFocus = $("placementValidate");
+    const holdFocus = $("placementHold");
+    const target = nextFocus && !nextFocus.disabled ? nextFocus : holdFocus;
+    if (target && typeof target.focus === "function") target.focus({ preventScroll: true });
+    beep("undo");
+    return;
+  }
+  if (placementState.elapsed >= cap) return;
+  placementState.running = true;
+  placementState.endsAt = Date.now() + Math.max(0, cap - placementState.elapsed) * 1000;
+  placementSyncUI();
+  beep("add");
+  placementStartTimer();
+}
+
+function placementReset() {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind !== "hold") return;
+  placementStopTimer();
+  placementState.elapsed = 0;
+  placementState.running = false;
+  placementState.endsAt = 0;
+  renderPlacement(true);
+  beep("undo");
+}
+
+function placementValidate() {
+  if (!placementState || placementState.phase !== "test") return;
+  const test = placementTest();
+  if (test.kind === "hold") {
+    /* Valider pendant la tenue arrête le chrono au dixième près :
+       un bouton actif ne doit jamais ignorer le clic. */
+    if (placementState.running) {
+      placementState.elapsed = clamp(
+        PLACEMENT_HOLD_CAP - Math.max(0, (placementState.endsAt - Date.now()) / 1000),
+        0,
+        PLACEMENT_HOLD_CAP,
+      );
+      placementState.running = false;
+      placementStopTimer();
+    }
+    placementState.elapsed = clamp(placementState.elapsed, 0, test.max);
+    placementState.values.plank = Math.round(placementState.elapsed);
+  }
+  placementStopTimer();
+  if (placementState.index >= PLACEMENT_TESTS.length - 1) {
+    placementFinish();
+    return;
+  }
+  placementState.index += 1;
+  placementState.elapsed = 0;
+  placementState.endsAt = 0;
+  placementState.running = false;
+  const next = placementTest();
+  placementState.announce = `Épreuve ${placementState.index + 1} sur 3 : ${next.name}.`;
+  renderPlacement(true);
+  beep("add");
+}
+
+function placementFinish() {
+  if (!placementState) return;
+  placementStopTimer();
+  placementState.running = false;
+  const values = {};
+  PLACEMENT_TESTS.forEach((test) => {
+    values[test.id] = parseInt(placementState.values[test.id], 10) || 0;
+    if (test.kind === "hold") values[test.id] = clamp(placementState.elapsed, 0, test.max);
+    values[test.id] = clamp(values[test.id], 0, test.max);
+  });
+  const tier = placementResultTier(values);
+  placementState.phase = "done";
+  state.settings.placement = {
+    tier,
+    pushups: values.pushups,
+    squats: values.squats,
+    plank: Math.round(values.plank),
+    day: dayKey(),
+    at: Date.now(),
+  };
+  save();
+  renderPlacement(true);
+  renderAll();
+  beep("complete");
+  if (navigator.vibrate && !prefersReduced()) {
+    try { navigator.vibrate([90, 60, 90, 60, 160]); } catch (err) { /* vibration indisponible */ }
+  }
+}
+
+function placementLoadToday() {
+  const dayIndex = programDayIndex();
+  closePlacement();
+  setView("quests");
+  loadProgramDay(dayIndex);
+}
+
+function placementShowProgram() {
+  closePlacement();
+  setView("quests");
+  window.setTimeout(() => {
+    const card = document.querySelector(".program-card");
+    if (!card) return;
+    card.scrollIntoView({
+      behavior: prefersReduced() ? "auto" : "smooth",
+      block: "center",
+    });
+    card.classList.add("is-flash");
+    window.setTimeout(() => card.classList.remove("is-flash"), 1400);
+  }, 320);
+}
+
+/* ------------------------------------------------------------
    4 quinquies. SÉANCE LIBRE & MODÈLES
    Atelier hors registre : on pioche dans l'Arsenal, on ajuste,
    puis la séance se déroule avec le même moteur que les quêtes.
@@ -16738,7 +17855,7 @@ function defaultState() {
     records: {},
     templates: [],
     lore: { seen: [] },
-    settings: { sound: true, rest: 60, tourDone: false, warmupDay: null },
+    settings: { sound: true, rest: 60, tourDone: false, warmupDay: null, placement: null },
   };
 }
 
@@ -16777,6 +17894,25 @@ function normalizeState(raw) {
   merged.profile = { ...base.profile, ...(raw && raw.profile ? raw.profile : {}) };
   delete merged.profile.avatar; // champ jamais rendu, retiré des sauvegardes
   merged.settings = { ...base.settings, ...(raw && raw.settings ? raw.settings : {}) };
+  const placement = merged.settings.placement;
+  if (placement && typeof placement === "object" && Number.isFinite(Number(placement.tier))) {
+    const values = {
+      pushups: clamp(parseInt(placement.pushups, 10) || 0, 0, 80),
+      squats: clamp(parseInt(placement.squats, 10) || 0, 0, 100),
+      plank: clamp(parseInt(placement.plank, 10) || 0, 0, PLACEMENT_HOLD_CAP),
+    };
+    merged.settings.placement = {
+      /* Le palier se déduit toujours des mesures : une sauvegarde
+         bricolée ne peut pas s'offrir un palier sans les scores. */
+      tier: placementResultTier(values),
+      ...values,
+      day: /^\d{4}-\d{2}-\d{2}$/.test(placement.day) ? placement.day : null,
+      at: Number(placement.at) || 0,
+    };
+  } else {
+    merged.settings.placement = null;
+  }
+  merged.settings.warmupDay = typeof merged.settings.warmupDay === "string" ? merged.settings.warmupDay : null;
   merged.history = raw && raw.history && typeof raw.history === "object" && !Array.isArray(raw.history) ? raw.history : {};
   const sourceTasks = raw && Array.isArray(raw.tasks) ? raw.tasks : [];
 
@@ -17433,7 +18569,7 @@ const FOCUSABLE_SELECTOR = [
 const overlayFocusReturn = new Map();
 
 function activeOverlay() {
-  return ["tour", "levelUp", "hunt", "warmup", "session", "freeBuilder"]
+  return ["tour", "levelUp", "hunt", "warmup", "placement", "session", "freeBuilder"]
     .map((id) => $(id))
     .find((el) => el && !el.hidden) || null;
 }
@@ -17470,7 +18606,8 @@ function restoreOverlayFocus(id) {
   let target = record && record.el && document.contains(record.el) ? record.el : null;
   if (target && (target.getClientRects().length === 0 || target.closest("[inert]"))) target = null;
   if (!target && record && record.action) {
-    target = document.querySelector(`[data-action="${record.action}"]`);
+    target = Array.from(document.querySelectorAll(`[data-action="${record.action}"]`))
+      .find((el) => el.getClientRects().length > 0 && !el.closest("[inert]")) || null;
   }
   if (!target && record && record.nav) {
     target = document.querySelector(`[data-nav="${record.nav}"]`);
@@ -17772,6 +18909,11 @@ function renderQuests() {
 
   const plan = programToday();
   const loadedIds = programLoadedIds();
+  const trio = dailyTrio();
+  const trioLoaded = trio.filter((item) => loadedIds.has(item.exercise.id)).length;
+  const trioMissing = trio.length - trioLoaded;
+  const placement = placementRecord();
+  const placementTier = placementMeasuredIndex();
   const planChip = plan.items.length ? `${programTierLabel()} · +${plan.xp} XP` : "Repos planifié";
   const xpToday = doneTasks.reduce((sum, task) => sum + (Number(task.xp) || 0), 0);
   const volumeToday = doneTasks.reduce((sum, task) => sum + (Number(task.sets) || 0) * (Number(task.reps) || 0), 0);
@@ -17822,6 +18964,40 @@ function renderQuests() {
         <span><b>${formatNumber(xpToday)}</b><small>XP · JOUR</small></span>
         <span><b>${formatNumber(volumeToday)}</b><small>VOLUME · RÉPS</small></span>
         <span><b>${rest}</b><small>EN ATTENTE</small></span>
+      </div>
+    </section>
+
+    <section class="card daily-card" aria-label="Trio du jour">
+      <div class="card-head daily-head">
+        <h2 class="card-title"><span class="dot"></span> Trio du jour</h2>
+        <span class="chip">${trioMissing ? `${trioMissing} à charger` : "Complet"}</span>
+      </div>
+      <div class="daily-grid">
+        ${trio.map(({ theme, exercise }) => {
+          const added = loadedIds.has(exercise.id);
+          const cfg = LEVELS[exercise.level] || LEVELS.debutant;
+          const dose = exercise.unit === "sec" ? `${exercise.sets} × ${exercise.reps} s` : `${exercise.sets} × ${exercise.reps}`;
+          return `
+            <article class="daily-item ${added ? "is-added" : ""}" style="--lvl:${cfg.color}">
+              <span class="daily-glyph" aria-hidden="true">${cxIcon(theme.icon)}</span>
+              <div class="daily-main">
+                <span class="daily-kicker">${escapeHtml(theme.label)}</span>
+                <b class="daily-name">${escapeHtml(exercise.name)}</b>
+                <span class="daily-dose">${dose} · ${escapeHtml(exercise.muscle)} · +${exerciseXp(exercise)} XP</span>
+              </div>
+              ${added
+                ? `<span class="daily-state" aria-hidden="true">${cxIcon("check", { stroke: 2.4 })}</span><span class="sr-only">Déjà au registre</span>`
+                : ""}
+            </article>`;
+        }).join("")}
+      </div>
+      <div class="daily-foot">
+        <p class="daily-note">Une quête par axe : la force construit, l'endurance tient, la mobilité ouvre. Le trio change chaque jour.</p>
+        <button class="btn ${trioMissing ? "btn-lime" : "btn-ghost"} btn-sm" type="button" data-action="load-daily" ${trioMissing ? "" : "disabled"}>
+          ${cxIcon(trioMissing ? "plus" : "check")}<span>${trioMissing
+            ? (trioMissing === trio.length ? "Charger le trio" : `Charger ${trioMissing} quête${trioMissing > 1 ? "s" : ""}`)
+            : "Trio chargé"}</span>
+        </button>
       </div>
     </section>
 
@@ -17929,6 +19105,19 @@ function renderQuests() {
                   </div>
                 </div>`;
             }).join("")}
+          </div>
+          <div class="program-cal ${placement ? "is-done" : ""}">
+            <span class="program-cal-icon" aria-hidden="true">${cxIcon(placement ? "target" : "flame")}</span>
+            <div class="program-cal-main">
+              <span class="program-cal-kicker">${placement ? `TEST DE NIVEAU · ${shortDay(placement.day)}` : "TEST DE NIVEAU"}</span>
+              <b>${placement ? `Palier ${PLACEMENT_LABELS[placementTier]}` : "Calibre ton palier"}</b>
+              <span>${placement
+                ? `${placement.pushups} pompes · ${placement.squats} squats · ${placement.plank} s de gainage${placementTier !== programTierIndex() ? ` · programme : ${programTierLabel()}` : ""}`
+                : "Pompes, squats, gainage · 5 minutes, sans matériel."}</span>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" data-action="open-placement">
+              ${cxIcon(placement ? "reset" : "target")}<span>${placement ? "Refaire" : "Lancer"}</span>
+            </button>
           </div>
           <p class="program-note">Charge la journée pour l'ajouter au registre. La séance guidée déroulera ensuite les exercices un par un, repos compris.</p>
         </section>
@@ -18110,6 +19299,7 @@ function renderProfile() {
   const attrs = attributes();
   const seals = SEALS.map((seal) => ({ ...seal, unlocked: Boolean(seal.test(p)) }));
   const sealCount = seals.filter((seal) => seal.unlocked).length;
+  const placement = placementRecord();
   const created = new Date(p.createdAt);
   const memberSince = Number.isNaN(created.getTime())
     ? "aujourd'hui"
@@ -18394,6 +19584,18 @@ function renderProfile() {
         </div>
         <button class="switch" type="button" role="switch" aria-checked="${state.settings.sound}"
           aria-label="Activer les effets sonores" data-action="toggle-sound"></button>
+      </div>
+      <div class="setting-row">
+        <span class="setting-icon" aria-hidden="true">${cxIcon("target")}</span>
+        <div class="setting-info">
+          <div class="setting-name">Test de niveau</div>
+          <div class="setting-desc">${placement
+            ? `${placement.pushups} pompes · ${placement.squats} squats · ${placement.plank} s de gainage${placement.day ? `, mesurés le ${shortDay(placement.day)}` : ""}. Le programme suit le palier ${PLACEMENT_LABELS[placementMeasuredIndex()]}.`
+            : "Pompes, squats et gainage : cinq minutes pour choisir la bonne marche du programme."}</div>
+        </div>
+        <div class="setting-actions">
+          <button class="btn btn-ghost btn-sm" type="button" data-action="open-placement">${placement ? "Refaire le test" : "Lancer le test"}</button>
+        </div>
       </div>
       <div class="setting-row">
         <span class="setting-icon" aria-hidden="true">${cxIcon("route")}</span>
@@ -18957,6 +20159,39 @@ document.addEventListener("click", (event) => {
     case "warmup-session":
       warmupStartSession();
       break;
+    case "open-placement":
+      openPlacement();
+      break;
+    case "placement-start":
+      placementStart();
+      break;
+    case "placement-minus":
+      placementAdjust(-1);
+      break;
+    case "placement-plus":
+      placementAdjust(1);
+      break;
+    case "placement-preset":
+      placementSetValue(id);
+      break;
+    case "placement-hold":
+      placementToggleHold();
+      break;
+    case "placement-reset":
+      placementReset();
+      break;
+    case "placement-validate":
+      placementValidate();
+      break;
+    case "placement-close":
+      closePlacement();
+      break;
+    case "placement-load":
+      placementLoadToday();
+      break;
+    case "placement-program":
+      placementShowProgram();
+      break;
     case "open-free-builder":
       openFreeBuilder();
       break;
@@ -18987,6 +20222,9 @@ document.addEventListener("click", (event) => {
       break;
     case "load-program":
       loadProgramDay(parseInt(actionEl.dataset.id, 10) || 0);
+      break;
+    case "load-daily":
+      loadDailyTrio();
       break;
     case "session-set":
       sessionFinishSet();
@@ -19134,6 +20372,14 @@ document.addEventListener("input", (event) => {
     return;
   }
   if (event.target.id === "qSets" || event.target.id === "qReps") updateEstimate();
+  if (event.target.id === "placementInput") {
+    if (!placementState || placementState.phase !== "test") return;
+    const test = placementTest();
+    if (test.kind !== "reps") return;
+    const digits = String(event.target.value).replace(/[^0-9]/g, "").slice(0, 3);
+    placementState.values[test.id] = clamp(parseInt(digits, 10) || 0, 0, test.max);
+    placementSyncValue();
+  }
 });
 
 document.addEventListener("change", (event) => {
@@ -19147,6 +20393,16 @@ document.addEventListener("change", (event) => {
   }
   if (event.target.id === "qUnit") {
     updateEstimate();
+    return;
+  }
+  if (event.target.id === "placementInput") {
+    if (!placementState || placementState.phase !== "test") return;
+    const test = placementTest();
+    if (test.kind !== "reps") return;
+    const clean = clamp(parseInt(String(event.target.value).replace(/[^0-9]/g, ""), 10) || 0, 0, test.max);
+    placementState.values[test.id] = clean;
+    event.target.value = String(clean);
+    placementSyncValue();
     return;
   }
   if (event.target.id === "restSetting") {
@@ -19187,6 +20443,22 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
       tourPrev();
+      return;
+    }
+    return;
+  }
+  const placementOverlay = $("placement");
+  if (placementOverlay && !placementOverlay.hidden) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closePlacement();
+      return;
+    }
+    const placementTag = String((event.target && event.target.tagName) || "").toLowerCase();
+    const placementTyping = ["button", "input", "textarea", "select", "a"].includes(placementTag);
+    if (event.key === " " && !placementTyping && placementState && placementState.phase === "test") {
+      event.preventDefault();
+      placementToggleHold();
       return;
     }
     return;
